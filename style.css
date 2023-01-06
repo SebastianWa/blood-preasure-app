@@ -48,3 +48,6 @@ a:not([class]) {
     scroll-behavior: auto !important;
   }
 }
+
+:root {
+}
