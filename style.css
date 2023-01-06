@@ -49,6 +49,22 @@ a:not([class]) {
     scroll-behavior: auto !important;
   }
 }
+* {
+  outline: 1px solid limegreen !important;
+}
 
 :root {
+  --main-color: #f3f3f3;
+  font-size: 16px;
+}
+
+/* general class */
+
+section {
+  background-color: var(--main-color);
+  padding: 2rem;
+}
+
+.form__row {
+  display: flex;
 }
