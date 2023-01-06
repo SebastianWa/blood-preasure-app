@@ -56,6 +56,7 @@ a:not([class]) {
 
 :root {
   --main-color: #f3f3f3;
+  --secondary-color: #adaaaa;
   font-size: 16px;
 }
 
@@ -107,4 +108,23 @@ section {
   width: 60%;
   height: 3.5rem;
   display: block;
+  cursor: pointer;
+}
+
+/* footer */
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--secondary-color);
+}
+
+.btn--nav {
+  font-size: 1.2rem;
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
 }
