@@ -15,37 +15,53 @@
   <body>
     <main class="main">
       <section class="section">
-        <div class="chart"></div>
+        <div class="chart">tu bedzie wykres</div>
         <form class="form">
-          <div class="form__cnt">
-            <div class="form__row">
-              <input type="number" class="form__input" required />
-              <label class="form__label" for=""
-                >Skurczowe
-                <p>mmHg</p>
-              </label>
-            </div>
-            <div class="form__row">
-              <input type="number" class="form__input" required />
-              <label class="form__label" for=""
-                >Rozkurczowe
-                <p>mmHg</p></label
-              >
-            </div>
-            <div class="form__row">
-              <input type="number" class="form__input" required />
-              <label class="form__label" for=""
-                >Puls
-                <p>bpm</p></label
-              >
-            </div>
-            <ul class="form_list-cnt">
-              <li><input class="form__input" type="date" /></li>
-              <li><input class="form__input" type="time" /></li>
-              <li><input class="form__input" type="text" /></li>
-            </ul>
+          <div class="form__row">
+            <input
+              type="number"
+              class="form__input form__input--column"
+              required
+            />
+            <label class="form__label" for=""
+              >Skurczowe
+              <p>mmHg</p>
+            </label>
           </div>
-          <button type="submit">Zapisz</button>
+          <div class="form__row">
+            <input
+              type="number"
+              class="form__input form__input--column"
+              required
+            />
+            <label class="form__label" for=""
+              >Rozkurczowe
+              <p>mmHg</p></label
+            >
+          </div>
+          <div class="form__row">
+            <input
+              type="number"
+              class="form__input form__input--column"
+              required
+            />
+            <label class="form__label" for=""
+              >Puls
+              <p>bpm</p></label
+            >
+          </div>
+          <ul class="form__list-cnt">
+            <li>
+              <input class="form__input form__input--row" type="date" />
+            </li>
+            <li>
+              <input class="form__input form__input--row" type="time" />
+            </li>
+            <!-- <li>
+                <input class="form__input--row" type="text" />
+              </li> -->
+          </ul>
+          <button class="form__submit" type="submit">Zapisz</button>
         </form>
         <div></div>
       </section>
