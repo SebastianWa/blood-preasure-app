@@ -43,6 +43,16 @@ class App {
     });
   }
 
+  _setLocalStorage() {
+    localStorage.setItem("measurements", JSON.stringify(this.#measurements));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem("measurements"));
+
+    if (!data) return;
+  }
+
   //event listeners
   submitMeasurement(e) {
     e.preventDefault();
@@ -59,6 +69,9 @@ class App {
     //save  measument in array
     this.#measurements.push(measurement);
     console.log(this.#measurements);
+
+    //save measument in local storage
+    this._setLocalStorage();
   }
 }
 
