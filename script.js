@@ -1,5 +1,6 @@
 const measurementBtn = document.querySelector("#meassubmit");
 const measumentForm = document.querySelector("#measument-form");
+const measurementsCnt = document.querySelector("#measurements-cnt");
 const inputSystolic = document.querySelector("#input-systolic");
 const inputDiastolic = document.querySelector("#input-diastolic");
 const inputPuls = document.querySelector("#input-puls");
@@ -38,8 +39,10 @@ class Measurement {
 class App {
   #measurements = [];
   constructor() {
+    this._getLocalStorage();
+
     measumentForm.addEventListener("submit", (e) => {
-      this.submitMeasurement(e);
+      this._submitMeasurement(e);
     });
   }
 
@@ -51,10 +54,32 @@ class App {
     const data = JSON.parse(localStorage.getItem("measurements"));
 
     if (!data) return;
+
+    this.#measurements = data;
+
+    this.#measurements.forEach((me) => this._renderMeasurement(me));
+  }
+
+  _renderMeasurement(measument) {
+    let html = `
+        <li class="measurement" data-id="">
+            <div class="measurement__pres">
+              <p class="measurement__sys">${measument.systolic}</p>
+              <p class="measurement__diat">${measument.diastolic}</p>
+            </div>
+            <div class="measurement__desc">
+              <p class="measurement__type">prehystension</p>
+              <span class="measurement__date">${measument.date}</span
+              ><span class="measurement__time">${measument.time}</span
+              ><span class="measurement__puls">${measument.puls}</span>
+            </div>
+          </li>
+      `;
+    measurementsCnt.insertAdjacentHTML("afterbegin", html);
   }
 
   //event listeners
-  submitMeasurement(e) {
+  _submitMeasurement(e) {
     e.preventDefault();
 
     //get inputs data
@@ -72,6 +97,9 @@ class App {
 
     //save measument in local storage
     this._setLocalStorage();
+
+    //render measument in list
+    this._renderMeasurement(measurement);
   }
 }
 
