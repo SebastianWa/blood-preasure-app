@@ -16,7 +16,7 @@
     <main class="main">
       <section class="section section--1 section--active">
         <div class="chart">tu bedzie wykres</div>
-        <form class="form">
+        <form class="form" id="measument-form">
           <div class="form__row">
             <input
               type="number"
@@ -46,6 +46,7 @@
               type="number"
               class="form__input form__input--column"
               id="input-puls"
+              required
             />
             <label class="form__label" for=""
               >Puls
@@ -58,6 +59,7 @@
                 class="form__input form__input--row"
                 id="input-date"
                 type="date"
+                required
               />
             </li>
             <li>
@@ -65,6 +67,7 @@
                 class="form__input form__input--row"
                 type="time"
                 id="input-time"
+                required
               />
             </li>
             <!-- <li>
