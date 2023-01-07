@@ -1,4 +1,9 @@
-const measuSubmit = document.querySelector("#meassubmit");
+const measurementBtn = document.querySelector("#meassubmit");
+const inputSystolic = document.querySelector("#input-systolic");
+const inputDiastolic = document.querySelector("#input-diastolic");
+const inputPuls = document.querySelector("#input-puls");
+const inputData = document.querySelector("#input-date");
+const inputTime = document.querySelector("#input-time");
 
 const navBtnCnt = document.querySelector(".nav");
 let clicked;
@@ -29,7 +34,24 @@ class Measurement {
   }
 }
 
-class app {}
+class App {
+  #measurements = [];
+  constructor() {
+    measurementBtn.addEventListener(
+      "submit",
+      this.submitMeasurement.bind(this)
+    );
+  }
+
+  //event listeners
+  submitMeasurement(e) {
+    e.preventDefault();
+    console.log(e);
+
+    //get inputs data
+  }
+}
 
 const test = new Measurement();
 console.log(test);
+const app = new App();
