@@ -6,8 +6,9 @@ const inputDiastolic = document.querySelector("#input-diastolic");
 const inputPuls = document.querySelector("#input-puls");
 const inputData = document.querySelector("#input-date");
 const inputTime = document.querySelector("#input-time");
-
+const formPopup = document.querySelector(".form__popup");
 const navBtnCnt = document.querySelector(".nav");
+
 let clicked;
 navBtnCnt.addEventListener("click", (e) => {
   e.preventDefault();
@@ -109,6 +110,7 @@ class App {
     inputDiastolic.value = "";
     inputPuls.value = "";
   }
+
   //event listeners
   _submitMeasurement(e) {
     e.preventDefault();
@@ -131,6 +133,10 @@ class App {
 
     //render measument in list
     this._renderMeasurement(measurement);
+
+    //active and deactive popup 'Add!'
+    formPopup.classList.add("form__popup--active");
+    setTimeout(() => formPopup.classList.remove("form__popup--active"), 1500);
   }
 }
 
