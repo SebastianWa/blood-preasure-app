@@ -77,6 +77,7 @@ class App {
           </li>
       `;
     measurementsCnt.insertAdjacentHTML("afterbegin", html);
+    this._clearInputs();
   }
 
   //aps INIT
@@ -91,10 +92,23 @@ class App {
       .reverse()
       .join("-");
 
+    const time = new Intl.DateTimeFormat("pl-PL", {
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(Date.now());
+
     inputData.setAttribute("value", date);
     inputData.setAttribute("max", date);
+    inputTime.setAttribute("value", time);
   }
 
+  _clearInputs() {
+    this._setInputsDateParams();
+
+    inputSystolic.value = "";
+    inputDiastolic.value = "";
+    inputPuls.value = "";
+  }
   //event listeners
   _submitMeasurement(e) {
     e.preventDefault();
