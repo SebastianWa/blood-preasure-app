@@ -40,6 +40,7 @@ class App {
   #measurements = [];
   constructor() {
     this._getLocalStorage();
+    this._setInputsDateParams();
 
     measumentForm.addEventListener("submit", (e) => {
       this._submitMeasurement(e);
@@ -76,6 +77,22 @@ class App {
           </li>
       `;
     measurementsCnt.insertAdjacentHTML("afterbegin", html);
+  }
+
+  //aps INIT
+  _setInputsDateParams() {
+    const date = new Intl.DateTimeFormat("pl-PL", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+      .format(Date.now())
+      .split(".")
+      .reverse()
+      .join("-");
+
+    inputData.setAttribute("value", date);
+    inputData.setAttribute("max", date);
   }
 
   //event listeners
