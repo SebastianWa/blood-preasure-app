@@ -115,12 +115,22 @@ class App {
     inputTime.setAttribute("value", time);
   }
 
+  _setTableAndGraph() {
+    document
+      .querySelectorAll(".pressure-name")
+      .forEach((ele) => ele.classList.remove("pressure-name--active"));
+    document
+      .querySelector(`span[data-pre="${this.#curentMeasurementDataSet}"]`)
+      .classList.add("pressure-name--active");
+  }
+
   _clearInputs() {
     this._setInputsDateParams();
 
     inputSystolic.value = "120";
     inputDiastolic.value = "80";
     inputPuls.value = "60";
+    this._setTableAndGraph();
   }
 
   //event listeners
@@ -156,6 +166,10 @@ class App {
     //active and deactive popup 'Add!'
     formPopup.classList.add("form__popup--active");
     setTimeout(() => formPopup.classList.remove("form__popup--active"), 1500);
+
+    this.#curentMeasurement = "Normalne";
+    this.#curentMeasurementDataSet = 2;
+    this._setTableAndGraph();
   }
 
   _checkPressure() {
@@ -179,12 +193,7 @@ class App {
       this.#curentMeasurementDataSet = 1;
     }
 
-    document
-      .querySelectorAll(".pressure-name")
-      .forEach((ele) => ele.classList.remove("pressure-name--active"));
-    document
-      .querySelector(`span[data-pre="${this.#curentMeasurementDataSet}"]`)
-      .classList.add("pressure-name--active");
+    this._setTableAndGraph();
   }
 }
 
