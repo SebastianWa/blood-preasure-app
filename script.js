@@ -28,12 +28,13 @@ navBtnCnt.addEventListener("click", (e) => {
 class Measurement {
   id = (Date.now() + "").slice(-10);
 
-  constructor(systolic, diastolic, puls, date, time) {
+  constructor(systolic, diastolic, puls, date, time, measumentType) {
     this.systolic = systolic;
     this.diastolic = diastolic;
     this.puls = puls;
     this.date = date;
     this.time = time;
+    this.measumentType = measumentType;
   }
 }
 
@@ -81,7 +82,7 @@ class App {
               <p class="measurement__diat">${measument.diastolic}</p>
             </div>
             <div class="measurement__desc">
-              <p class="measurement__type">prehystension</p>
+              <p class="measurement__type">${measument.measumentType}</p>
               <span class="measurement__date">${measument.date}</span
               ><span class="measurement__time">${measument.time}</span
               ><span class="measurement__puls">${measument.puls}</span>
@@ -133,7 +134,14 @@ class App {
     const data = inputData.value;
     const time = inputTime.value;
 
-    const measurement = new Measurement(systolic, diastolic, puls, data, time);
+    const measurement = new Measurement(
+      systolic,
+      diastolic,
+      puls,
+      data,
+      time,
+      this.#curentMeasurement
+    );
 
     //save  measument in array
     this.#measurements.push(measurement);
