@@ -39,12 +39,23 @@ class Measurement {
 
 class App {
   #measurements = [];
+  #curentMeasurement = "Normalne";
+  #curentMeasurementDataSet = 2;
+
   constructor() {
     this._getLocalStorage();
     this._setInputsDateParams();
 
+    //event listeners
     measumentForm.addEventListener("submit", (e) => {
       this._submitMeasurement(e);
+    });
+
+    inputSystolic.addEventListener("input", (e) => {
+      this._checkPressure();
+    });
+    inputDiastolic.addEventListener("input", (e) => {
+      this._checkPressure();
     });
   }
 
@@ -139,7 +150,34 @@ class App {
     setTimeout(() => formPopup.classList.remove("form__popup--active"), 1500);
   }
 
-  _checkPressure() {}
+  _checkPressure() {
+    const sys = +inputSystolic.value;
+    const dia = +inputDiastolic.value;
+
+    if (sys > 160 || dia > 100) {
+      this.#curentMeasurement = "Nadciśnienie tętnicze 2";
+      this.#curentMeasurementDataSet = 5;
+    } else if ((sys >= 141 && sys <= 160) || (dia >= 91 && dia <= 100)) {
+      this.#curentMeasurement = "Nadciśnienie tętnicze 1";
+      this.#curentMeasurementDataSet = 4;
+    } else if ((sys >= 121 && sys <= 140) || (dia >= 81 && dia < 91)) {
+      this.#curentMeasurement = "Wysokie Prawidłowe";
+      this.#curentMeasurementDataSet = 3;
+    } else if ((sys > 91 && sys < 120) || (dia >= 61 && dia <= 80)) {
+      this.#curentMeasurement = "Normalne";
+      this.#curentMeasurementDataSet = 2;
+    } else if (sys <= 90 || dia <= 60) {
+      this.#curentMeasurement = "Niedociśnienie";
+      this.#curentMeasurementDataSet = 1;
+    }
+
+    document
+      .querySelectorAll(".pressure-name")
+      .forEach((ele) => ele.classList.remove("pressure-name--active"));
+    document
+      .querySelector(`span[data-pre="${this.#curentMeasurementDataSet}"]`)
+      .classList.add("pressure-name--active");
+  }
 }
 
 //  test = new Measurement();

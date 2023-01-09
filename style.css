@@ -170,6 +170,10 @@ section {
   display: flex;
 }
 
+.pressure-name--active {
+  background-color: aqua;
+}
+
 /* section 2 */
 
 .measurements {

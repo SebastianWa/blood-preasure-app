@@ -24,6 +24,7 @@
               id="input-systolic"
               max="220"
               min="70"
+              value="120"
               required
             />
             <label class="form__label" for=""
@@ -38,6 +39,7 @@
               id="input-diastolic"
               max="160"
               min="50"
+              value="80"
               required
             />
             <label class="form__label" for=""
@@ -51,6 +53,7 @@
               class="form__input form__input--column"
               id="input-puls"
               required
+              value="60"
               min="40"
               max="220"
             />
@@ -94,11 +97,17 @@
           </div>
 
           <div class="grid-row grid-row--1">
-            <span>Nadciśnienie tętnicze 2</span>
-            <span>Nadciśnienie tętnicze 1</span>
-            <span>Wysokie prawidłowe</span>
-            <span> Normalne </span>
-            <span>Niedociśnienie</span>
+            <span class="pressure-name" data-pre="5"
+              >Nadciśnienie tętnicze 2</span
+            >
+            <span class="pressure-name" data-pre="4"
+              >Nadciśnienie tętnicze 1</span
+            >
+            <span class="pressure-name" data-pre="3">Wysokie prawidłowe</span>
+            <span class="pressure-name pressure-name--active" data-pre="2">
+              Normalne
+            </span>
+            <span class="pressure-name" data-pre="1">Niedociśnienie</span>
           </div>
           <div class="grid-row grid-row--2">
             <p>>160</p>
@@ -114,11 +123,11 @@
           </div>
           <div class="grid-row grid-row--5">
             <p>91-120</p>
-            <p>81-90</p>
+            <p>61-80</p>
           </div>
           <div class="grid-row grid-row--6">
-            <p>90</p>
-            <p>60</p>
+            <p>&#62;90</p>
+            <p>&#62;60</p>
           </div>
         </div>
       </section>
