@@ -90,7 +90,6 @@ class App {
           </li>
       `;
     measurementsCnt.insertAdjacentHTML("afterbegin", html);
-    this._clearInputs();
   }
 
   //aps INIT
@@ -162,6 +161,8 @@ class App {
 
     //render measument in list
     this._renderMeasurement(measurement);
+
+    this._clearInputs();
 
     //active and deactive popup 'Add!'
     formPopup.classList.add("form__popup--active");
