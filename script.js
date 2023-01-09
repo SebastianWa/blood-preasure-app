@@ -106,9 +106,9 @@ class App {
   _clearInputs() {
     this._setInputsDateParams();
 
-    inputSystolic.value = "";
-    inputDiastolic.value = "";
-    inputPuls.value = "";
+    inputSystolic.value = "120";
+    inputDiastolic.value = "80";
+    inputPuls.value = "60";
   }
 
   //event listeners
@@ -138,6 +138,8 @@ class App {
     formPopup.classList.add("form__popup--active");
     setTimeout(() => formPopup.classList.remove("form__popup--active"), 1500);
   }
+
+  _checkPressure() {}
 }
 
 //  test = new Measurement();
