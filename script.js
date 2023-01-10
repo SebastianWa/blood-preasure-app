@@ -26,15 +26,16 @@ navBtnCnt.addEventListener("click", (e) => {
 });
 
 class Measurement {
-  id = (Date.now() + "").slice(-10);
+  #id;
 
-  constructor(systolic, diastolic, puls, date, time, measumentType) {
+  constructor(systolic, diastolic, puls, date, time, measumentType, id) {
     this.systolic = systolic;
     this.diastolic = diastolic;
     this.puls = puls;
     this.date = date;
     this.time = time;
     this.measumentType = measumentType;
+    this.#id = id ? id : (Date.now() + "").slice(-10);
   }
 }
 
