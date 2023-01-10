@@ -43,6 +43,20 @@ class App {
   #measurements = [];
   #curentMeasurement = "Normalne";
   #curentMeasurementDataSet = 2;
+  sysRanges = [
+    [70, 90],
+    [91, 120],
+    [121, 140],
+    [141, 160],
+    [161, 220],
+  ];
+  diasRanges = [
+    [50, 60],
+    [61, 80],
+    [81, 90],
+    [91, 100],
+    [101, 160],
+  ];
 
   constructor() {
     this._getLocalStorage();
@@ -194,8 +208,13 @@ class App {
       this.#curentMeasurement = "Niedociśnienie";
       this.#curentMeasurementDataSet = 1;
     }
-
     this._setTableAndGraph();
+    const sysIndex = this.sysRanges.findIndex((elem) => {
+      if (sys >= elem[0] && sys <= elem[1]) return true;
+    });
+
+    //przeniesiec callbacka do gunckcji helper, zmień kolejność curentMeasurementDataSet na zaczynającą się od 0
+    console.log(sysIndex);
   }
 
   _checkPressureGraph(sys, dia) {}
