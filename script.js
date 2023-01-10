@@ -197,6 +197,8 @@ class App {
 
     this._setTableAndGraph();
   }
+
+  _checkPressureGraph(sys, dia) {}
 }
 
 //  test = new Measurement();
