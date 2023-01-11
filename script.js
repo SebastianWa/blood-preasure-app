@@ -197,23 +197,6 @@ class App {
       if (type >= elem[0] && type <= elem[1]) return true;
     };
 
-    // if (sys > 160 || dia > 101) {
-    //   this.#curentMeasurement = "Nadciśnienie tętnicze 2";
-    //   this.#curentMeasurementDataSet = 5;
-    // } else if ((sys >= 141 && sys <= 160) || (dia > 91 && dia <= 100)) {
-    //   this.#curentMeasurement = "Nadciśnienie tętnicze 1";
-    //   this.#curentMeasurementDataSet = 4;
-    // } else if ((sys >= 121 && sys <= 140) || (dia >= 81 && dia <= 91)) {
-    //   this.#curentMeasurement = "Wysokie Prawidłowe";
-    //   this.#curentMeasurementDataSet = 3;
-    // } else if ((sys > 91 && sys < 120) || (dia >= 61 && dia <= 80)) {
-    //   this.#curentMeasurement = "Normalne";
-    //   this.#curentMeasurementDataSet = 2;
-    // } else if (sys <= 90 || dia <= 60) {
-    //   this.#curentMeasurement = "Niedociśnienie";
-    //   this.#curentMeasurementDataSet = 1;
-    // }
-
     const sysIndex = this.sysRanges.findIndex((elem) =>
       findIndexHelper(elem, sys)
     );
@@ -223,12 +206,9 @@ class App {
     this.#curentMeasurementDataSet =
       sysIndex > diasIndex ? sysIndex : diasIndex;
     this._setTableAndGraph();
-    //przeniesiec callbacka do gunckcji helper, zmień kolejność curentMeasurementDataSet na zaczynającą się od 0
   }
 
   _checkPressureGraph(sys, dia) {}
 }
 
-//  test = new Measurement();
-// console.log(test);
 const app = new App();
