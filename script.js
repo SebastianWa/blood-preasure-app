@@ -44,14 +44,14 @@ class App {
   #curentMeasurement = "Normalne";
   #curentMeasurementDataSet = 2;
   sysRanges = [
-    [70, 90],
+    [0, 90],
     [91, 120],
     [121, 140],
     [141, 160],
     [161, 220],
   ];
   diasRanges = [
-    [50, 60],
+    [0, 60],
     [61, 80],
     [81, 90],
     [91, 100],
@@ -191,30 +191,39 @@ class App {
   _checkPressure() {
     const sys = +inputSystolic.value;
     const dia = +inputDiastolic.value;
+    if (sys > 220 || sys < 0 || dia < 0 || dia > 160) return;
 
-    if (sys > 160 || dia > 100) {
-      this.#curentMeasurement = "Nadciśnienie tętnicze 2";
-      this.#curentMeasurementDataSet = 5;
-    } else if ((sys >= 141 && sys <= 160) || (dia >= 91 && dia <= 100)) {
-      this.#curentMeasurement = "Nadciśnienie tętnicze 1";
-      this.#curentMeasurementDataSet = 4;
-    } else if ((sys >= 121 && sys <= 140) || (dia >= 81 && dia < 91)) {
-      this.#curentMeasurement = "Wysokie Prawidłowe";
-      this.#curentMeasurementDataSet = 3;
-    } else if ((sys > 91 && sys < 120) || (dia >= 61 && dia <= 80)) {
-      this.#curentMeasurement = "Normalne";
-      this.#curentMeasurementDataSet = 2;
-    } else if (sys <= 90 || dia <= 60) {
-      this.#curentMeasurement = "Niedociśnienie";
-      this.#curentMeasurementDataSet = 1;
-    }
+    const findIndexHelper = (elem, type) => {
+      if (type >= elem[0] && type <= elem[1]) return true;
+    };
+
+    // if (sys > 160 || dia > 101) {
+    //   this.#curentMeasurement = "Nadciśnienie tętnicze 2";
+    //   this.#curentMeasurementDataSet = 5;
+    // } else if ((sys >= 141 && sys <= 160) || (dia > 91 && dia <= 100)) {
+    //   this.#curentMeasurement = "Nadciśnienie tętnicze 1";
+    //   this.#curentMeasurementDataSet = 4;
+    // } else if ((sys >= 121 && sys <= 140) || (dia >= 81 && dia <= 91)) {
+    //   this.#curentMeasurement = "Wysokie Prawidłowe";
+    //   this.#curentMeasurementDataSet = 3;
+    // } else if ((sys > 91 && sys < 120) || (dia >= 61 && dia <= 80)) {
+    //   this.#curentMeasurement = "Normalne";
+    //   this.#curentMeasurementDataSet = 2;
+    // } else if (sys <= 90 || dia <= 60) {
+    //   this.#curentMeasurement = "Niedociśnienie";
+    //   this.#curentMeasurementDataSet = 1;
+    // }
+
+    const sysIndex = this.sysRanges.findIndex((elem) =>
+      findIndexHelper(elem, sys)
+    );
+    const diasIndex = this.diasRanges.findIndex((elem) =>
+      findIndexHelper(elem, dia)
+    );
+    this.#curentMeasurementDataSet =
+      sysIndex > diasIndex ? sysIndex : diasIndex;
     this._setTableAndGraph();
-    const sysIndex = this.sysRanges.findIndex((elem) => {
-      if (sys >= elem[0] && sys <= elem[1]) return true;
-    });
-
     //przeniesiec callbacka do gunckcji helper, zmień kolejność curentMeasurementDataSet na zaczynającą się od 0
-    console.log(sysIndex);
   }
 
   _checkPressureGraph(sys, dia) {}
