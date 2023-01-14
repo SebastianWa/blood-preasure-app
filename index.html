@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href=
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css">
+</link>
     <link
       href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
       rel="stylesheet"
@@ -16,7 +19,7 @@
     <main class="main">
       <section class="section section--1 section--active">
         <div class="chart">
-          <div class="chart__part chart__part--0">
+          <!-- <div class="chart__part chart__part--0">
             <div class="arrow"></div>
             <div class="bcg"></div>
             <span></span>
@@ -40,7 +43,18 @@
             <div class="arrow"></div>
             <div class="bcg"></div>
             <span></span>
-          </div>
+          </div> -->
+
+          <div class="chart__part chart__part--0"></div>
+          <div data-text="0" class="chart__text">twoje ciśnienie jest za niskie</div>
+          <div class="chart__part chart__part--1 chart__part--active"></div>
+          <div data-text="1" class="chart__text chart__text--active">Twoje ciśnienie jest w normie</div>
+          <div class="chart__part chart__part--2 "></div>
+          <div data-text="2" class="chart__text ">Twoje ciśnienie jest wysokie, ale w granicach poprawności</div>
+          <div class="chart__part chart__part--3"></div>
+          <div data-text="3" class="chart__text">Twoje ciśnienie jest za wysokie, pomiar kwalifikuje się na nadciśnenie tętnicze pierwszego stopnia</div>
+          <div class="chart__part chart__part--4"></div>
+          <div data-text="4" class="chart__text">Twoje ciśnienie jest za wysokie, pomiar kwalifikuje się na nadciśnenie tętnicze drugiego stopnia</div>
         </div>
         <form class="form" id="measument-form">
           <div class="form__row">

@@ -79,37 +79,59 @@ section {
   width: 80%;
   display: flex;
   margin: 2rem auto;
+  flex-wrap: wrap;
 }
 
 .chart__part {
   flex-basis: 20%;
   min-height: 35px;
-}
-.bcg {
-  height: 100%;
+  position: relative;
 }
 
-.chart__part--0 .bcg {
+.chart__part--active::before {
+  content: "\f0d7";
+  color: #261474;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  text-decoration: none;
+  position: absolute;
+  top: -50%;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+.chart__part--0 {
   background-color: #00b9cf;
 }
 
-.chart__part--1 .bcg {
+.chart__part--1 {
   background-color: #00c567;
 }
 
-.chart__part--2 .bcg {
+.chart__part--2 {
   background-color: #86c328;
 }
 
-.chart__part--3 .bcg {
+.chart__part--3 {
   background-color: #f59f02;
 }
 
-.chart__part--4 .bcg {
+.chart__part--4 {
   background-color: #e24200;
 }
 
-.arrow {
+.chart__text {
+  order: 2;
+  margin-top: 1rem;
+  width: 100%;
+  display: none;
+}
+
+.chart__text--active {
+  display: block;
+}
+
+/* .arrow {
   display: block;
   color: #261474;
   font-size: 1rem;
@@ -127,7 +149,7 @@ section {
   padding: 3px;
   transform: rotate(45deg);
   margin-bottom: 2px;
-}
+} */
 /* form */
 
 .form {

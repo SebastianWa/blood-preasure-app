@@ -42,7 +42,7 @@ class Measurement {
 class App {
   #measurements = [];
   #curentMeasurement = "Normalne";
-  #curentMeasurementDataSet = 2;
+  #curentMeasurementDataSet = 1;
   sysRanges = [
     [0, 90],
     [91, 120],
@@ -127,6 +127,10 @@ class App {
     inputData.setAttribute("value", date);
     inputData.setAttribute("max", date);
     inputTime.setAttribute("value", time);
+
+    document
+      .querySelector(".chart__part--1 ")
+      .classList.add("chart__part--active");
   }
 
   _setTableAndGraph() {
@@ -136,6 +140,22 @@ class App {
     document
       .querySelector(`span[data-pre="${this.#curentMeasurementDataSet}"]`)
       .classList.add("pressure-name--active");
+
+    //set active parth of graph
+    document
+      .querySelectorAll(".chart__part")
+      .forEach((el) => el.classList.remove("chart__part--active"));
+    document
+      .querySelector(`.chart__part--${this.#curentMeasurementDataSet}`)
+      .classList.add("chart__part--active");
+
+    document
+      .querySelectorAll(".chart__text")
+      .forEach((el) => el.classList.remove("chart__text--active"));
+
+    document
+      .querySelector(`div[data-text="${this.#curentMeasurementDataSet}"]`)
+      .classList.add("chart__text--active");
   }
 
   _clearInputs() {
@@ -207,8 +227,6 @@ class App {
       sysIndex > diasIndex ? sysIndex : diasIndex;
     this._setTableAndGraph();
   }
-
-  _checkPressureGraph(sys, dia) {}
 }
 
 const app = new App();
