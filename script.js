@@ -26,7 +26,7 @@ navBtnCnt.addEventListener("click", (e) => {
 });
 
 class Measurement {
-  #id;
+  id;
   constructor(
     systolic,
     diastolic,
@@ -41,8 +41,10 @@ class Measurement {
     this.puls = puls;
     this.date = date;
     this.time = time;
-    this.#id = id ? id : (Date.now() + "").slice(-10);
+    // this.id = id ? id : (Date.now() + "").slice(-10);
     this.curentMeasurementDataSet = curentMeasurementDataSet;
+    this.id = id;
+
     this._setmeasurementType();
     this._renderMeasurement();
   }
@@ -72,7 +74,7 @@ class Measurement {
 
   _renderMeasurement() {
     let html = `
-        <li class="measurement" data-id="${this.#id}">
+        <li class="measurement" data-id="${this.id}">
             <div class="measurement__pres">
               <p class="measurement__sys">${this.systolic}</p>
               <p class="measurement__diat">${this.diastolic}</p>
@@ -123,6 +125,10 @@ class App {
     inputDiastolic.addEventListener("input", (e) => {
       this._checkPressure();
     });
+
+    measurementsCnt.addEventListener("click", (e) => {
+      this._findClicked(e);
+    });
   }
 
   _setLocalStorage() {
@@ -135,7 +141,6 @@ class App {
     if (!data) return;
 
     this.#measurements = data;
-
     data.forEach((obj) => {
       console.log(obj);
       const meas = new Measurement(
@@ -148,6 +153,12 @@ class App {
         obj.id
       );
     });
+  }
+
+  _findClicked(e) {
+    const clickedObj = this.#measurements.find(
+      (el) => el.id == e.target.closest(".measurement").dataset.id
+    );
   }
 
   //aps INIT
@@ -239,6 +250,7 @@ class App {
     const puls = +inputPuls.value;
     const data = inputData.value;
     const time = inputTime.value;
+    const id = (Date.now() + "").slice(-10);
 
     const measurement = new Measurement(
       systolic,
@@ -246,10 +258,10 @@ class App {
       puls,
       data,
       time,
-      this.#curentMeasurementDataSet
+      this.#curentMeasurementDataSet,
+      id
     );
     console.log(measurement);
-
     //save  measument in array
     this.#measurements.push(measurement);
     console.log(this.#measurements);
