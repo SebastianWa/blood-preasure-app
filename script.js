@@ -28,21 +28,29 @@ navBtnCnt.addEventListener("click", (e) => {
 class Measurement {
   #id;
 
-  constructor(systolic, diastolic, puls, date, time, measumentType, id) {
+  constructor(
+    systolic,
+    diastolic,
+    puls,
+    date,
+    time,
+    curentMeasurementDataSet,
+    id
+  ) {
     this.systolic = systolic;
     this.diastolic = diastolic;
     this.puls = puls;
     this.date = date;
     this.time = time;
-    this.measumentType = measumentType;
+    //this.measumentType = measumentType;
     this.#id = id ? id : (Date.now() + "").slice(-10);
   }
 }
 
 class App {
   #measurements = [];
-  #curentMeasurement = "Normalne";
   #curentMeasurementDataSet = 1;
+
   sysRanges = [
     [0, 90],
     [91, 120],
@@ -203,7 +211,7 @@ class App {
       puls,
       data,
       time,
-      this.#curentMeasurement
+      this.#curentMeasurementDataSet
     );
 
     //save  measument in array
