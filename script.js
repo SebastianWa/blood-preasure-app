@@ -27,7 +27,6 @@ navBtnCnt.addEventListener("click", (e) => {
 
 class Measurement {
   #id;
-  #curentMeasurementDataSet;
   constructor(
     systolic,
     diastolic,
@@ -43,13 +42,13 @@ class Measurement {
     this.date = date;
     this.time = time;
     this.#id = id ? id : (Date.now() + "").slice(-10);
-    this.#curentMeasurementDataSet = curentMeasurementDataSet;
+    this.curentMeasurementDataSet = curentMeasurementDataSet;
     this._setmeasurementType();
     this._renderMeasurement();
   }
 
   _setmeasurementType() {
-    switch (this.#curentMeasurementDataSet) {
+    switch (this.curentMeasurementDataSet) {
       case 0:
         this.type = "Niedociśnienie";
         break;
@@ -138,6 +137,7 @@ class App {
     this.#measurements = data;
 
     data.forEach((obj) => {
+      console.log(obj);
       const meas = new Measurement(
         obj.systolic,
         obj.diastolic,
@@ -248,6 +248,7 @@ class App {
       time,
       this.#curentMeasurementDataSet
     );
+    console.log(measurement);
 
     //save  measument in array
     this.#measurements.push(measurement);
