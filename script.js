@@ -134,28 +134,47 @@ class App {
   }
 
   _setTableAndGraph() {
-    document
-      .querySelectorAll(".pressure-name")
-      .forEach((ele) => ele.classList.remove("pressure-name--active"));
-    document
-      .querySelector(`span[data-pre="${this.#curentMeasurementDataSet}"]`)
-      .classList.add("pressure-name--active");
+    const removeClassesFrom = (elem, cssClass) => {
+      elem.forEach((e) => e.classList.remove(cssClass));
+    };
 
-    //set active parth of graph
-    document
-      .querySelectorAll(".chart__part")
-      .forEach((el) => el.classList.remove("chart__part--active"));
-    document
-      .querySelector(`.chart__part--${this.#curentMeasurementDataSet}`)
-      .classList.add("chart__part--active");
+    const addClassToElem = (elem, cssClass) => {
+      elem.classList.add(cssClass);
+    };
 
-    document
-      .querySelectorAll(".chart__text")
-      .forEach((el) => el.classList.remove("chart__text--active"));
+    //set active pressure type in table
+    removeClassesFrom(
+      document.querySelectorAll(".pressure-name"),
+      "pressure-name--active"
+    );
+    addClassToElem(
+      document.querySelector(
+        `span[data-pre="${this.#curentMeasurementDataSet}"]`
+      ),
+      "pressure-name--active"
+    );
 
-    document
-      .querySelector(`div[data-text="${this.#curentMeasurementDataSet}"]`)
-      .classList.add("chart__text--active");
+    removeClassesFrom(
+      document.querySelectorAll(".chart__part"),
+      "chart__part--active"
+    );
+    addClassToElem(
+      document.querySelector(`.chart__part--${this.#curentMeasurementDataSet}`),
+      "chart__part--active"
+    );
+
+    //set active text to explain  measumerent
+
+    removeClassesFrom(
+      document.querySelectorAll(".chart__text"),
+      "chart__text--active"
+    );
+    addClassToElem(
+      document.querySelector(
+        `div[data-text="${this.#curentMeasurementDataSet}"]`
+      ),
+      "chart__text--active"
+    );
   }
 
   _clearInputs() {
