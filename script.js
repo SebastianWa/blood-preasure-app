@@ -27,7 +27,7 @@ navBtnCnt.addEventListener("click", (e) => {
 
 class Measurement {
   #id;
-
+  #curentMeasurementDataSet;
   constructor(
     systolic,
     diastolic,
@@ -42,8 +42,51 @@ class Measurement {
     this.puls = puls;
     this.date = date;
     this.time = time;
-    //this.measumentType = measumentType;
     this.#id = id ? id : (Date.now() + "").slice(-10);
+    this.#curentMeasurementDataSet = curentMeasurementDataSet;
+    this._setmeasurementType();
+    this._renderMeasurement();
+  }
+
+  _setmeasurementType() {
+    switch (this.#curentMeasurementDataSet) {
+      case 0:
+        this.type = "Niedociśnienie";
+        break;
+      case 1:
+        this.type = "Normalne";
+        break;
+      case 2:
+        this.type = "Wysokie Prawidłowe";
+        break;
+      case 3:
+        this.type = "Nadciśnienie tętnicze 1";
+        break;
+      case 4:
+        this.type = "Nadciśnienie tętnicze 2";
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  _renderMeasurement() {
+    let html = `
+        <li class="measurement" data-id="${this.#id}">
+            <div class="measurement__pres">
+              <p class="measurement__sys">${this.systolic}</p>
+              <p class="measurement__diat">${this.diastolic}</p>
+            </div>
+            <div class="measurement__desc">
+              <p class="measurement__type">${this.type}</p>
+              <span class="measurement__date">${this.date}</span
+              ><span class="measurement__time">${this.time}</span
+              ><span class="measurement__puls">${this.puls}</span>
+            </div>
+          </li>
+      `;
+    measurementsCnt.insertAdjacentHTML("afterbegin", html);
   }
 }
 
@@ -94,25 +137,17 @@ class App {
 
     this.#measurements = data;
 
-    this.#measurements.forEach((me) => this._renderMeasurement(me));
-  }
-
-  _renderMeasurement(measument) {
-    let html = `
-        <li class="measurement" data-id="">
-            <div class="measurement__pres">
-              <p class="measurement__sys">${measument.systolic}</p>
-              <p class="measurement__diat">${measument.diastolic}</p>
-            </div>
-            <div class="measurement__desc">
-              <p class="measurement__type">${measument.measumentType}</p>
-              <span class="measurement__date">${measument.date}</span
-              ><span class="measurement__time">${measument.time}</span
-              ><span class="measurement__puls">${measument.puls}</span>
-            </div>
-          </li>
-      `;
-    measurementsCnt.insertAdjacentHTML("afterbegin", html);
+    data.forEach((obj) => {
+      const meas = new Measurement(
+        obj.systolic,
+        obj.diastolic,
+        obj.puls,
+        obj.date,
+        obj.time,
+        obj.curentMeasurementDataSet,
+        obj.id
+      );
+    });
   }
 
   //aps INIT
@@ -221,8 +256,8 @@ class App {
     //save measument in local storage
     this._setLocalStorage();
 
-    //render measument in list
-    this._renderMeasurement(measurement);
+    // //render measument in list
+    // this._renderMeasurement(measurement);
 
     this._clearInputs();
 
@@ -230,7 +265,6 @@ class App {
     formPopup.classList.add("form__popup--active");
     setTimeout(() => formPopup.classList.remove("form__popup--active"), 1500);
 
-    this.#curentMeasurement = "Normalne";
     this.#curentMeasurementDataSet = 2;
     this._setTableAndGraph();
   }
