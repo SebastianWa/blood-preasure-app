@@ -127,7 +127,7 @@ class App {
     });
 
     measurementsCnt.addEventListener("click", (e) => {
-      this._findClicked(e);
+      this._editMeasurement(e);
     });
   }
 
@@ -155,7 +155,7 @@ class App {
     });
   }
 
-  _findClicked(e) {
+  _editMeasurement(e) {
     const clickedObj = this.#measurements.find(
       (el) => el.id == e.target.closest(".measurement").dataset.id
     );
@@ -261,10 +261,9 @@ class App {
       this.#curentMeasurementDataSet,
       id
     );
-    console.log(measurement);
+
     //save  measument in array
     this.#measurements.push(measurement);
-    console.log(this.#measurements);
 
     //save measument in local storage
     this._setLocalStorage();

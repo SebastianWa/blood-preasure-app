@@ -131,25 +131,6 @@ section {
   display: block;
 }
 
-/* .arrow {
-  display: block;
-  color: #261474;
-  font-size: 1rem;
-  font-weight: 900;
-  text-decoration: none;
-  height: 1.1em;
-}
-
-.arrow:before {
-  content: "";
-  text-decoration: none;
-  border: solid black;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(45deg);
-  margin-bottom: 2px;
-} */
 /* form */
 
 .form {
@@ -254,6 +235,10 @@ section {
 
 /* section 2 */
 
+.section--2 {
+  position: relative;
+}
+
 .measurements {
   display: flex;
   flex-direction: column;
@@ -282,6 +267,23 @@ section {
 
 .measurement__desc span {
   margin-right: 0.35rem;
+}
+
+.section2__form {
+  background-color: #f59f02;
+  border: 1px solid black;
+  position: absolute;
+  top: 45%;
+  left: 20%;
+  min-height: 15vh;
+}
+
+.section2__form--cnt {
+  display: flex;
+}
+
+.section2__form--cnt > input {
+  flex: 0 1 25%;
 }
 
 /* footer */
