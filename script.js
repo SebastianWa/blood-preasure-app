@@ -182,6 +182,7 @@ class App {
     inputData.setAttribute("max", date);
     inputTime.setAttribute("value", time);
 
+    // set graph to default postion
     document
       .querySelector(".chart__part--1 ")
       .classList.add("chart__part--active");
