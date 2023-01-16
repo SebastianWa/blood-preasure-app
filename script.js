@@ -10,22 +10,6 @@ const formPopup = document.querySelector(".form__popup");
 const navBtnCnt = document.querySelector(".nav");
 const section2FormCloseBtn = document.querySelector("#sectio2FormCloseBtn");
 
-// let clicked;
-// navBtnCnt.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   clicked = e.target.closest(".btn--nav");
-//   if (!clicked) return;
-//   console.log(clicked);
-
-//   document
-//     .querySelectorAll(".section")
-//     .forEach((btn) => btn.classList.remove("section--active"));
-
-//   document
-//     .querySelector(`.section--${clicked.dataset.tab}`)
-//     .classList.add("section--active");
-// });
-
 class Measurement {
   clicked;
   id;
@@ -115,31 +99,8 @@ class App {
   constructor() {
     this._getLocalStorage();
     this._setInputsDateParams();
-
+    this._evenListenersInit();
     //event listeners
-    measumentForm.addEventListener("submit", (e) => {
-      this._submitMeasurement(e);
-    });
-
-    inputSystolic.addEventListener("input", (e) => {
-      this._checkPressure();
-    });
-    inputDiastolic.addEventListener("input", (e) => {
-      this._checkPressure();
-    });
-
-    measurementsCnt.addEventListener("click", (e) => {
-      this._editMeasurement(e);
-    });
-
-    // section2FormClose action (move to another method)
-    section2FormCloseBtn.addEventListener("click", (e) => {
-      this._closeForm2(e);
-    });
-
-    navBtnCnt.addEventListener("click", (e) => {
-      this._changeTab(e);
-    });
   }
 
   _setLocalStorage() {
@@ -163,6 +124,32 @@ class App {
         obj.curentMeasurementDataSet,
         obj.id
       );
+    });
+  }
+
+  _evenListenersInit() {
+    measumentForm.addEventListener("submit", (e) => {
+      this._submitMeasurement(e);
+    });
+
+    inputSystolic.addEventListener("input", (e) => {
+      this._checkPressure();
+    });
+    inputDiastolic.addEventListener("input", (e) => {
+      this._checkPressure();
+    });
+
+    measurementsCnt.addEventListener("click", (e) => {
+      this._editMeasurement(e);
+    });
+
+    // section2FormClose action (move to another method)
+    section2FormCloseBtn.addEventListener("click", (e) => {
+      this._closeForm2(e);
+    });
+
+    navBtnCnt.addEventListener("click", (e) => {
+      this._changeTab(e);
     });
   }
 
