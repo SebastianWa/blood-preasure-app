@@ -8,6 +8,7 @@ const inputData = document.querySelector("#input-date");
 const inputTime = document.querySelector("#input-time");
 const formPopup = document.querySelector(".form__popup");
 const navBtnCnt = document.querySelector(".nav");
+const section2FormCloseBtn = document.querySelector("#sectio2FormCloseBtn");
 
 let clicked;
 navBtnCnt.addEventListener("click", (e) => {
@@ -129,6 +130,11 @@ class App {
     measurementsCnt.addEventListener("click", (e) => {
       this._editMeasurement(e);
     });
+
+    // section2FormClose action (move to another method)
+    section2FormCloseBtn.addEventListener("click", (e) => {
+      this._closeForm2(e);
+    });
   }
 
   _setLocalStorage() {
@@ -153,12 +159,6 @@ class App {
         obj.id
       );
     });
-  }
-
-  _editMeasurement(e) {
-    const clickedObj = this.#measurements.find(
-      (el) => el.id == e.target.closest(".measurement").dataset.id
-    );
   }
 
   //aps INIT
@@ -300,6 +300,28 @@ class App {
     this.#curentMeasurementDataSet =
       sysIndex > diasIndex ? sysIndex : diasIndex;
     this._setTableAndGraph();
+  }
+
+  _closeForm2(e) {
+    e.preventDefault();
+    document
+      .querySelector(".section2__form")
+      .classList.remove("section2__form--active");
+  }
+
+  _editMeasurement(e) {
+    const clickedObj = this.#measurements.find(
+      (el) => el.id == e.target.closest(".measurement").dataset.id
+    );
+    if (!clickedObj) return;
+
+    const section2Form = document.querySelector(".section2__form");
+    const section2Systolic = document.querySelector("#section2Systolic");
+    const section2Diastolic = document.querySelector("#section2Diastolic");
+
+    section2Form.classList.add("section2__form--active");
+    section2Systolic.value = clickedObj.systolic;
+    section2Diastolic.value = clickedObj.diastolic;
   }
 }
 

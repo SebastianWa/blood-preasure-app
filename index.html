@@ -149,13 +149,15 @@
         <nav></nav>
         <form class="section2__form">
           <div class="section2__form--cnt">
-            <input class="section2__input" type="number" name="" id="">
+            <input class="section2__input" type="number"  max="220"
+              min="70" name="" id="section2Systolic">
             <span class="section2__span">/</span>
-            <input class="section2__input" type="number" name="" id="">
+            <input class="section2__input" type="number"   max="160"
+              min="50" name="" id="section2Diastolic">
           </div>         
           <button type="submit">Zmień</button>
           <button>Usuń</button>
-          <button>Zamknij</button>
+          <button id="sectio2FormCloseBtn">Zamknij</button>
         </form>
         <ul class="measurements" id="measurements-cnt">
         </ul>

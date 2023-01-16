@@ -276,6 +276,11 @@ section {
   top: 45%;
   left: 20%;
   min-height: 15vh;
+  display: none;
+}
+
+.section2__form--active {
+  display: block;
 }
 
 .section2__form--cnt {
