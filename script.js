@@ -10,23 +10,24 @@ const formPopup = document.querySelector(".form__popup");
 const navBtnCnt = document.querySelector(".nav");
 const section2FormCloseBtn = document.querySelector("#sectio2FormCloseBtn");
 
-let clicked;
-navBtnCnt.addEventListener("click", (e) => {
-  e.preventDefault();
-  clicked = e.target.closest(".btn--nav");
-  if (!clicked) return;
-  console.log(clicked);
+// let clicked;
+// navBtnCnt.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   clicked = e.target.closest(".btn--nav");
+//   if (!clicked) return;
+//   console.log(clicked);
 
-  document
-    .querySelectorAll(".section")
-    .forEach((btn) => btn.classList.remove("section--active"));
+//   document
+//     .querySelectorAll(".section")
+//     .forEach((btn) => btn.classList.remove("section--active"));
 
-  document
-    .querySelector(`.section--${clicked.dataset.tab}`)
-    .classList.add("section--active");
-});
+//   document
+//     .querySelector(`.section--${clicked.dataset.tab}`)
+//     .classList.add("section--active");
+// });
 
 class Measurement {
+  clicked;
   id;
   constructor(
     systolic,
@@ -135,6 +136,10 @@ class App {
     section2FormCloseBtn.addEventListener("click", (e) => {
       this._closeForm2(e);
     });
+
+    navBtnCnt.addEventListener("click", (e) => {
+      this._changeTab(e);
+    });
   }
 
   _setLocalStorage() {
@@ -159,6 +164,20 @@ class App {
         obj.id
       );
     });
+  }
+
+  _changeTab(e) {
+    e.preventDefault();
+    this.clicked = e.target.closest(".btn--nav");
+    if (!this.clicked) return;
+
+    document
+      .querySelectorAll(".section")
+      .forEach((btn) => btn.classList.remove("section--active"));
+
+    document
+      .querySelector(`.section--${this.clicked.dataset.tab}`)
+      .classList.add("section--active");
   }
 
   //aps INIT
