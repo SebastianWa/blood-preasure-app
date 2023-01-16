@@ -8,6 +8,7 @@ const inputData = document.querySelector("#input-date");
 const inputTime = document.querySelector("#input-time");
 const formPopup = document.querySelector(".form__popup");
 const navBtnCnt = document.querySelector(".nav");
+const section2form = document.querySelector(".section2__form");
 const section2FormCloseBtn = document.querySelector("#sectio2FormCloseBtn");
 
 class Measurement {
@@ -56,6 +57,7 @@ class Measurement {
       default:
         break;
     }
+    return this.type;
   }
 
   _renderMeasurement() {
@@ -133,14 +135,14 @@ class App {
     });
 
     inputSystolic.addEventListener("input", (e) => {
-      this._checkPressure();
+      this._setPressure();
     });
     inputDiastolic.addEventListener("input", (e) => {
-      this._checkPressure();
+      this._setPressure();
     });
 
     measurementsCnt.addEventListener("click", (e) => {
-      this._editMeasurement(e);
+      this._ActiveEditMeasurement(e);
     });
 
     // section2FormClose action (move to another method)
@@ -288,9 +290,7 @@ class App {
     this._setTableAndGraph();
   }
 
-  _checkPressure() {
-    const sys = +inputSystolic.value;
-    const dia = +inputDiastolic.value;
+  _checkPressure(sys, dia) {
     if (sys > 220 || sys < 0 || dia < 0 || dia > 160) return;
 
     const findIndexHelper = (elem, type) => {
@@ -305,6 +305,12 @@ class App {
     );
     this.#curentMeasurementDataSet =
       sysIndex > diasIndex ? sysIndex : diasIndex;
+  }
+
+  _setPressure() {
+    const sys = +inputSystolic.value;
+    const dia = +inputDiastolic.value;
+    this._checkPressure(sys, dia);
     this._setTableAndGraph();
   }
 
@@ -315,7 +321,7 @@ class App {
       .classList.remove("section2__form--active");
   }
 
-  _editMeasurement(e) {
+  _ActiveEditMeasurement(e) {
     const clickedObj = this.#measurements.find(
       (el) => el.id == e.target.closest(".measurement").dataset.id
     );
