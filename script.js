@@ -10,6 +10,8 @@ const formPopup = document.querySelector(".form__popup");
 const navBtnCnt = document.querySelector(".nav");
 const section2form = document.querySelector(".section2__form");
 const section2FormCloseBtn = document.querySelector("#sectio2FormCloseBtn");
+const section2Systolic = document.querySelector("#section2Systolic");
+const section2Diastolic = document.querySelector("#section2Diastolic");
 
 class Measurement {
   clicked;
@@ -36,6 +38,21 @@ class Measurement {
     this._renderMeasurement();
   }
 
+  setCurentMeasurementDataSet(curentMeasurementDataSet) {
+    this.curentMeasurementDataSet = curentMeasurementDataSet;
+    return this;
+  }
+
+  setSys(systolic) {
+    this.systolic = systolic;
+    return this;
+  }
+
+  setDia(diastolic) {
+    this.diastolic = diastolic;
+    return this;
+  }
+
   _setmeasurementType() {
     switch (this.curentMeasurementDataSet) {
       case 0:
@@ -57,7 +74,7 @@ class Measurement {
       default:
         break;
     }
-    return this.type;
+    return this;
   }
 
   _renderMeasurement() {
@@ -114,9 +131,7 @@ class App {
 
     if (!data) return;
 
-    this.#measurements = data;
     data.forEach((obj) => {
-      console.log(obj);
       const meas = new Measurement(
         obj.systolic,
         obj.diastolic,
@@ -126,6 +141,7 @@ class App {
         obj.curentMeasurementDataSet,
         obj.id
       );
+      this.#measurements.push(meas);
     });
   }
 
@@ -142,7 +158,7 @@ class App {
     });
 
     measurementsCnt.addEventListener("click", (e) => {
-      this._ActiveEditMeasurement(e);
+      this._activeEditMeasurement(e);
     });
 
     // section2FormClose action (move to another method)
@@ -319,21 +335,6 @@ class App {
     document
       .querySelector(".section2__form")
       .classList.remove("section2__form--active");
-  }
-
-  _ActiveEditMeasurement(e) {
-    const clickedObj = this.#measurements.find(
-      (el) => el.id == e.target.closest(".measurement").dataset.id
-    );
-    if (!clickedObj) return;
-
-    const section2Form = document.querySelector(".section2__form");
-    const section2Systolic = document.querySelector("#section2Systolic");
-    const section2Diastolic = document.querySelector("#section2Diastolic");
-
-    section2Form.classList.add("section2__form--active");
-    section2Systolic.value = clickedObj.systolic;
-    section2Diastolic.value = clickedObj.diastolic;
   }
 }
 
