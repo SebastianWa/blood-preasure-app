@@ -14,7 +14,6 @@ const section2Systolic = document.querySelector("#section2Systolic");
 const section2Diastolic = document.querySelector("#section2Diastolic");
 
 class Measurement {
-  clicked;
   id;
   constructor(
     systolic,
@@ -99,7 +98,7 @@ class Measurement {
 class App {
   #measurements = [];
   #curentMeasurementDataSet = 1;
-
+  clicked;
   sysRanges = [
     [0, 90],
     [91, 120],
@@ -335,6 +334,41 @@ class App {
     document
       .querySelector(".section2__form")
       .classList.remove("section2__form--active");
+  }
+
+  _activeEditMeasurement(e) {
+    const activeObjt = this.#measurements.find(
+      (el) => el.id === e.target.closest(".measurement").dataset.id
+    );
+    if (!activeObjt) return;
+
+    const section2Form = document.querySelector(".section2__form");
+    section2Form.classList.add("section2__form--active");
+
+    section2Systolic.value = activeObjt.systolic;
+    section2Diastolic.value = activeObjt.diastolic;
+
+    section2form.addEventListener("submit", (e) => {
+      this._editMeasurement(e, activeObjt);
+    });
+  }
+
+  _editMeasurement(e, activeObjt) {
+    e.preventDefault();
+    console.log(activeObjt);
+    this._checkPressure(
+      section2Systolic.valueAsNumber,
+      section2Diastolic.valueAsNumber
+    );
+    activeObjt
+      .setCurentMeasurementDataSet(this.#curentMeasurementDataSet)
+      ._setmeasurementType()
+      .setSys(section2Systolic.valueAsNumber)
+      .setDia(section2Diastolic.valueAsNumber);
+
+    // section2Systolic.value = newSys;
+    // section2Diastolic.value = newDia;
+    console.log(activeObjt);
   }
 }
 
