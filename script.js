@@ -348,38 +348,50 @@ class App {
       .classList.remove("section2__form--active");
   }
 
-  _updateMeasurement() {}
+  _updateMeasurementInArray(activeObj) {
+    // const indexOfObj = this.#measurements.findIndex(
+    //   (e) => e.id === activeObj.id
+    // );
+    this.#measurements[
+      this.#measurements.findIndex((e) => e.id === activeObj.id)
+    ] = activeObj;
+    this._setLocalStorage();
+  }
 
   _activeEditMeasurement(e) {
-    const activeObjt = this.#measurements.find(
+    const activeObj = this.#measurements.find(
       (el) => el.id === e.target.closest(".measurement").dataset.id
     );
-    if (!activeObjt) return;
+    if (!activeObj) return;
 
     const section2Form = document.querySelector(".section2__form");
     section2Form.classList.add("section2__form--active");
 
-    section2Systolic.value = activeObjt.systolic;
-    section2Diastolic.value = activeObjt.diastolic;
+    section2Systolic.value = activeObj.systolic;
+    section2Diastolic.value = activeObj.diastolic;
 
     section2form.addEventListener("submit", (e) => {
-      this._editMeasurement(e, activeObjt);
+      this._editMeasurement(e, activeObj);
     });
   }
 
-  _editMeasurement(e, activeObjt) {
+  _editMeasurement(e, activeObj) {
     e.preventDefault();
     this._checkPressure(
       section2Systolic.valueAsNumber,
       section2Diastolic.valueAsNumber
     );
 
-    activeObjt
+    activeObj
       .setCurentMeasurementDataSet(this.#curentMeasurementDataSet)
       ._setmeasurementType()
       .setSys(section2Systolic.valueAsNumber)
       .setDia(section2Diastolic.valueAsNumber)
       .updateMeasurement();
+
+    this._updateMeasurementInArray(activeObj);
+
+    this._closeForm2(e);
   }
 }
 
