@@ -76,6 +76,18 @@ class Measurement {
     return this;
   }
 
+  updateMeasurement() {
+    const htmlMeasurement = document.querySelector(
+      `.measurement[data-id="${this.id}"]`
+    );
+
+    htmlMeasurement.querySelector(".measurement__sys").textContent =
+      this.systolic;
+    htmlMeasurement.querySelector(".measurement__diat").textContent =
+      this.diastolic;
+    htmlMeasurement.querySelector(".measurement__type").textContent = this.type;
+  }
+
   _renderMeasurement() {
     let html = `
         <li class="measurement" data-id="${this.id}">
@@ -336,6 +348,8 @@ class App {
       .classList.remove("section2__form--active");
   }
 
+  _updateMeasurement() {}
+
   _activeEditMeasurement(e) {
     const activeObjt = this.#measurements.find(
       (el) => el.id === e.target.closest(".measurement").dataset.id
@@ -355,20 +369,17 @@ class App {
 
   _editMeasurement(e, activeObjt) {
     e.preventDefault();
-    console.log(activeObjt);
     this._checkPressure(
       section2Systolic.valueAsNumber,
       section2Diastolic.valueAsNumber
     );
+
     activeObjt
       .setCurentMeasurementDataSet(this.#curentMeasurementDataSet)
       ._setmeasurementType()
       .setSys(section2Systolic.valueAsNumber)
-      .setDia(section2Diastolic.valueAsNumber);
-
-    // section2Systolic.value = newSys;
-    // section2Diastolic.value = newDia;
-    console.log(activeObjt);
+      .setDia(section2Diastolic.valueAsNumber)
+      .updateMeasurement();
   }
 }
 
