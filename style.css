@@ -67,6 +67,8 @@ section {
   padding: 2rem;
   display: none;
   position: relative;
+  min-height: 40vh;
+  max-height: 90vh;
 }
 
 .section--active {
@@ -242,6 +244,7 @@ section {
 .measurements {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
 }
 
 .measurement {
@@ -249,6 +252,7 @@ section {
   padding: 1rem;
   justify-content: space-around;
   align-items: center;
+  background-color: #f9f9f9;
 }
 
 .measurement__pres {

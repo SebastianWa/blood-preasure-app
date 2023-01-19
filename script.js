@@ -89,7 +89,7 @@ class Measurement {
   }
 
   _renderMeasurement() {
-    let html = `
+    const html = `
         <li class="measurement" data-id="${this.id}">
             <div class="measurement__pres">
               <p class="measurement__sys">${this.systolic}</p>
@@ -349,9 +349,6 @@ class App {
   }
 
   _updateMeasurementInArray(activeObj) {
-    // const indexOfObj = this.#measurements.findIndex(
-    //   (e) => e.id === activeObj.id
-    // );
     this.#measurements[
       this.#measurements.findIndex((e) => e.id === activeObj.id)
     ] = activeObj;
@@ -373,6 +370,8 @@ class App {
     section2form.addEventListener("submit", (e) => {
       this._editMeasurement(e, activeObj);
     });
+
+    se;
   }
 
   _editMeasurement(e, activeObj) {
