@@ -317,6 +317,7 @@ class App {
     this._setTableAndGraph();
   }
 
+  // check what type of pressure type user
   _checkPressure(sys, dia) {
     if (sys > 220 || sys < 0 || dia < 0 || dia > 160) return;
 
@@ -334,6 +335,7 @@ class App {
       sysIndex > diasIndex ? sysIndex : diasIndex;
   }
 
+  // set  type of measurement in table and graph
   _setPressure() {
     const sys = +inputSystolic.value;
     const dia = +inputDiastolic.value;
@@ -348,33 +350,16 @@ class App {
       .classList.remove("section2__form--active");
   }
 
-  _updateMeasurementInArray(activeObj) {
-    this.#measurements[
-      this.#measurements.findIndex((e) => e.id === activeObj.id)
-    ] = activeObj;
+  _findMeasurementInArray(id) {
+    return this.#measurements.findIndex((e) => e.id === id);
+  }
+
+  _updateMeasurementInArray(activeObj, indexObj) {
+    this.#measurements[indexObj] = activeObj;
     this._setLocalStorage();
   }
 
-  _activeEditMeasurement(e) {
-    const activeObj = this.#measurements.find(
-      (el) => el.id === e.target.closest(".measurement").dataset.id
-    );
-    if (!activeObj) return;
-
-    const section2Form = document.querySelector(".section2__form");
-    section2Form.classList.add("section2__form--active");
-
-    section2Systolic.value = activeObj.systolic;
-    section2Diastolic.value = activeObj.diastolic;
-
-    section2form.addEventListener("submit", (e) => {
-      this._editMeasurement(e, activeObj);
-    });
-
-    se;
-  }
-
-  _editMeasurement(e, activeObj) {
+  _editMeasurement(e, activeObj, objIndex) {
     e.preventDefault();
     this._checkPressure(
       section2Systolic.valueAsNumber,
@@ -388,9 +373,30 @@ class App {
       .setDia(section2Diastolic.valueAsNumber)
       .updateMeasurement();
 
-    this._updateMeasurementInArray(activeObj);
+    this._updateMeasurementInArray(activeObj, objIndex);
 
     this._closeForm2(e);
+  }
+
+  _activeEditMeasurement(e) {
+    // const activeObj = this.#measurements.find(
+    //   (el) => el.id === e.target.closest(".measurement").dataset.id
+    // );
+    const objIndex = this._findMeasurementInArray(
+      e.target.closest(".measurement").dataset.id
+    );
+    const activeObj = this.#measurements[objIndex];
+    if (!activeObj) return;
+
+    const section2Form = document.querySelector(".section2__form");
+    section2Form.classList.add("section2__form--active");
+
+    section2Systolic.value = activeObj.systolic;
+    section2Diastolic.value = activeObj.diastolic;
+
+    section2form.addEventListener("submit", (e) => {
+      this._editMeasurement(e, activeObj);
+    });
   }
 }
 
