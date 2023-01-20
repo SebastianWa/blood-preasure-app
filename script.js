@@ -12,7 +12,7 @@ const section2form = document.querySelector(".section2__form");
 const section2FormCloseBtn = document.querySelector("#sectio2FormCloseBtn");
 const section2Systolic = document.querySelector("#section2Systolic");
 const section2Diastolic = document.querySelector("#section2Diastolic");
-
+const section2FormDeleteBtn = document.querySelector("#sectio2FormDeteteBtn");
 class Measurement {
   id;
   constructor(
@@ -86,6 +86,14 @@ class Measurement {
     htmlMeasurement.querySelector(".measurement__diat").textContent =
       this.diastolic;
     htmlMeasurement.querySelector(".measurement__type").textContent = this.type;
+  }
+
+  _deleteMeasurement() {
+    const htmlMeasurement = document.querySelector(
+      `.measurement[data-id="${this.id}"]`
+    );
+
+    htmlMeasurement.remove();
   }
 
   _renderMeasurement() {
@@ -378,10 +386,13 @@ class App {
     this._closeForm2(e);
   }
 
+  _deleteMeasurementFromArray(objIndex) {
+    console.log(this.#measurements);
+    this.#measurements.splice(objIndex, 1);
+    console.log(this.#measurements);
+  }
+
   _activeEditMeasurement(e) {
-    // const activeObj = this.#measurements.find(
-    //   (el) => el.id === e.target.closest(".measurement").dataset.id
-    // );
     const objIndex = this._findMeasurementInArray(
       e.target.closest(".measurement").dataset.id
     );
@@ -394,8 +405,16 @@ class App {
     section2Systolic.value = activeObj.systolic;
     section2Diastolic.value = activeObj.diastolic;
 
+    //event listeners in form2
     section2form.addEventListener("submit", (e) => {
       this._editMeasurement(e, activeObj);
+    });
+
+    section2FormDeleteBtn.addEventListener("click", (e) => {
+      this._closeForm2(e);
+      this._deleteMeasurementFromArray(objIndex);
+      activeObj._deleteMeasurement();
+      this._setLocalStorage();
     });
   }
 }
