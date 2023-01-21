@@ -13,6 +13,8 @@ const section2FormCloseBtn = document.querySelector("#sectio2FormCloseBtn");
 const section2Systolic = document.querySelector("#section2Systolic");
 const section2Diastolic = document.querySelector("#section2Diastolic");
 const section2FormDeleteBtn = document.querySelector("#sectio2FormDeteteBtn");
+
+//co zrobić na jutro: Ogarnąc te kasownaie i update. nieprzekazywać nic w argumentach, kazda funkcja ma dostęp do eventa, na podstawie tego pracować. Ewenatulanie stwrzoyć zmienną activeObj jako pole metody.
 class Measurement {
   id;
   constructor(
@@ -176,6 +178,10 @@ class App {
       this._setPressure();
     });
 
+    navBtnCnt.addEventListener("click", (e) => {
+      this._changeTab(e);
+    });
+
     measurementsCnt.addEventListener("click", (e) => {
       this._activeEditMeasurement(e);
     });
@@ -185,8 +191,12 @@ class App {
       this._closeForm2(e);
     });
 
-    navBtnCnt.addEventListener("click", (e) => {
-      this._changeTab(e);
+    section2form.addEventListener("submit", (e) => {
+      this._editMeasurement(e);
+    });
+
+    section2FormDeleteBtn.addEventListener("click", (e) => {
+      this._deleteMeasurementFromArray(e);
     });
   }
 
@@ -367,7 +377,7 @@ class App {
     this._setLocalStorage();
   }
 
-  _editMeasurement(e, activeObj, objIndex) {
+  _editMeasurement(e) {
     e.preventDefault();
     this._checkPressure(
       section2Systolic.valueAsNumber,
@@ -387,7 +397,19 @@ class App {
   }
 
   _deleteMeasurementFromArray(objIndex) {
+    console.log(objIndex);
     console.log(this.#measurements);
+    console.log(this.#measurements[objIndex]);
+    // console.log(
+    //   document.querySelector(
+    //     `.measurement[data-id="${this.#measurements[objIndex].id}"]`
+    //   )
+    // );
+    // document
+    //   .querySelector(
+    //     `.measurement[data-id="${this.#measurements[objIndex].id}"]`
+    //   )
+    //   .remove();
     this.#measurements.splice(objIndex, 1);
     console.log(this.#measurements);
   }
@@ -396,6 +418,7 @@ class App {
     const objIndex = this._findMeasurementInArray(
       e.target.closest(".measurement").dataset.id
     );
+
     const activeObj = this.#measurements[objIndex];
     if (!activeObj) return;
 
@@ -406,16 +429,18 @@ class App {
     section2Diastolic.value = activeObj.diastolic;
 
     //event listeners in form2
-    section2form.addEventListener("submit", (e) => {
-      this._editMeasurement(e, activeObj);
-    });
+    // section2form.addEventListener("submit", (e) => {
+    //   this._editMeasurement(e, activeObj);
+    // });
 
-    section2FormDeleteBtn.addEventListener("click", (e) => {
-      this._closeForm2(e);
-      this._deleteMeasurementFromArray(objIndex);
-      activeObj._deleteMeasurement();
-      this._setLocalStorage();
-    });
+    // section2FormDeleteBtn.addEventListener("click", (e) => {
+    //   console.log(activeObj);
+    //   //activeObj._deleteMeasurement();
+    //   this._closeForm2(e);
+    //   activeObj._deleteMeasurement();
+    //   this._deleteMeasurementFromArray(objIndex);
+    //   this._setLocalStorage();
+    // });
   }
 }
 
