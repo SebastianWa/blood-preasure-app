@@ -62,6 +62,7 @@ a:not([class]) {
   --popup-clr: limegreen;
 
   --font-primary-clr: #9f9f9c;
+  --font-secondary-crl: #809dc7;
 
   --btn-primary-clr: #4e61c7;
 }
@@ -211,19 +212,22 @@ section {
   height: 3.5rem;
   display: block;
   cursor: pointer;
+  background-color: var(--btn-primary-clr);
 }
 
 .grid-table {
   display: grid;
   grid-template-rows: repeat(6, 1fr);
   grid-template-columns: repeat(4, 1fr);
-  border: 2px black solid;
+  border: 1px solid var(--secondary-medium-clr);
+  padding: 0.5em;
 }
 
 .grid-header {
   grid-column: 1 / span 5;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 0.25em;
 }
 
 .grid-header > span:nth-child(1) {
@@ -239,6 +243,7 @@ section {
 .grid-row {
   display: flex;
   grid-column: 2/4;
+  font-size: 0.8rem;
 }
 
 .grid-row > p {
@@ -338,4 +343,9 @@ section {
   padding: 0;
   padding: 0.5rem 0.7rem;
   cursor: pointer;
+  color: var(--font-secondary-crl);
+}
+
+.btn--nav--active {
+  color: var(--btn-primary-clr);
 }

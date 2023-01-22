@@ -189,6 +189,12 @@ class App {
     if (!this.clicked) return;
 
     document
+      .querySelectorAll(".btn--nav")
+      .forEach((btn) => btn.classList.remove("btn--nav--active"));
+
+    this.clicked.classList.add("btn--nav--active");
+
+    document
       .querySelectorAll(".section")
       .forEach((btn) => btn.classList.remove("section--active"));
 
