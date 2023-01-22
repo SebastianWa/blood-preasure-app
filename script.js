@@ -121,6 +121,7 @@ class App {
   #measurements = [];
   #curentMeasurementDataSet = 1;
   clicked;
+  activeObjIndex;
   sysRanges = [
     [0, 90],
     [91, 120],
@@ -182,9 +183,10 @@ class App {
       this._changeTab(e);
     });
 
-    measurementsCnt.addEventListener("click", (e) => {
-      this._activeEditMeasurement(e);
-    });
+    measurementsCnt.addEventListener(
+      "click",
+      this._activeEditMeasurement.bind(this)
+    );
 
     // section2FormClose action (move to another method)
     section2FormCloseBtn.addEventListener("click", (e) => {
@@ -331,7 +333,7 @@ class App {
     formPopup.classList.add("form__popup--active");
     setTimeout(() => formPopup.classList.remove("form__popup--active"), 1500);
 
-    this.#curentMeasurementDataSet = 2;
+    this.#curentMeasurementDataSet = 1;
     this._setTableAndGraph();
   }
 
@@ -361,8 +363,7 @@ class App {
     this._setTableAndGraph();
   }
 
-  _closeForm2(e) {
-    e.preventDefault();
+  _closeForm2() {
     document
       .querySelector(".section2__form")
       .classList.remove("section2__form--active");
@@ -372,13 +373,14 @@ class App {
     return this.#measurements.findIndex((e) => e.id === id);
   }
 
-  _updateMeasurementInArray(activeObj, indexObj) {
-    this.#measurements[indexObj] = activeObj;
+  _updateMeasurementInArray(activeObj) {
+    this.#measurements[this.activeObjIndex] = activeObj;
     this._setLocalStorage();
   }
 
   _editMeasurement(e) {
     e.preventDefault();
+    const activeObj = this.#measurements[this.activeObjIndex];
     this._checkPressure(
       section2Systolic.valueAsNumber,
       section2Diastolic.valueAsNumber
@@ -391,35 +393,26 @@ class App {
       .setDia(section2Diastolic.valueAsNumber)
       .updateMeasurement();
 
-    this._updateMeasurementInArray(activeObj, objIndex);
+    this._updateMeasurementInArray(activeObj);
 
     this._closeForm2(e);
   }
 
-  _deleteMeasurementFromArray(objIndex) {
-    console.log(objIndex);
-    console.log(this.#measurements);
-    console.log(this.#measurements[objIndex]);
-    // console.log(
-    //   document.querySelector(
-    //     `.measurement[data-id="${this.#measurements[objIndex].id}"]`
-    //   )
-    // );
-    // document
-    //   .querySelector(
-    //     `.measurement[data-id="${this.#measurements[objIndex].id}"]`
-    //   )
-    //   .remove();
-    this.#measurements.splice(objIndex, 1);
-    console.log(this.#measurements);
+  _deleteMeasurementFromArray(e) {
+    e.preventDefault();
+    const activeObj = this.#measurements[this.activeObjIndex];
+    activeObj._deleteMeasurement();
+    this.#measurements.splice(this.activeObjIndex, 1);
+    this._setLocalStorage();
+    this._closeForm2();
   }
 
   _activeEditMeasurement(e) {
-    const objIndex = this._findMeasurementInArray(
+    this.activeObjIndex = this._findMeasurementInArray(
       e.target.closest(".measurement").dataset.id
     );
 
-    const activeObj = this.#measurements[objIndex];
+    const activeObj = this.#measurements[this.activeObjIndex];
     if (!activeObj) return;
 
     const section2Form = document.querySelector(".section2__form");
@@ -427,20 +420,6 @@ class App {
 
     section2Systolic.value = activeObj.systolic;
     section2Diastolic.value = activeObj.diastolic;
-
-    //event listeners in form2
-    // section2form.addEventListener("submit", (e) => {
-    //   this._editMeasurement(e, activeObj);
-    // });
-
-    // section2FormDeleteBtn.addEventListener("click", (e) => {
-    //   console.log(activeObj);
-    //   //activeObj._deleteMeasurement();
-    //   this._closeForm2(e);
-    //   activeObj._deleteMeasurement();
-    //   this._deleteMeasurementFromArray(objIndex);
-    //   this._setLocalStorage();
-    // });
   }
 }
 
