@@ -289,7 +289,7 @@ section {
 }
 
 .measurement {
-  min-width: 70%;
+  min-width: 80%;
   display: flex;
   padding: 1em;
   justify-content: space-between;
