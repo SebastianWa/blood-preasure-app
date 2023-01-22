@@ -14,28 +14,19 @@ const section2Systolic = document.querySelector("#section2Systolic");
 const section2Diastolic = document.querySelector("#section2Diastolic");
 const section2FormDeleteBtn = document.querySelector("#sectio2FormDeteteBtn");
 
-//co zrobić na jutro: Ogarnąc te kasownaie i update. nieprzekazywać nic w argumentach, kazda funkcja ma dostęp do eventa, na podstawie tego pracować. Ewenatulanie stwrzoyć zmienną activeObj jako pole metody.
 class Measurement {
   id;
-  constructor(
-    systolic,
-    diastolic,
-    puls,
-    date,
-    time,
-    curentMeasurementDataSet,
-    id
-  ) {
+  constructor(systolic, diastolic, puls, date, time, type, color, id) {
     this.systolic = systolic;
     this.diastolic = diastolic;
     this.puls = puls;
     this.date = date;
     this.time = time;
     // this.id = id ? id : (Date.now() + "").slice(-10);
-    this.curentMeasurementDataSet = curentMeasurementDataSet;
+    this.type = type;
+    this.color = color;
     this.id = id;
 
-    this._setmeasurementType();
     this._renderMeasurement();
   }
 
@@ -54,27 +45,13 @@ class Measurement {
     return this;
   }
 
-  _setmeasurementType() {
-    switch (this.curentMeasurementDataSet) {
-      case 0:
-        this.type = "Niedociśnienie";
-        break;
-      case 1:
-        this.type = "Normalne";
-        break;
-      case 2:
-        this.type = "Wysokie Prawidłowe";
-        break;
-      case 3:
-        this.type = "Nadciśnienie tętnicze 1";
-        break;
-      case 4:
-        this.type = "Nadciśnienie tętnicze 2";
-        break;
+  setColor(color) {
+    this.color = color;
+    return this;
+  }
 
-      default:
-        break;
-    }
+  setType(type) {
+    this.type = type;
     return this;
   }
 
@@ -88,6 +65,8 @@ class Measurement {
     htmlMeasurement.querySelector(".measurement__diat").textContent =
       this.diastolic;
     htmlMeasurement.querySelector(".measurement__type").textContent = this.type;
+    htmlMeasurement.querySelector(".measurement__pres").style.backgroundColor =
+      this.color;
   }
 
   _deleteMeasurement() {
@@ -101,7 +80,7 @@ class Measurement {
   _renderMeasurement() {
     const html = `
         <li class="measurement" data-id="${this.id}">
-            <div class="measurement__pres">
+            <div class="measurement__pres"  style="background-color: ${this.color}" >
               <p class="measurement__sys">${this.systolic}</p>
               <p class="measurement__diat">${this.diastolic}</p>
             </div>
@@ -113,6 +92,7 @@ class Measurement {
             </div>
           </li>
       `;
+
     measurementsCnt.insertAdjacentHTML("afterbegin", html);
   }
 }
@@ -123,11 +103,11 @@ class App {
   clicked;
   activeObjIndex;
   sysRanges = [
-    [0, 90],
-    [91, 120],
-    [121, 140],
-    [141, 160],
-    [161, 220],
+    [0, 90, "Niedociśnienie", "#00b9cf"],
+    [91, 120, "Normalne", "#00c567"],
+    [121, 140, "Wysokie Prawidłowe", "#86c328"],
+    [141, 160, "Nadciśnienie tętnicze 1", "#f59f02"],
+    [161, 220, "Nadciśnienie tętnicze 2", "#e24200"],
   ];
   diasRanges = [
     [0, 60],
@@ -160,7 +140,8 @@ class App {
         obj.puls,
         obj.date,
         obj.time,
-        obj.curentMeasurementDataSet,
+        obj.type,
+        obj.color,
         obj.id
       );
       this.#measurements.push(meas);
@@ -301,11 +282,14 @@ class App {
     e.preventDefault();
 
     //get inputs data
+
     const systolic = +inputSystolic.value;
     const diastolic = +inputDiastolic.value;
     const puls = +inputPuls.value;
     const data = inputData.value;
     const time = inputTime.value;
+    const type = this.sysRanges[this.#curentMeasurementDataSet][2];
+    const color = this.sysRanges[this.#curentMeasurementDataSet][3];
     const id = (Date.now() + "").slice(-10);
 
     const measurement = new Measurement(
@@ -314,7 +298,8 @@ class App {
       puls,
       data,
       time,
-      this.#curentMeasurementDataSet,
+      type,
+      color,
       id
     );
 
@@ -323,9 +308,6 @@ class App {
 
     //save measument in local storage
     this._setLocalStorage();
-
-    // //render measument in list
-    // this._renderMeasurement(measurement);
 
     this._clearInputs();
 
@@ -388,9 +370,10 @@ class App {
 
     activeObj
       .setCurentMeasurementDataSet(this.#curentMeasurementDataSet)
-      ._setmeasurementType()
       .setSys(section2Systolic.valueAsNumber)
       .setDia(section2Diastolic.valueAsNumber)
+      .setType(this.sysRanges[this.#curentMeasurementDataSet][2])
+      .setColor(this.sysRanges[this.#curentMeasurementDataSet][3])
       .updateMeasurement();
 
     this._updateMeasurementInArray(activeObj);
