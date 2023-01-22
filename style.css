@@ -232,7 +232,7 @@ section {
   grid-column: 1 / span 5;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin-bottom: 0.25em;
+  margin-bottom: 0.5em;
   border-bottom: 2px solid var(--secondary-medium-clr);
 }
 

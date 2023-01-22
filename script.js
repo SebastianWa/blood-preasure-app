@@ -389,6 +389,7 @@ class App {
 
   _deleteMeasurementFromArray(e) {
     e.preventDefault();
+
     const activeObj = this.#measurements[this.activeObjIndex];
     activeObj._deleteMeasurement();
     this.#measurements.splice(this.activeObjIndex, 1);
