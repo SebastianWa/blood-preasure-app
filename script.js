@@ -16,7 +16,7 @@ const section2FormDeleteBtn = document.querySelector("#sectio2FormDeteteBtn");
 
 class Measurement {
   id;
-  constructor(systolic, diastolic, puls, date, time, type, color, id) {
+  constructor(systolic, diastolic, puls, date, time, type, cssClass, id) {
     this.systolic = systolic;
     this.diastolic = diastolic;
     this.puls = puls;
@@ -24,7 +24,7 @@ class Measurement {
     this.time = time;
     // this.id = id ? id : (Date.now() + "").slice(-10);
     this.type = type;
-    this.color = color;
+    this.cssClass = cssClass;
     this.id = id;
 
     this._renderMeasurement();
@@ -65,8 +65,9 @@ class Measurement {
     htmlMeasurement.querySelector(".measurement__diat").textContent =
       this.diastolic;
     htmlMeasurement.querySelector(".measurement__type").textContent = this.type;
-    htmlMeasurement.querySelector(".measurement__pres").style.backgroundColor =
-      this.color;
+    htmlMeasurement
+      .querySelector(".measurement__pres")
+      .classList.add(this.cssClass);
   }
 
   _deleteMeasurement() {
@@ -80,7 +81,7 @@ class Measurement {
   _renderMeasurement() {
     const html = `
         <li class="measurement" data-id="${this.id}">
-            <div class="measurement__pres"  style="background-color: ${this.color}" >
+            <div class="measurement__pres ${this.cssClass}">
               <p class="measurement__sys">${this.systolic}</p>
               <p class="measurement__diat">${this.diastolic}</p>
             </div>
@@ -103,11 +104,11 @@ class App {
   clicked;
   activeObjIndex;
   sysRanges = [
-    [0, 90, "Niedociśnienie", "#00b9cf"],
-    [91, 120, "Normalne", "#00c567"],
-    [121, 140, "Wysokie Prawidłowe", "#86c328"],
-    [141, 160, "Nadciśnienie tętnicze 1", "#f59f02"],
-    [161, 220, "Nadciśnienie tętnicze 2", "#e24200"],
+    [0, 90, "Niedociśnienie", "measurement--0"],
+    [91, 120, "Normalne", "measurement--1"],
+    [121, 140, "Wysokie Prawidłowe", "measurement--2"],
+    [141, 160, "Nadciśnienie tętnicze 1", "measurement--3"],
+    [161, 220, "Nadciśnienie tętnicze 2", "measurement--4"],
   ];
   diasRanges = [
     [0, 60],
@@ -121,7 +122,6 @@ class App {
     this._getLocalStorage();
     this._setInputsDateParams();
     this._evenListenersInit();
-    //event listeners
   }
 
   _setLocalStorage() {
@@ -141,7 +141,7 @@ class App {
         obj.date,
         obj.time,
         obj.type,
-        obj.color,
+        obj.cssClass,
         obj.id
       );
       this.#measurements.push(meas);
@@ -289,7 +289,7 @@ class App {
     const data = inputData.value;
     const time = inputTime.value;
     const type = this.sysRanges[this.#curentMeasurementDataSet][2];
-    const color = this.sysRanges[this.#curentMeasurementDataSet][3];
+    const cssClass = this.sysRanges[this.#curentMeasurementDataSet][3];
     const id = (Date.now() + "").slice(-10);
 
     const measurement = new Measurement(
@@ -299,7 +299,7 @@ class App {
       data,
       time,
       type,
-      color,
+      cssClass,
       id
     );
 

@@ -102,23 +102,28 @@ section {
   left: 50%;
 }
 
-.chart__part--0 {
+.chart__part--0,
+.measurement--0 {
   background-color: #00b9cf;
 }
 
-.chart__part--1 {
+.chart__part--1,
+.measurement--1 {
   background-color: #00c567;
 }
 
-.chart__part--2 {
+.chart__part--2,
+.measurement--2 {
   background-color: #86c328;
 }
 
-.chart__part--3 {
+.chart__part--3,
+.measurement--3 {
   background-color: #f59f02;
 }
 
-.chart__part--4 {
+.chart__part--4,
+.measurement--4 {
   background-color: #e24200;
 }
 
@@ -256,7 +261,6 @@ section {
 }
 
 .measurement__pres {
-  background-color: yellow;
   width: 5rem;
   height: 5rem;
   line-height: 2.25rem;
