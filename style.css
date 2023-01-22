@@ -27,11 +27,11 @@ html:focus-within {
 }
 
 body {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
-  max-width: 700px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -63,8 +63,9 @@ a:not([class]) {
 
   --font-primary-clr: #9f9f9c;
   --font-secondary-crl: #809dc7;
-
+  --font-primary-active-clr: #353535;
   --btn-primary-clr: #4e61c7;
+  --btn-secondary-light: #fff;
 }
 
 /* general class */
@@ -165,6 +166,7 @@ section {
   flex-shrink: 1;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
+  color: var(--font-primary-clr);
 }
 
 .form__input--column {
@@ -213,6 +215,7 @@ section {
   display: block;
   cursor: pointer;
   background-color: var(--btn-primary-clr);
+  color: var(--btn-secondary-light);
 }
 
 .grid-table {
@@ -221,6 +224,8 @@ section {
   grid-template-columns: repeat(4, 1fr);
   border: 1px solid var(--secondary-medium-clr);
   padding: 0.5em;
+  font-weight: 700;
+  background-color: var(--secondary-light-clr);
 }
 
 .grid-header {
@@ -228,6 +233,7 @@ section {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   margin-bottom: 0.25em;
+  border-bottom: 2px solid var(--secondary-medium-clr);
 }
 
 .grid-header > span:nth-child(1) {
@@ -265,7 +271,8 @@ section {
 }
 
 .pressure-name--active {
-  background-color: aqua;
+  font-weight: 900;
+  color: var(--font-primary-active-clr);
 }
 
 /* section 2 */
@@ -277,15 +284,19 @@ section {
 .measurements {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
 }
 
 .measurement {
+  min-width: 70%;
   display: flex;
-  padding: 1rem;
-  justify-content: space-around;
+  padding: 1em;
+  justify-content: space-between;
   align-items: center;
-  background-color: #f9f9f9;
+  background-color: var(--secondary-light-clr);
+  border-radius: 20px;
+  border: 1px solid var(--font-primary-clr);
 }
 
 .measurement__pres {
@@ -306,13 +317,14 @@ section {
 }
 
 .section2__form {
-  background-color: #f59f02;
+  background-color: var(--secondary-light-clr);
   border: 1px solid black;
   position: absolute;
   top: 45%;
   left: 20%;
-  min-height: 15vh;
+  min-height: 25vh;
   display: none;
+  border: 0;
 }
 
 .section2__form--active {
@@ -321,10 +333,18 @@ section {
 
 .section2__form--cnt {
   display: flex;
+  background-color: var(--btn-primary-clr);
+  padding: 1.25em;
+  border-bottom: 1px solid var(--font-primary-clr);
 }
 
-.section2__form--cnt > input {
+.section2__form--cnt > * {
   flex: 0 1 25%;
+  background-color: transparent;
+  border: 0;
+  text-align: center;
+  color: var(--btn-secondary-light);
+  font-size: 1.5rem;
 }
 
 /* footer */
