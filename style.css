@@ -322,7 +322,6 @@ section {
   position: absolute;
   top: 45%;
   left: 20%;
-  min-height: 25vh;
   display: none;
   border: 0;
 }
@@ -359,6 +358,14 @@ section {
 
 .preasure-unit {
   font-size: 0.7em;
+}
+
+.form2__btn {
+  margin-top: auto;
+  display: inline-block;
+  border: none;
+  background: transparent;
+  margin: 3rem auto 0;
 }
 
 /* footer */
