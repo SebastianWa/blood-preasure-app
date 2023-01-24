@@ -336,15 +336,31 @@ section {
   background-color: var(--btn-primary-clr);
   padding: 1.25em;
   border-bottom: 1px solid var(--font-primary-clr);
+  justify-content: center;
 }
 
 .section2__form--cnt > * {
-  flex: 0 1 25%;
   background-color: transparent;
   border: 0;
-  text-align: center;
   color: var(--btn-secondary-light);
   font-size: 1.5rem;
+}
+
+.section2__input {
+  display: inline;
+}
+
+.section2__form--cnt > input:nth-child(1) {
+  text-align: right;
+}
+
+.section2__form--cnt > input:nth-child(3) {
+  text-align: left;
+  margin-left: 0.5em;
+}
+
+.preasure-unit {
+  font-size: 0.7em;
 }
 
 /* footer */
