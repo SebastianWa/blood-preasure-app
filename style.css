@@ -76,7 +76,7 @@ section {
   display: none;
   position: relative;
   min-height: 30vh;
-  max-height: 90vh;
+  /* max-height: 90vh; */
   color: var(--font-primary-clr);
 }
 
@@ -316,7 +316,7 @@ section {
   margin-right: 0.35rem;
 }
 
-.section2__form {
+.form2 {
   background-color: var(--secondary-light-clr);
   border: 1px solid black;
   position: absolute;
@@ -327,35 +327,35 @@ section {
   border: 0;
 }
 
-.section2__form--active {
+.form2--active {
   display: block;
 }
 
-.section2__form--cnt {
+.form2--cnt {
   background-color: var(--btn-primary-clr);
   padding: 1.25em;
   border-bottom: 1px solid var(--font-primary-clr);
 }
 
-.section2__form--cnt > * {
+.form2--cnt > * {
   background-color: transparent;
   border: 0;
   color: var(--btn-secondary-light);
   font-size: 1.5rem;
 }
 
-.section2__input {
+.form2__input {
   max-width: 3em;
 }
 
-/* .section2__form--cnt > input:nth-child(1) {
+.form2--cnt > input:nth-child(1) {
   text-align: right;
 }
 
-.section2__form--cnt > input:nth-child(3) {
+.form2--cnt > input:nth-child(3) {
   text-align: left;
   margin-left: 0.5em;
-} */
+}
 
 .preasure-unit {
   font-size: 0.7em;

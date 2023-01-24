@@ -8,11 +8,11 @@ const inputData = document.querySelector("#input-date");
 const inputTime = document.querySelector("#input-time");
 const formPopup = document.querySelector(".form__popup");
 const navBtnCnt = document.querySelector(".nav");
-const section2form = document.querySelector(".section2__form");
-const section2FormCloseBtn = document.querySelector("#sectio2FormCloseBtn");
-const section2Systolic = document.querySelector("#section2Systolic");
-const section2Diastolic = document.querySelector("#section2Diastolic");
-const section2FormDeleteBtn = document.querySelector("#sectio2FormDeteteBtn");
+const section2form = document.querySelector(".form2");
+const section2FormCloseBtn = document.querySelector("#Form2CloseBtn");
+const section2Systolic = document.querySelector("#form2Systolic");
+const section2Diastolic = document.querySelector("#form2Diastolic");
+const section2FormDeleteBtn = document.querySelector("#Form2DeteteBtn");
 
 class Measurement {
   id;
@@ -28,6 +28,10 @@ class Measurement {
     this.id = id;
 
     this._renderMeasurement();
+  }
+
+  createDataString() {
+    return `${this.date}, ${this.time} | ${this.puls} bpm`;
   }
 
   setCurentMeasurementDataSet(curentMeasurementDataSet) {
@@ -352,9 +356,7 @@ class App {
   }
 
   _closeForm2() {
-    document
-      .querySelector(".section2__form")
-      .classList.remove("section2__form--active");
+    document.querySelector(".form2").classList.remove("form2--active");
   }
 
   _findMeasurementInArray(id) {
@@ -402,12 +404,16 @@ class App {
       e.target.closest(".measurement").dataset.id
     );
 
+    console.log(e);
+
     const activeObj = this.#measurements[this.activeObjIndex];
     if (!activeObj) return;
 
-    const section2Form = document.querySelector(".section2__form");
-    section2Form.classList.add("section2__form--active");
+    const section2Form = document.querySelector(".form2");
+    section2Form.classList.add("form2--active");
 
+    section2Form.querySelector(".form2_details").textContent =
+      activeObj.createDataString();
     section2Systolic.value = activeObj.systolic;
     section2Diastolic.value = activeObj.diastolic;
   }
