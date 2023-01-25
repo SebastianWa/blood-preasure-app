@@ -375,14 +375,14 @@ section {
   justify-content: space-around;
   align-items: center;
   background-color: var(--secondary-medium-clr);
+  font-size: 1rem;
 }
 
 .btn--nav {
-  font-size: 1.2rem;
+  font-size: 1.2em;
   border: 0;
   background-color: transparent;
-  padding: 0;
-  padding: 0.5rem 0.7rem;
+  padding: 0.5em 0.7em;
   cursor: pointer;
   color: var(--font-secondary-crl);
 }
