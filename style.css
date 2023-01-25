@@ -66,6 +66,7 @@ a:not([class]) {
   --font-primary-active-clr: #353535;
   --btn-primary-clr: #4e61c7;
   --btn-secondary-light: #fff;
+  --btn-secondary-red: #e24200;
 }
 
 /* general class */
@@ -324,6 +325,7 @@ section {
   left: 20%;
   display: none;
   border: 0;
+  font-size: 0.9rem;
 }
 
 .form2--active {
@@ -334,38 +336,54 @@ section {
   background-color: var(--btn-primary-clr);
   padding: 1.25em;
   border-bottom: 1px solid var(--font-primary-clr);
-}
-
-.form2--cnt > * {
-  background-color: transparent;
-  border: 0;
   color: var(--btn-secondary-light);
-  font-size: 1.5rem;
 }
 
 .form2__input {
   max-width: 3em;
+  background-color: transparent;
+  border: 0;
+  color: var(--btn-secondary-light);
 }
 
 .form2--cnt > input:nth-child(1) {
   text-align: right;
 }
 
-.form2--cnt > input:nth-child(3) {
+.form2--cnt > input:nth-child(2) {
   text-align: left;
   margin-left: 0.5em;
 }
 
+/* .form2--cnt > input:nth-child(2)::before {
+  content: "U+2044";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+} */
+
 .preasure-unit {
+  font-size: 0.4em;
+}
+
+.form2_details {
   font-size: 0.7em;
+  text-align: center;
+  margin-top: 0.3em;
+}
+
+.form2--btn-cnt {
+  display: flex;
 }
 
 .form2__btn {
   margin-top: auto;
-  display: inline-block;
   border: none;
   background: transparent;
   margin: 3rem auto 0;
+  color: var(--btn-secondary-red);
+  cursor: pointer;
+  padding: 0.3em;
 }
 
 /* footer */
@@ -375,14 +393,14 @@ section {
   justify-content: space-around;
   align-items: center;
   background-color: var(--secondary-medium-clr);
-  font-size: 1rem;
 }
 
 .btn--nav {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   border: 0;
   background-color: transparent;
-  padding: 0.5em 0.7em;
+  padding: 0;
+  padding: 0.5rem 0.7rem;
   cursor: pointer;
   color: var(--font-secondary-crl);
 }
