@@ -103,10 +103,10 @@ class Measurement {
 }
 
 class App {
-  #measurements = [];
-  #curentMeasurementDataSet = 1;
+  measurements = [];
+  curentMeasurementDataSet = 1;
   clicked;
-  activeObjIndex;
+
   sysRanges = [
     [0, 90, "Niedociśnienie", "measurement--0"],
     [91, 120, "Normalne", "measurement--1"],
@@ -125,11 +125,11 @@ class App {
   constructor() {
     this._getLocalStorage();
     this._setInputsDateParams();
-    this._evenListenersInit();
+    this._eventListenersInit();
   }
 
   _setLocalStorage() {
-    localStorage.setItem("measurements", JSON.stringify(this.#measurements));
+    localStorage.setItem("measurements", JSON.stringify(this.measurements));
   }
 
   _getLocalStorage() {
@@ -148,11 +148,11 @@ class App {
         obj.cssClass,
         obj.id
       );
-      this.#measurements.push(meas);
+      this.measurements.push(meas);
     });
   }
 
-  _evenListenersInit() {
+  _eventListenersInit() {
     measumentForm.addEventListener("submit", (e) => {
       this._submitMeasurement(e);
     });
@@ -166,24 +166,6 @@ class App {
 
     navBtnCnt.addEventListener("click", (e) => {
       this._changeTab(e);
-    });
-
-    measurementsCnt.addEventListener(
-      "click",
-      this._activeEditMeasurement.bind(this)
-    );
-
-    // section2FormClose action (move to another method)
-    section2FormCloseBtn.addEventListener("click", (e) => {
-      this._closeForm2(e);
-    });
-
-    section2form.addEventListener("submit", (e) => {
-      this._editMeasurement(e);
-    });
-
-    section2FormDeleteBtn.addEventListener("click", (e) => {
-      this._deleteMeasurementFromArray(e);
     });
   }
 
@@ -250,7 +232,7 @@ class App {
     );
     addClassToElem(
       document.querySelector(
-        `span[data-pre="${this.#curentMeasurementDataSet}"]`
+        `span[data-pre="${this.curentMeasurementDataSet}"]`
       ),
       "pressure-name--active"
     );
@@ -260,7 +242,7 @@ class App {
       "chart__part--active"
     );
     addClassToElem(
-      document.querySelector(`.chart__part--${this.#curentMeasurementDataSet}`),
+      document.querySelector(`.chart__part--${this.curentMeasurementDataSet}`),
       "chart__part--active"
     );
 
@@ -272,7 +254,7 @@ class App {
     );
     addClassToElem(
       document.querySelector(
-        `div[data-text="${this.#curentMeasurementDataSet}"]`
+        `div[data-text="${this.curentMeasurementDataSet}"]`
       ),
       "chart__text--active"
     );
@@ -298,8 +280,8 @@ class App {
     const puls = +inputPuls.value;
     const data = inputData.value;
     const time = inputTime.value;
-    const type = this.sysRanges[this.#curentMeasurementDataSet][2];
-    const cssClass = this.sysRanges[this.#curentMeasurementDataSet][3];
+    const type = this.sysRanges[this.curentMeasurementDataSet][2];
+    const cssClass = this.sysRanges[this.curentMeasurementDataSet][3];
     const id = (Date.now() + "").slice(-10);
 
     const measurement = new Measurement(
@@ -314,7 +296,7 @@ class App {
     );
 
     //save  measument in array
-    this.#measurements.push(measurement);
+    this.measurements.push(measurement);
 
     //save measument in local storage
     this._setLocalStorage();
@@ -325,7 +307,7 @@ class App {
     formPopup.classList.add("form__popup--active");
     setTimeout(() => formPopup.classList.remove("form__popup--active"), 1500);
 
-    this.#curentMeasurementDataSet = 1;
+    this.curentMeasurementDataSet = 1;
     this._setTableAndGraph();
   }
 
@@ -343,8 +325,7 @@ class App {
     const diasIndex = this.diasRanges.findIndex((elem) =>
       findIndexHelper(elem, dia)
     );
-    this.#curentMeasurementDataSet =
-      sysIndex > diasIndex ? sysIndex : diasIndex;
+    this.curentMeasurementDataSet = sysIndex > diasIndex ? sysIndex : diasIndex;
   }
 
   // set  type of measurement in table and graph
@@ -354,34 +335,62 @@ class App {
     this._checkPressure(sys, dia);
     this._setTableAndGraph();
   }
+}
+
+class History extends App {
+  activeObjIndex;
+  constructor() {
+    super();
+    this._eventHistoryListenersInit();
+  }
+
+  _eventHistoryListenersInit() {
+    measurementsCnt.addEventListener(
+      "click",
+      this._activeEditMeasurement.bind(this)
+    );
+
+    // section2FormClose action (move to another method)
+    section2FormCloseBtn.addEventListener("click", (e) => {
+      this._closeForm2(e);
+    });
+
+    section2form.addEventListener("submit", (e) => {
+      this._editMeasurement(e);
+    });
+
+    section2FormDeleteBtn.addEventListener("click", (e) => {
+      this._deleteMeasurementFromArray(e);
+    });
+  }
 
   _closeForm2() {
     document.querySelector(".form2").classList.remove("form2--active");
   }
 
   _findMeasurementInArray(id) {
-    return this.#measurements.findIndex((e) => e.id === id);
+    return this.measurements.findIndex((e) => e.id === id);
   }
 
   _updateMeasurementInArray(activeObj) {
-    this.#measurements[this.activeObjIndex] = activeObj;
+    this.measurements[this.activeObjIndex] = activeObj;
     this._setLocalStorage();
   }
 
   _editMeasurement(e) {
     e.preventDefault();
-    const activeObj = this.#measurements[this.activeObjIndex];
+    const activeObj = this.measurements[this.activeObjIndex];
     this._checkPressure(
       section2Systolic.valueAsNumber,
       section2Diastolic.valueAsNumber
     );
 
     activeObj
-      .setCurentMeasurementDataSet(this.#curentMeasurementDataSet)
+      .setCurentMeasurementDataSet(this.curentMeasurementDataSet)
       .setSys(section2Systolic.valueAsNumber)
       .setDia(section2Diastolic.valueAsNumber)
-      .setType(this.sysRanges[this.#curentMeasurementDataSet][2])
-      .setColor(this.sysRanges[this.#curentMeasurementDataSet][3])
+      .setType(this.sysRanges[this.curentMeasurementDataSet][2])
+      .setColor(this.sysRanges[this.curentMeasurementDataSet][3])
       .updateMeasurement();
 
     this._updateMeasurementInArray(activeObj);
@@ -392,9 +401,9 @@ class App {
   _deleteMeasurementFromArray(e) {
     e.preventDefault();
 
-    const activeObj = this.#measurements[this.activeObjIndex];
+    const activeObj = this.measurements[this.activeObjIndex];
     activeObj._deleteMeasurement();
-    this.#measurements.splice(this.activeObjIndex, 1);
+    this.measurements.splice(this.activeObjIndex, 1);
     this._setLocalStorage();
     this._closeForm2();
   }
@@ -404,9 +413,7 @@ class App {
       e.target.closest(".measurement").dataset.id
     );
 
-    console.log(e);
-
-    const activeObj = this.#measurements[this.activeObjIndex];
+    const activeObj = this.measurements[this.activeObjIndex];
     if (!activeObj) return;
 
     const section2Form = document.querySelector(".form2");
@@ -418,5 +425,4 @@ class App {
     section2Diastolic.value = activeObj.diastolic;
   }
 }
-
-const app = new App();
+const history = new History();
