@@ -427,23 +427,44 @@ class History extends App {
   }
 
   _createGraph() {
-    const graph = document.querySelector("#chartsOfMeaTypes");
+    const helper = () => {};
 
-    const option = {
+    this.measurements.reduce((pre, curr) => {
+      pre += 1 ? curr.type === "Niedociśnienie" : 0;
+      return pre;
+    }, 0);
+
+    const ctx = document.getElementById("chartsOfMeaTypes");
+    const yValues = [
+      this.measurements.reduce((pre, curr) => {
+        pre += 1 ? curr.type === "Niedociśnienie" : 0;
+        return pre;
+      }, 0),
+      this.measurements.reduce((pre, curr) => {
+        pre += 1 ? curr.type === "Normalne" : 0;
+        return pre;
+      }, 0),
+      this.measurements.reduce((pre, curr) => {
+        pre += 1 ? curr.type === "Prawidłowe" : 0;
+        return pre;
+      }, 0),
+      this.measurements.reduce((pre, curr) => {
+        pre += 1 ? curr.type === "Nadciśnienie tętnicze 1" : 0;
+        return pre;
+      }, 0),
+      this.measurements.reduce((pre, curr) => {
+        pre += 1 ? curr.type === "Nadciśnienie tętnicze 2" : 0;
+        return pre;
+      }, 0),
+    ];
+    const test = new Chart(ctx, {
       type: "bar",
       data: {
-        labels: [
-          this.sysRanges[0][2],
-          this.sysRanges[1][2],
-          this.sysRanges[2][2],
-          this.sysRanges[3][2],
-          this.sysRanges[4][2],
-        ],
+        labels: this.sysRanges.map((x) => x[2]),
         datasets: [
           {
             label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1,
+            data: yValues,
           },
         ],
       },
@@ -454,9 +475,7 @@ class History extends App {
           },
         },
       },
-    };
-
-    new Chart(graph, option);
+    });
   }
 }
 
