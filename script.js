@@ -425,4 +425,10 @@ class History extends App {
     section2Diastolic.value = activeObj.diastolic;
   }
 }
+
+class Statictic extends History() {
+  constructor() {
+    super();
+  }
+}
 const history = new History();
