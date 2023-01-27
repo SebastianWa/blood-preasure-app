@@ -342,6 +342,7 @@ class History extends App {
   constructor() {
     super();
     this._eventHistoryListenersInit();
+    this._createGraph();
   }
 
   _eventHistoryListenersInit() {
@@ -424,11 +425,39 @@ class History extends App {
     section2Systolic.value = activeObj.systolic;
     section2Diastolic.value = activeObj.diastolic;
   }
-}
 
-class Statictic extends History() {
-  constructor() {
-    super();
+  _createGraph() {
+    const graph = document.querySelector("#chartsOfMeaTypes");
+
+    const option = {
+      type: "bar",
+      data: {
+        labels: [
+          this.sysRanges[0][2],
+          this.sysRanges[1][2],
+          this.sysRanges[2][2],
+          this.sysRanges[3][2],
+          this.sysRanges[4][2],
+        ],
+        datasets: [
+          {
+            label: "# of Votes",
+            data: [12, 19, 3, 5, 2, 3],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    };
+
+    new Chart(graph, option);
   }
 }
-const history = new History();
+
+const app = new History();
