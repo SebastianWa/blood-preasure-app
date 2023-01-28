@@ -427,51 +427,54 @@ class History extends App {
   }
 
   _createGraph() {
-    const helper = () => {};
-
-    this.measurements.reduce((pre, curr) => {
-      pre += 1 ? curr.type === "Niedociśnienie" : 0;
-      return pre;
-    }, 0);
+    const reduceHelper = (argument) => {
+      return (pre, curr) => (pre += 1 ? curr.type === argument : 0);
+    };
 
     const ctx = document.getElementById("chartsOfMeaTypes");
     const yValues = [
-      this.measurements.reduce((pre, curr) => {
-        pre += 1 ? curr.type === "Niedociśnienie" : 0;
-        return pre;
-      }, 0),
-      this.measurements.reduce((pre, curr) => {
-        pre += 1 ? curr.type === "Normalne" : 0;
-        return pre;
-      }, 0),
-      this.measurements.reduce((pre, curr) => {
-        pre += 1 ? curr.type === "Prawidłowe" : 0;
-        return pre;
-      }, 0),
-      this.measurements.reduce((pre, curr) => {
-        pre += 1 ? curr.type === "Nadciśnienie tętnicze 1" : 0;
-        return pre;
-      }, 0),
-      this.measurements.reduce((pre, curr) => {
-        pre += 1 ? curr.type === "Nadciśnienie tętnicze 2" : 0;
-        return pre;
-      }, 0),
+      this.measurements.reduce(reduceHelper("Niedociśnienie"), 0),
+      this.measurements.reduce(reduceHelper("Normalne"), 0),
+      this.measurements.reduce(reduceHelper("Wysokie Prawidłowe"), 0),
+      this.measurements.reduce(reduceHelper("Nadciśnienie tętnicze 1"), 0),
+      this.measurements.reduce(reduceHelper("Nadciśnienie tętnicze 2"), 0),
     ];
+
     const test = new Chart(ctx, {
       type: "bar",
       data: {
         labels: this.sysRanges.map((x) => x[2]),
         datasets: [
           {
-            label: "# of Votes",
+            label: "Pomiary",
             data: yValues,
+            backgroundColor: [
+              "#00b9cf",
+              "#00c567",
+              "#86c328",
+              "#f59f02",
+              "#e24200",
+            ],
           },
         ],
       },
       options: {
+        animation: true,
         scales: {
           y: {
             beginAtZero: true,
+          },
+        },
+        title: {
+          display: true,
+          text: "Pomiary",
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            enabled: false,
           },
         },
       },

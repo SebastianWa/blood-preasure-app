@@ -27,11 +27,10 @@ html:focus-within {
 }
 
 body {
-  /* min-height: 100vh; */
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -76,8 +75,7 @@ section {
   padding: 2rem;
   display: none;
   position: relative;
-  min-height: 30vh;
-  /* max-height: 90vh; */
+  min-height: 90vh;
   color: var(--font-primary-clr);
 }
 
@@ -384,6 +382,16 @@ section {
   color: var(--btn-secondary-red);
   cursor: pointer;
   padding: 0.3em;
+}
+
+/* section 3 */
+
+.chart-cnt {
+  font-size: 0.7rem;
+}
+
+.chart {
+  font-size: 0.6rem;
 }
 
 /* footer */
