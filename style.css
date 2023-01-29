@@ -30,8 +30,8 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
-  max-width: 900px;
   margin: 0 auto;
+  max-width: 70vw;
 }
 
 a:not([class]) {
@@ -386,12 +386,17 @@ section {
 
 /* section 3 */
 
-.chart-cnt {
-  font-size: 0.7rem;
+.section--3 {
+  position: static;
 }
 
-.chart {
-  font-size: 0.6rem;
+.chart-cnt {
+  position: relative;
+  margin: 0 auto;
+  width: 500px;
+  min-height: 500px;
+  /* width: 90%;
+  min-height: 75%; */
 }
 
 /* footer */

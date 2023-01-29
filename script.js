@@ -431,7 +431,6 @@ class History extends App {
       return (pre, curr) => (pre += 1 ? curr.type === argument : 0);
     };
 
-    const ctx = document.getElementById("chartsOfMeaTypes");
     const yValues = [
       this.measurements.reduce(reduceHelper("Niedociśnienie"), 0),
       this.measurements.reduce(reduceHelper("Normalne"), 0),
@@ -440,29 +439,52 @@ class History extends App {
       this.measurements.reduce(reduceHelper("Nadciśnienie tętnicze 2"), 0),
     ];
 
-    const test = new Chart(ctx, {
+    const ctx = document.getElementById("chartsOfMeaTypes");
+
+    const data = {
+      labels: [
+        "Niedociśnienie",
+        "Normalne",
+        "Wysokie",
+        "Nadciśnienie 1",
+        "Nadciśnienie 2",
+      ],
+      datasets: [
+        {
+          label: "Pomiary",
+          data: yValues,
+          backgroundColor: [
+            "#00b9cf",
+            "#00c567",
+            "#86c328",
+            "#f59f02",
+            "#e24200",
+          ],
+        },
+      ],
+    };
+
+    const config = {
       type: "bar",
-      data: {
-        labels: this.sysRanges.map((x) => x[2]),
-        datasets: [
-          {
-            label: "Pomiary",
-            data: yValues,
-            backgroundColor: [
-              "#00b9cf",
-              "#00c567",
-              "#86c328",
-              "#f59f02",
-              "#e24200",
-            ],
-          },
-        ],
-      },
+      data,
       options: {
+        maintainAspectRatio: false,
+        responsive: true,
         animation: true,
         scales: {
           y: {
             beginAtZero: true,
+            ticks: {
+              stepSize: 1,
+            },
+          },
+          x: {
+            display: true,
+            ticks: {
+              font: {
+                size: 12,
+              },
+            },
           },
         },
         title: {
@@ -478,7 +500,11 @@ class History extends App {
           },
         },
       },
-    });
+    };
+
+    //,
+    const test = new Chart(ctx, config);
+    // Chart.defaults.font.size = "4px";
   }
 }
 
