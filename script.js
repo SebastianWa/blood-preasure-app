@@ -343,6 +343,7 @@ class History extends App {
     super();
     this._eventHistoryListenersInit();
     this._createGraph();
+    this._calcAverage();
   }
 
   _eventHistoryListenersInit() {
@@ -427,8 +428,8 @@ class History extends App {
   }
 
   _createGraph() {
-    const reduceHelper = (argument) => {
-      return (pre, curr) => (pre += 1 ? curr.type === argument : 0);
+    const reduceHelper = (type) => {
+      return (pre, curr) => (pre += 1 ? curr.type === type : 0);
     };
 
     const yValues = [
@@ -501,11 +502,28 @@ class History extends App {
         },
       },
     };
-
-    //,
-    const test = new Chart(ctx, config);
-    // Chart.defaults.font.size = "4px";
+    const chartType = new Chart(ctx, config);
   }
+
+  _calcAverage() {
+    if (!this.measurements) return;
+
+    const length = this.measurements.length;
+
+    const sysAverage =
+      this.measurements.reduce((pre, curr) => (pre += curr.systolic), 0) /
+      length;
+
+    const diaAverage =
+      this.measurements.reduce((pre, curr) => (pre += curr.diastolic), 0) /
+      length;
+
+    const pulsAverage =
+      this.measurements.reduce((pre, curr) => (pre += curr.puls), 0) / length;
+
+    console.log(sysAverage, diaAverage, pulsAverage);
+  }
+  _renderAverage() {}
 }
 
 const app = new History();
