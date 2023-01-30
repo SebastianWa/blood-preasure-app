@@ -63,6 +63,8 @@ a:not([class]) {
   --font-primary-clr: #9f9f9c;
   --font-secondary-crl: #809dc7;
   --font-primary-active-clr: #353535;
+  --font-dark-clr: #000;
+
   --btn-primary-clr: #4e61c7;
   --btn-secondary-light: #fff;
   --btn-secondary-red: #e24200;
@@ -278,6 +280,21 @@ section {
 
 .section--2 {
   position: relative;
+}
+
+.section2__nav {
+  background-color: var(--btn-secondary-light);
+  color: var(--font-dark-clr);
+}
+
+.section2__dropdown-list {
+  position: absolute;
+  background-color: var(--btn-secondary-light);
+}
+
+.section__dropdown-btn {
+  display: block;
+  margin: 0 auto;
 }
 
 .measurements {
