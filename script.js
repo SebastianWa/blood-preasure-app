@@ -99,6 +99,14 @@ class Measurement {
 
     measurementsCnt.insertAdjacentHTML("afterbegin", html);
   }
+
+  hideMeasurement() {
+    this.htmlMeasurement.classList.add("measurement--hidden");
+  }
+
+  showMeasurement() {
+    this.htmlMeasurement.classList.remove("measurement--hidden");
+  }
 }
 
 class App {
@@ -529,11 +537,24 @@ class History extends App {
   _renderAverage() {}
 
   _sortMeasurements(showOnly) {
-    console.log(showOnly);
+    this.measurements.forEach((obj) => {
+      obj.showMeasurement();
+    });
+
+    if (showOnly === "Cały zakres") {
+      this.measurements.forEach((obj) => {
+        obj.showMeasurement();
+      });
+      return;
+    }
+
     const arrayToHide = this.measurements.filter(
       (mea) => mea.type !== showOnly
     );
-    console.log(arrayToHide);
+
+    arrayToHide.forEach((obj) => {
+      obj.hideMeasurement();
+    });
   }
 }
 

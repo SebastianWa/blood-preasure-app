@@ -313,6 +313,10 @@ section {
   border: 1px solid var(--font-primary-clr);
 }
 
+.measurement--hidden {
+  display: none;
+}
+
 .measurement__pres {
   width: 5rem;
   height: 5rem;
