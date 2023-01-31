@@ -554,12 +554,12 @@ class History extends App {
   }
   _renderAverage() {}
 
-  _sortMeasurements(showOnly) {
+  _sortMeasurements(typeOfMeas) {
     this.measurements.forEach((obj) => {
       obj.showMeasurement();
     });
 
-    if (showOnly === "Cały zakres") {
+    if (typeOfMeas === "Cały zakres") {
       this.measurements.forEach((obj) => {
         obj.showMeasurement();
       });
@@ -567,7 +567,7 @@ class History extends App {
     }
 
     const arrayToHide = this.measurements.filter(
-      (mea) => mea.type !== showOnly
+      (mea) => mea.type !== typeOfMeas
     );
 
     if (arrayToHide.length === this.measurements.length) return;
