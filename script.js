@@ -345,6 +345,7 @@ class App {
 }
 
 class History extends App {
+  chartType;
   activeObjIndex;
   constructor() {
     super();
@@ -374,6 +375,11 @@ class History extends App {
 
     selectMenu.addEventListener("change", (e) => {
       this._sortMeasurements(e.target.value);
+    });
+
+    measumentForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this._updateGraph();
     });
   }
 
@@ -409,6 +415,7 @@ class History extends App {
     this._updateMeasurementInArray(activeObj);
 
     this._closeForm2(e);
+    this._updateGraph();
   }
 
   _deleteMeasurementFromArray(e) {
@@ -419,6 +426,7 @@ class History extends App {
     this.measurements.splice(this.activeObjIndex, 1);
     this._setLocalStorage();
     this._closeForm2();
+    this._updateGraph();
   }
 
   _activeEditMeasurement(e) {
@@ -438,18 +446,28 @@ class History extends App {
     section2Diastolic.value = activeObj.diastolic;
   }
 
-  _createGraph() {
+  _createDataForGraph() {
     const reduceHelper = (type) => {
       return (pre, curr) => (pre += 1 ? curr.type === type : 0);
     };
 
-    const yValues = [
+    return [
       this.measurements.reduce(reduceHelper("Niedociśnienie"), 0),
       this.measurements.reduce(reduceHelper("Normalne"), 0),
       this.measurements.reduce(reduceHelper("Wysokie Prawidłowe"), 0),
       this.measurements.reduce(reduceHelper("Nadciśnienie tętnicze 1"), 0),
       this.measurements.reduce(reduceHelper("Nadciśnienie tętnicze 2"), 0),
     ];
+  }
+
+  _updateGraph() {
+    const newData = this._createDataForGraph();
+    this.chartType.data.datasets[0].data = newData;
+    this.chartType.update();
+  }
+
+  _createGraph() {
+    const yValues = this._createDataForGraph();
 
     const ctx = document.getElementById("chartsOfMeaTypes");
 
@@ -513,7 +531,7 @@ class History extends App {
         },
       },
     };
-    const chartType = new Chart(ctx, config);
+    this.chartType = new Chart(ctx, config);
   }
 
   _calcAverage() {
@@ -552,7 +570,6 @@ class History extends App {
       (mea) => mea.type !== showOnly
     );
 
-    console.log(arrayToHide);
     if (arrayToHide.length === this.measurements.length) return;
 
     arrayToHide.forEach((obj) => {
