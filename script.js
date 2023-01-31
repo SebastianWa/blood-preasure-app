@@ -13,7 +13,7 @@ const section2FormCloseBtn = document.querySelector("#Form2CloseBtn");
 const section2Systolic = document.querySelector("#form2Systolic");
 const section2Diastolic = document.querySelector("#form2Diastolic");
 const section2FormDeleteBtn = document.querySelector("#Form2DeteteBtn");
-
+const selectMenu = document.querySelector(".section2__select");
 class Measurement {
   id;
   constructor(systolic, diastolic, puls, date, time, type, cssClass, id) {
@@ -26,8 +26,11 @@ class Measurement {
     this.type = type;
     this.cssClass = cssClass;
     this.id = id;
-
     this._renderMeasurement();
+
+    this.htmlMeasurement = document.querySelector(
+      `.measurement[data-id="${this.id}"]`
+    );
   }
 
   createDataString() {
@@ -60,26 +63,22 @@ class Measurement {
   }
 
   updateMeasurement() {
-    const htmlMeasurement = document.querySelector(
-      `.measurement[data-id="${this.id}"]`
-    );
-
-    htmlMeasurement.querySelector(".measurement__sys").textContent =
+    // const htmlMeasurement = document.querySelector(
+    //   `.measurement[data-id="${this.id}"]`
+    // );
+    this.htmlMeasurement.querySelector(".measurement__sys").textContent =
       this.systolic;
-    htmlMeasurement.querySelector(".measurement__diat").textContent =
+    this.htmlMeasurement.querySelector(".measurement__diat").textContent =
       this.diastolic;
-    htmlMeasurement.querySelector(".measurement__type").textContent = this.type;
-    htmlMeasurement
+    this.htmlMeasurement.querySelector(".measurement__type").textContent =
+      this.type;
+    this.htmlMeasurement
       .querySelector(".measurement__pres")
       .classList.add(this.cssClass);
   }
 
   _deleteMeasurement() {
-    const htmlMeasurement = document.querySelector(
-      `.measurement[data-id="${this.id}"]`
-    );
-
-    htmlMeasurement.remove();
+    this.htmlMeasurement.remove();
   }
 
   _renderMeasurement() {
@@ -364,6 +363,10 @@ class History extends App {
     section2FormDeleteBtn.addEventListener("click", (e) => {
       this._deleteMeasurementFromArray(e);
     });
+
+    selectMenu.addEventListener("change", (e) => {
+      this._sortMeasurements(e.target.value);
+    });
   }
 
   _closeForm2() {
@@ -524,6 +527,14 @@ class History extends App {
     console.log(sysAverage, diaAverage, pulsAverage);
   }
   _renderAverage() {}
+
+  _sortMeasurements(showOnly) {
+    console.log(showOnly);
+    const arrayToHide = this.measurements.filter(
+      (mea) => mea.type !== showOnly
+    );
+    console.log(arrayToHide);
+  }
 }
 
 const app = new History();
