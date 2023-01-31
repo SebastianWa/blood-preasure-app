@@ -552,6 +552,9 @@ class History extends App {
       (mea) => mea.type !== showOnly
     );
 
+    console.log(arrayToHide);
+    if (arrayToHide.length === this.measurements.length) return;
+
     arrayToHide.forEach((obj) => {
       obj.hideMeasurement();
     });
