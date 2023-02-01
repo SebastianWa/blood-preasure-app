@@ -445,7 +445,7 @@ class History extends App {
     section2Systolic.value = activeObj.systolic;
     section2Diastolic.value = activeObj.diastolic;
   }
-
+  //graph
   _createDataForGraph() {
     const reduceHelper = (type) => {
       return (pre, curr) => (pre += 1 ? curr.type === type : 0);
@@ -533,7 +533,7 @@ class History extends App {
     };
     this.chartType = new Chart(ctx, config);
   }
-
+  //average
   _calcAverage() {
     if (!this.measurements) return;
 
@@ -553,7 +553,7 @@ class History extends App {
     console.log(sysAverage, diaAverage, pulsAverage);
   }
   _renderAverage() {}
-
+  //sort
   _sortMeasurements(typeOfMeas) {
     this.measurements.forEach((obj) => {
       obj.showMeasurement();
@@ -576,6 +576,40 @@ class History extends App {
       obj.hideMeasurement();
     });
   }
+  //date range picker
+
+  _datePicker() {}
 }
 
 const app = new History();
+$(function () {
+  var start = moment().subtract(29, "days");
+  var end = moment();
+
+  function cb(start, end) {
+    $("#reportrange span").html(
+      start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY")
+    );
+  }
+
+  $("#reportrange").daterangepicker(
+    {
+      startDate: start,
+      endDate: end,
+      ranges: {
+        Today: [moment(), moment()],
+        Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+        "Ostatnie 7 dni": [moment().subtract(6, "days"), moment()],
+        "Ostatnie 30 dni": [moment().subtract(29, "days"), moment()],
+        "Ten miesiąc": [moment().startOf("month"), moment().endOf("month")],
+        "Ostatni miesiąc": [
+          moment().subtract(1, "month").startOf("month"),
+          moment().subtract(1, "month").endOf("month"),
+        ],
+      },
+    },
+    cb
+  );
+
+  cb(start, end);
+});

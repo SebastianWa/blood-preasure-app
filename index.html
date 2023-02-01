@@ -12,18 +12,19 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script defer src="script.js"></script>
     <title>blood preasure app</title>
   </head>
   <body>
     <main class="main">
-      <section class="section section--1 section--active">
+      <section class="section section--1">
         <div class="chart">
           <div class="chart__part chart__part--0"></div>
           <div data-text="0" class="chart__text">twoje ciśnienie jest za niskie</div>
@@ -151,8 +152,12 @@
           </div>
         </div>
       </section>
-      <section class="section section--2">
+      <section class="section section--2  section--active">
         <nav class="section2__nav">
+          <div class="section2__date-picker" id="reportrange">
+              <i class="fa fa-calendar"></i>&nbsp;
+              <span></span> <i class="fa fa-caret-down"></i>
+          </div>
             <div class="section2__dropdown-cnt">
               <select class="section2__select" name="" id="">
                 <option value="Cały zakres">Cały zakres</option>

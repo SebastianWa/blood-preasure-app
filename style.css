@@ -295,6 +295,15 @@ section {
   border: 0;
 }
 
+.section2__date-picker {
+  background: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  width: 40%;
+  margin-left: auto;
+}
+
 .measurements {
   display: flex;
   flex-direction: column;
