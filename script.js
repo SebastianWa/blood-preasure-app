@@ -384,6 +384,15 @@ class History extends App {
       e.preventDefault();
       this._updateGraph();
     });
+
+    $("#reportrange").on("show.daterangepicker", () => {});
+
+    $("#reportrange").on("apply.daterangepicker", (ev, picker) => {
+      this._sortMeasurementsByDate(
+        picker.startDate.format("YYYY-MM-DD"),
+        picker.endDate.format("YYYY-MM-DD")
+      );
+    });
   }
 
   _closeForm2() {
@@ -579,6 +588,23 @@ class History extends App {
       obj.hideMeasurement();
     });
   }
+
+  _sortMeasurementsByDate(startDate, endDate) {
+    this.measurements.forEach((obj) => {
+      obj.showMeasurement();
+    });
+
+    const arrayToHide = this.measurements.filter((obj) => {
+      return !(
+        new Date(startDate).getTime() <= new Date(obj.date).getTime() &&
+        new Date(endDate).getTime() >= new Date(obj.date).getTime()
+      );
+    });
+
+    arrayToHide.forEach((obj) => {
+      obj.hideMeasurement();
+    });
+  }
   //date range picker
 
   _initDatePicker() {
@@ -621,7 +647,9 @@ class History extends App {
           ],
           firstDay: 1,
         },
-        startDate: "01/26/2023",
+        startDate: `${new Intl.DateTimeFormat("en-US").format(
+          Date.now() - 172800000 // two days in mil seconds
+        )}`,
         maxDate: `${new Intl.DateTimeFormat("en-US").format(Date.now())}`,
       },
       function (start, end, label) {
