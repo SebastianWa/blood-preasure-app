@@ -14,6 +14,8 @@ const section2Systolic = document.querySelector("#form2Systolic");
 const section2Diastolic = document.querySelector("#form2Diastolic");
 const section2FormDeleteBtn = document.querySelector("#Form2DeteteBtn");
 const selectMenu = document.querySelector(".section2__select");
+
+console.log(moment);
 class Measurement {
   id;
   constructor(systolic, diastolic, puls, date, time, type, cssClass, id) {
@@ -352,6 +354,7 @@ class History extends App {
     this._eventHistoryListenersInit();
     this._createGraph();
     this._calcAverage();
+    this._initDatePicker();
   }
 
   _eventHistoryListenersInit() {
@@ -578,38 +581,56 @@ class History extends App {
   }
   //date range picker
 
-  _datePicker() {}
+  _initDatePicker() {
+    $("#reportrange").daterangepicker(
+      {
+        ranges: {
+          Dzisiaj: [moment(), moment()],
+          Wczoraj: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+          "Ostatnie 7 dni": [moment().subtract(6, "days"), moment()],
+          "Ostatnie 30 dni": [moment().subtract(29, "days"), moment()],
+          "Ten miesiąc": [moment().startOf("month"), moment().endOf("month")],
+          "Poprzedni miesiąc": [
+            moment().subtract(1, "month").startOf("month"),
+            moment().subtract(1, "month").endOf("month"),
+          ],
+        },
+        locale: {
+          format: "MM/DD/YYYY",
+          separator: " - ",
+          applyLabel: "Zatwierdź",
+          cancelLabel: "Anuluj",
+          fromLabel: "Od",
+          toLabel: "Do",
+          customRangeLabel: "Własny",
+          weekLabel: "w",
+          daysOfWeek: ["Nie", "Po", "Wt", "Sr", "Czw", "Pia", "Sob"],
+          monthNames: [
+            "Styczeń",
+            "Luty",
+            "Marzec",
+            "Kwiecień",
+            "Maj",
+            "Czerwiec",
+            "Lipiec",
+            "Sierpień",
+            "Wrzesień",
+            "Październik",
+            "Listopad",
+            "Grudzień",
+          ],
+          firstDay: 1,
+        },
+        startDate: "01/26/2023",
+        maxDate: `${new Intl.DateTimeFormat("en-US").format(Date.now())}`,
+      },
+      function (start, end, label) {
+        $("#reportrange span").html(
+          start.format("DD/MM/YYYY") + " - " + end.format("DD/MM/YYYY")
+        );
+      }
+    );
+  }
 }
 
 const app = new History();
-$(function () {
-  var start = moment().subtract(29, "days");
-  var end = moment();
-
-  function cb(start, end) {
-    $("#reportrange span").html(
-      start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY")
-    );
-  }
-
-  $("#reportrange").daterangepicker(
-    {
-      startDate: start,
-      endDate: end,
-      ranges: {
-        Today: [moment(), moment()],
-        Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
-        "Ostatnie 7 dni": [moment().subtract(6, "days"), moment()],
-        "Ostatnie 30 dni": [moment().subtract(29, "days"), moment()],
-        "Ten miesiąc": [moment().startOf("month"), moment().endOf("month")],
-        "Ostatni miesiąc": [
-          moment().subtract(1, "month").startOf("month"),
-          moment().subtract(1, "month").endOf("month"),
-        ],
-      },
-    },
-    cb
-  );
-
-  cb(start, end);
-});
