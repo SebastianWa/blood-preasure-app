@@ -620,7 +620,7 @@ class History extends App {
             moment().subtract(1, "month").startOf("month"),
             moment().subtract(1, "month").endOf("month"),
           ],
-          "Cały zakres": "Cały zakres",
+          "Cały zakres": 0,
         },
         locale: {
           format: "MM/DD/YYYY",
@@ -654,6 +654,12 @@ class History extends App {
         maxDate: `${new Intl.DateTimeFormat("en-US").format(Date.now())}`,
       },
       function (start, end, label) {
+        if (label === "Cały zakres") {
+          console.log("sad");
+          $("#reportrange span").html("Cały Zakres");
+          return;
+        }
+
         $("#reportrange span").html(
           start.format("DD/MM/YYYY") + " - " + end.format("DD/MM/YYYY")
         );

@@ -349,7 +349,6 @@ section {
   /* position: absolute;
   top: 45%;
   left: 20%; */
-  display: block;
   border: 0;
   font-size: 0.9rem;
 }
