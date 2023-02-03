@@ -396,7 +396,7 @@ class History extends App {
   }
 
   _closeForm2() {
-    document.querySelector(".form2").classList.remove("form2--active");
+    document.querySelector(".modal").close();
   }
 
   _findMeasurementInArray(id) {
@@ -449,11 +449,11 @@ class History extends App {
     const activeObj = this.measurements[this.activeObjIndex];
     if (!activeObj) return;
 
-    const section2Form = document.querySelector(".form2");
-    section2Form.classList.add("form2--active");
+    document.querySelector("#modal").showModal();
 
-    section2Form.querySelector(".form2_details").textContent =
+    document.querySelector(".form2_details").textContent =
       activeObj.createDataString();
+    //console.log(querySelector(".form2_details").textContent);
     section2Systolic.value = activeObj.systolic;
     section2Diastolic.value = activeObj.diastolic;
   }
@@ -620,6 +620,7 @@ class History extends App {
             moment().subtract(1, "month").startOf("month"),
             moment().subtract(1, "month").endOf("month"),
           ],
+          "Cały zakres": "Cały zakres",
         },
         locale: {
           format: "MM/DD/YYYY",

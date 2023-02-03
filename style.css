@@ -346,17 +346,21 @@ section {
 .form2 {
   background-color: var(--secondary-light-clr);
   border: 1px solid black;
-  position: absolute;
+  /* position: absolute;
   top: 45%;
-  left: 20%;
-  display: none;
+  left: 20%; */
+  display: block;
   border: 0;
   font-size: 0.9rem;
 }
 
-.form2--active {
-  display: block;
+.modal::backdrop {
+  background: rgb(0 0 0 / 0.4);
 }
+
+/* .form2--active {
+  display: block;
+} */
 
 .form2--cnt {
   background-color: var(--btn-primary-clr);

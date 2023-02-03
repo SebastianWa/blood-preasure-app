@@ -171,22 +171,25 @@
           </div>
       
         </nav>
-        <form class="form2">
-          <div class="form2--cnt">
-            <input class="form2__input" type="number"  max="220"
-              min="70" name="" id="form2Systolic">
-            <span class="form2__span">/</span>
-            <input class="form2__input" type="number"   max="160"
-              min="50" name="" id="form2Diastolic">
-              <label class="preasure-unit">mmHg</label>
-          </div>
-          <p class="form2_details"></p>
-        <div class="form2--btn-cnt">
-          <button class="form2__btn" type="submit">Zmień</button>
-          <button class="form2__btn"  id="Form2DeteteBtn">Usuń</button>
-          <button class="form2__btn" id="Form2CloseBtn">Zamknij</button>
-        </div>        
-        </form>
+        <dialog id="modal" class="modal">
+          <form class="form2">
+            <div class="form2--cnt">
+              <input class="form2__input" type="number"  max="220"
+                min="70" name="" id="form2Systolic">
+              <span class="form2__span">/</span>
+              <input class="form2__input" type="number"   max="160"
+                min="50" name="" id="form2Diastolic">
+                <label class="preasure-unit">mmHg</label>
+            </div>
+            <p class="form2_details"></p>
+          <div class="form2--btn-cnt">
+            <button class="form2__btn" type="submit">Zmień</button>
+            <button class="form2__btn"  id="Form2DeteteBtn">Usuń</button>
+            <button class="form2__btn" id="Form2CloseBtn">Zamknij</button>
+          </div>        
+          </form>
+        </dialog>
+        
         <ul class="measurements" id="measurements-cnt">
         </ul>
       </section>
