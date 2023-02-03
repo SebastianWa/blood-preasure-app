@@ -354,6 +354,10 @@ section {
   font-size: 0.9rem;
 }
 
+.modal {
+  margin: auto;
+}
+
 .modal::backdrop {
   background: rgb(0 0 0 / 0.4);
 }
