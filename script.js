@@ -344,6 +344,12 @@ class App {
     this._checkPressure(sys, dia);
     this._setTableAndGraph();
   }
+
+  _renderAll() {
+    this.measurements.forEach((obj) => {
+      obj.showMeasurement();
+    });
+  }
 }
 
 class History extends App {
@@ -388,6 +394,10 @@ class History extends App {
     $("#reportrange").on("show.daterangepicker", () => {});
 
     $("#reportrange").on("apply.daterangepicker", (ev, picker) => {
+      if (picker.chosenLabel === "Cały zakres") {
+        this._renderAll();
+        return;
+      }
       this._sortMeasurementsByDate(
         picker.startDate.format("YYYY-MM-DD"),
         picker.endDate.format("YYYY-MM-DD")
@@ -572,9 +582,7 @@ class History extends App {
     });
 
     if (typeOfMeas === "Cały zakres") {
-      this.measurements.forEach((obj) => {
-        obj.showMeasurement();
-      });
+      this._renderAll();
       return;
     }
 
@@ -593,6 +601,11 @@ class History extends App {
     this.measurements.forEach((obj) => {
       obj.showMeasurement();
     });
+
+    if (startDate === "Cały zakres") {
+      this._renderAll();
+      return;
+    }
 
     const arrayToHide = this.measurements.filter((obj) => {
       return !(
@@ -620,7 +633,7 @@ class History extends App {
             moment().subtract(1, "month").startOf("month"),
             moment().subtract(1, "month").endOf("month"),
           ],
-          "Cały zakres": 0,
+          "Cały zakres": [moment().subtract(6, "days"), moment()],
         },
         locale: {
           format: "MM/DD/YYYY",
@@ -654,12 +667,6 @@ class History extends App {
         maxDate: `${new Intl.DateTimeFormat("en-US").format(Date.now())}`,
       },
       function (start, end, label) {
-        if (label === "Cały zakres") {
-          console.log("sad");
-          $("#reportrange span").html("Cały Zakres");
-          return;
-        }
-
         $("#reportrange span").html(
           start.format("DD/MM/YYYY") + " - " + end.format("DD/MM/YYYY")
         );
