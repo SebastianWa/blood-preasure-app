@@ -396,6 +396,7 @@ class History extends App {
     $("#reportrange").on("apply.daterangepicker", (ev, picker) => {
       if (picker.chosenLabel === "Cały zakres") {
         this._renderAll();
+        this._resetDataPicker();
         return;
       }
       this._sortMeasurementsByDate(
@@ -575,12 +576,19 @@ class History extends App {
     console.log(sysAverage, diaAverage, pulsAverage);
   }
   _renderAverage() {}
+
+  _resetTypeInput() {
+    document.querySelector(".section2__select").value = "Cały zakres";
+  }
+
+  _resetDataPicker() {
+    $("#reportrange span").text("Cały zakres");
+  }
   //sort
   _sortMeasurements(typeOfMeas) {
-    this.measurements.forEach((obj) => {
-      obj.showMeasurement();
-    });
-
+    console.log("wyzwlacz");
+    this._renderAll();
+    this._resetDataPicker();
     if (typeOfMeas === "Cały zakres") {
       this._renderAll();
       return;
@@ -598,15 +606,8 @@ class History extends App {
   }
 
   _sortMeasurementsByDate(startDate, endDate) {
-    this.measurements.forEach((obj) => {
-      obj.showMeasurement();
-    });
-
-    if (startDate === "Cały zakres") {
-      this._renderAll();
-      return;
-    }
-
+    this._resetTypeInput();
+    this._renderAll();
     const arrayToHide = this.measurements.filter((obj) => {
       return !(
         new Date(startDate).getTime() <= new Date(obj.date).getTime() &&
@@ -617,6 +618,7 @@ class History extends App {
     arrayToHide.forEach((obj) => {
       obj.hideMeasurement();
     });
+    console.log(arrayToHide);
   }
   //date range picker
 
