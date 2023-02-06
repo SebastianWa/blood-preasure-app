@@ -586,13 +586,9 @@ class History extends App {
   }
   //sort
   _sortMeasurements(typeOfMeas) {
-    console.log("wyzwlacz");
     this._renderAll();
     this._resetDataPicker();
-    if (typeOfMeas === "Cały zakres") {
-      this._renderAll();
-      return;
-    }
+    if (typeOfMeas === "Cały zakres") return;
 
     const arrayToHide = this.measurements.filter(
       (mea) => mea.type !== typeOfMeas
