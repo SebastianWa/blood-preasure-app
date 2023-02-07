@@ -664,7 +664,7 @@ class History extends App {
         )}`,
         maxDate: `${new Intl.DateTimeFormat("en-US").format(Date.now())}`,
       },
-      function (start, end, label) {
+      function (start, end) {
         $("#reportrange span").html(
           start.format("DD/MM/YYYY") + " - " + end.format("DD/MM/YYYY")
         );
