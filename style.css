@@ -429,6 +429,18 @@ section {
   position: static;
 }
 
+.average-cnt {
+  height: 200px;
+  width: 100%;
+  display: flex;
+}
+
+.circle-average {
+  height: 30%;
+  width: 30%;
+  background-color: #000;
+}
+
 .chart-cnt {
   position: relative;
   margin: 0 auto;
