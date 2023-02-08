@@ -240,9 +240,7 @@ class App {
       "pressure-name--active"
     );
     addClassToElem(
-      document.querySelector(
-        `span[data-pre="${this.curentMeasurementDataSet}"]`
-      ),
+      document.querySelector(`p[data-pre="${this.curentMeasurementDataSet}"]`),
       "pressure-name--active"
     );
 
