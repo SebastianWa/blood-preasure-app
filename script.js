@@ -14,6 +14,7 @@ const section2Systolic = document.querySelector("#form2Systolic");
 const section2Diastolic = document.querySelector("#form2Diastolic");
 const section2FormDeleteBtn = document.querySelector("#Form2DeteteBtn");
 const selectMenu = document.querySelector(".section2__select");
+const avgRangeBtnCtn = document.querySelector(".section3__btn-cnt");
 
 console.log(moment);
 class Measurement {
@@ -402,6 +403,11 @@ class History extends App {
         picker.endDate.format("YYYY-MM-DD")
       );
     });
+
+    avgRangeBtnCtn.addEventListener("click", (e) => {
+      if (!e.target.hasAttribute("data-avgrange")) return;
+      this._calcAverage(e.target.getAttribute("data-avgrange"));
+    });
   }
 
   _closeForm2() {
@@ -555,25 +561,41 @@ class History extends App {
     this.chartType = new Chart(ctx, config);
   }
   //average
-  _calcAverage() {
+  _calcAverage(range = 0) {
     if (!this.measurements) return;
 
-    const length = this.measurements.length;
-
+    const arrToCalcAvg =
+      range == 0
+        ? this.measurements
+        : this.measurements.filter((obj) => {
+            return (
+              new Date(obj.date).getTime() >=
+              new Date(obj.date).getTime() -
+                (new Date().getTime() -
+                  parseFloat(range) * (1000 * 60 * 60 * 24))
+            );
+          });
+    const length = arrToCalcAvg.length;
     const sysAverage =
-      this.measurements.reduce((pre, curr) => (pre += curr.systolic), 0) /
-      length;
+      arrToCalcAvg.reduce((pre, curr) => (pre += curr.systolic), 0) / length;
 
     const diaAverage =
-      this.measurements.reduce((pre, curr) => (pre += curr.diastolic), 0) /
-      length;
+      arrToCalcAvg.reduce((pre, curr) => (pre += curr.diastolic), 0) / length;
 
     const pulsAverage =
-      this.measurements.reduce((pre, curr) => (pre += curr.puls), 0) / length;
-
-    console.log(sysAverage, diaAverage, pulsAverage);
+      arrToCalcAvg.reduce((pre, curr) => (pre += curr.puls), 0) / length;
+    this._renderAverages([sysAverage, diaAverage, pulsAverage]);
   }
-  _renderAverage() {}
+
+  _renderAverages(averages) {
+    const [sysAverage, diaAverage, pulsAverage] = averages;
+    document.querySelector(`[data-avesys=""]`).textContent =
+      parseInt(sysAverage);
+    document.querySelector(`[data-avedia=""]`).textContent =
+      parseInt(diaAverage);
+    document.querySelector(`[data-avepuls=""]`).textContent =
+      parseInt(pulsAverage);
+  }
 
   _resetTypeInput() {
     document.querySelector(".section2__select").value = "Cały zakres";
@@ -612,7 +634,6 @@ class History extends App {
     arrayToHide.forEach((obj) => {
       obj.hideMeasurement();
     });
-    console.log(arrayToHide);
   }
   //date range picker
 
