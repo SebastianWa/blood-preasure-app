@@ -407,6 +407,7 @@ class History extends App {
     avgRangeBtnCtn.addEventListener("click", (e) => {
       if (!e.target.hasAttribute("data-avgrange")) return;
       this._calcAverage(e.target.getAttribute("data-avgrange"));
+      this._updateGraph(e.target.getAttribute("data-avgrange"));
     });
   }
 
@@ -473,22 +474,34 @@ class History extends App {
     section2Diastolic.value = activeObj.diastolic;
   }
   //graph
-  _createDataForGraph() {
+  _createDataForGraph(range = 0) {
+    const arrGraph =
+      range == 0
+        ? this.measurements
+        : this.measurements.filter((obj) => {
+            return (
+              new Date(obj.date).getTime() >=
+              new Date(obj.date).getTime() -
+                (new Date().getTime() -
+                  parseFloat(range) * (1000 * 60 * 60 * 24))
+            );
+          });
+
     const reduceHelper = (type) => {
       return (pre, curr) => (pre += 1 ? curr.type === type : 0);
     };
 
     return [
-      this.measurements.reduce(reduceHelper("Niedociśnienie"), 0),
-      this.measurements.reduce(reduceHelper("Normalne"), 0),
-      this.measurements.reduce(reduceHelper("Wysokie Prawidłowe"), 0),
-      this.measurements.reduce(reduceHelper("Nadciśnienie tętnicze 1"), 0),
-      this.measurements.reduce(reduceHelper("Nadciśnienie tętnicze 2"), 0),
+      arrGraph.reduce(reduceHelper("Niedociśnienie"), 0),
+      arrGraph.reduce(reduceHelper("Normalne"), 0),
+      arrGraph.reduce(reduceHelper("Wysokie Prawidłowe"), 0),
+      arrGraph.reduce(reduceHelper("Nadciśnienie tętnicze 1"), 0),
+      arrGraph.reduce(reduceHelper("Nadciśnienie tętnicze 2"), 0),
     ];
   }
 
-  _updateGraph() {
-    const newData = this._createDataForGraph();
+  _updateGraph(range = 0) {
+    const newData = this._createDataForGraph(range);
     this.chartType.data.datasets[0].data = newData;
     this.chartType.update();
   }
@@ -589,6 +602,22 @@ class History extends App {
 
   _renderAverages(averages) {
     const [sysAverage, diaAverage, pulsAverage] = averages;
+    const sysAverageHtml = document.querySelector("#circle-sys");
+    const diaAverageHtml = document.querySelector("#circle-dia");
+    const pulsAverageHtml = document.querySelector("#circle-puls");
+
+    const calcFill = (html, avg, max) => {
+      // max is the max property from inputs
+      // helper method to calc percentage of fill in circle
+      const percentagetoFill = (avg / max) * 100;
+      html.style.background = `conic-gradient(#7d2ae8 ${
+        percentagetoFill * 3.6
+      }deg, #ededed 0deg)`;
+    };
+
+    calcFill(sysAverageHtml, sysAverage, 200);
+    calcFill(diaAverageHtml, diaAverage, 140);
+    calcFill(pulsAverageHtml, pulsAverage, 180);
     document.querySelector(`[data-avesys=""]`).textContent =
       parseInt(sysAverage);
     document.querySelector(`[data-avedia=""]`).textContent =
