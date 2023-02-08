@@ -430,15 +430,41 @@ section {
 }
 
 .average-cnt {
-  height: 200px;
+  height: 400px;
   width: 100%;
   display: flex;
+  justify-content: space-evenly;
 }
 
 .circle-average {
-  height: 30%;
-  width: 30%;
-  background-color: #000;
+  height: 105px;
+  width: 105px;
+  position: relative;
+  border-radius: 50%;
+  background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-average::before {
+  content: "";
+  position: absolute;
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.circle-text-cnt {
+  position: relative;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #7d2ae8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .chart-cnt {
