@@ -233,7 +233,7 @@ section {
   grid-template-columns: 4fr 1fr 1fr;
   border: 1px solid var(--secondary-medium-clr);
   padding: 0.5em;
-  font-weight: 700;
+  font-weight: 400;
   background-color: var(--secondary-light-clr);
 }
 
