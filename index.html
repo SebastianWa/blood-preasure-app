@@ -77,13 +77,10 @@
               min="40"
               max="180"
             />
-            <label class="form__label" for=""
-              >Puls
-              <p>bpm</p></label
-            >
+            <label class="form__label" for="">Puls
+              <p>bpm</p></label>
           </div>
-          <ul class="form__list-cnt">
-            <li>
+          <div class="form__row">
               <input
                 class="form__input form__input--row"
                 id="input-date"
@@ -91,16 +88,17 @@
                 required
                 min="1920-01-01"
               />
-            </li>
-            <li>
+               <label class="form__label" for="">Data</label>
+          </div>
+          <div class="form__row">
               <input
                 class="form__input form__input--row"
                 type="time"
                 id="input-time"
                 required
               />
-            </li>
-          </ul>
+              <label class="form__label" for="">Godzina</label>
+          </div>
           <button class="form__submit" type="submit" id="meassubmit">
             Zapisz
           </button>
