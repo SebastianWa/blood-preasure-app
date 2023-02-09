@@ -16,7 +16,6 @@ const section2FormDeleteBtn = document.querySelector("#Form2DeteteBtn");
 const selectMenu = document.querySelector(".section2__select");
 const avgRangeBtnCtn = document.querySelector(".section3__btn-cnt");
 
-console.log(moment);
 class Measurement {
   id;
   constructor(systolic, diastolic, puls, date, time, type, cssClass, id) {
@@ -374,10 +373,20 @@ class History extends App {
 
     section2form.addEventListener("submit", (e) => {
       this._editMeasurement(e);
+      this._updateGraph();
+      this._calcAverage();
+      this._resetDataPicker();
+      this._resetTypeInput();
+      this._renderAll();
     });
 
     section2FormDeleteBtn.addEventListener("click", (e) => {
       this._deleteMeasurementFromArray(e);
+      this._updateGraph();
+      this._calcAverage();
+      this._resetDataPicker();
+      this._resetTypeInput();
+      this._renderAll();
     });
 
     selectMenu.addEventListener("change", (e) => {
@@ -387,6 +396,10 @@ class History extends App {
     measumentForm.addEventListener("submit", (e) => {
       e.preventDefault();
       this._updateGraph();
+      this._calcAverage();
+      this._resetDataPicker();
+      this._resetTypeInput();
+      this._renderAll();
     });
 
     $("#reportrange").on("show.daterangepicker", () => {});
@@ -630,6 +643,7 @@ class History extends App {
   _resetDataPicker() {
     $("#reportrange span").text("Cały zakres");
   }
+
   //sort
   _sortMeasurements(typeOfMeas) {
     this._renderAll();
