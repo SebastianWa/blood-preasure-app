@@ -153,29 +153,36 @@ section {
 /* form */
 
 .form {
-  /* font-size: 1em; */
   background-color: var(--secondary-light-clr);
   padding: 1em;
 }
 
-.form__row {
+.form-row-cnt {
   display: flex;
-  margin-bottom: 0.4em;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
 }
 
-.form__row > input {
-  min-width: 300px;
+.form__inputs-columns {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.form__inputs-row {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .form__input {
-  padding: 0.5rem 0.7rem;
+  padding: 0.9rem 0.7rem;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   color: var(--font-primary-clr);
   text-align: center;
   font-size: 1.1em;
+  border: none;
 }
 
 .form__label {
@@ -184,7 +191,7 @@ section {
 }
 
 .form__label > p {
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 
 .form__popup {

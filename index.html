@@ -37,68 +37,70 @@
           <div data-text="4" class="chart__text">Twoje ciśnienie jest za wysokie, pomiar kwalifikuje się na nadciśnenie tętnicze drugiego stopnia</div>
         </div>
         <form class="form" id="measument-form">
-          <div class="form__row">
-            <input
-              type="number"
-              class="form__input form__input--column"
-              id="input-systolic"
-              max="200"
-              min="70"
-              value="120"
-              required
-            />
-            <label class="form__label" for=""
-              >Skurczowe
-              <p>mmHg</p>
-            </label>
-          </div>
-          <div class="form__row">
-            <input
-              type="number"
-              class="form__input form__input--column"
-              id="input-diastolic"
-              max="140"
-              min="50"
-              value="80"
-              required
-            />
-            <label class="form__label" for=""
-              >Rozkurczowe
-              <p>mmHg</p></label
-            >
-          </div>
-          <div class="form__row">
-            <input
-              type="number"
-              class="form__input form__input--column"
-              id="input-puls"
-              required
-              value="60"
-              min="40"
-              max="180"
-            />
-            <label class="form__label" for="">Puls
-              <p>bpm</p></label>
-          </div>
-          <div class="form__row">
+          <div class="form__inputs-columns">
+            <div class="form__row">
+               <label class="form__label" for=""
+                >Skurczowe
+                <p>mmHg</p>
+              </label>
               <input
-                class="form__input form__input--row"
-                id="input-date"
-                type="date"
-                required
-                min="1920-01-01"
-              />
-               <label class="form__label" for="">Data</label>
-          </div>
-          <div class="form__row">
-              <input
-                class="form__input form__input--row"
-                type="time"
-                id="input-time"
+                type="number"
+                class="form__input form__input--column"
+                id="input-systolic"
+                max="200"
+                min="70"
+                value="120"
                 required
               />
-              <label class="form__label" for="">Godzina</label>
+             
+            </div>
+            <div class="form__row">
+                <label class="form__label" for="">Rozkurczowe
+                  <p>mmHg</p>
+                </label>
+              <input
+                type="number"
+                class="form__input form__input--column"
+                id="input-diastolic"
+                max="140"
+                min="50"
+                value="80"
+                required
+              />
+         
+            </div>
+            <div class="form__row">
+              <label class="form__label" for="">Puls
+                <p>bpm</p>
+              </label>
+              <input
+                type="number"
+                class="form__input form__input--column"
+                id="input-puls"
+                required
+                value="60"
+                min="40"
+                max="180"
+              />
+              
+            </div>
           </div>
+          <div class="form__inputs-row">
+            <input
+              class="form__input form__input--row"
+              id="input-date"
+              type="date"
+              required
+              min="1920-01-01"
+            />       
+            <input
+              class="form__input form__input--row"
+              type="time"
+              id="input-time"
+              required
+            />              
+          </div>       
+          
           <button class="form__submit" type="submit" id="meassubmit">
             Zapisz
           </button>
@@ -223,3 +225,71 @@
     </footer>
   </body>
 </html>
+
+
+
+<!-- <div class="form-row-cnt">
+              <div class="form__row">
+              <input
+                type="number"
+                class="form__input form__input--column"
+                id="input-systolic"
+                max="200"
+                min="70"
+                value="120"
+                required
+              />
+              <label class="form__label" for=""
+                >Skurczowe
+                <p>mmHg</p>
+              </label>
+            </div>
+            <div class="form__row">
+              <input
+                type="number"
+                class="form__input form__input--column"
+                id="input-diastolic"
+                max="140"
+                min="50"
+                value="80"
+                required
+              />
+              <label class="form__label" for=""
+                >Rozkurczowe
+                <p>mmHg</p></label
+              >
+            </div>
+            <div class="form__row">
+              <input
+                type="number"
+                class="form__input form__input--column"
+                id="input-puls"
+                required
+                value="60"
+                min="40"
+                max="180"
+              />
+              <label class="form__label" for="">Puls
+                <p>bpm</p></label>
+            </div>
+            
+             <div class="form__row">
+              <input
+                class="form__input form__input--row"
+                id="input-date"
+                type="date"
+                required
+                min="1920-01-01"
+              />
+               <label class="form__label" for="">Data</label>
+          </div>
+          <div class="form__row">
+              <input
+                class="form__input form__input--row"
+                type="time"
+                id="input-time"
+                required
+              />
+              <label class="form__label" for="">Godzina</label>
+          </div>         
+        </div> -->
