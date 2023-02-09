@@ -60,7 +60,7 @@ a:not([class]) {
 
   --popup-clr: limegreen;
 
-  --font-primary-clr: #9f9f9c;
+  --font-primary-clr: #707070;
   --font-secondary-crl: #809dc7;
   --font-primary-active-clr: #353535;
   --font-dark-clr: #000;
@@ -295,24 +295,21 @@ section {
 
 .section2__nav {
   color: var(--font-dark-clr);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
 }
 
-.section2__select {
+.section2__select,
+.section2__date-picker {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  font-size: 1.1em;
-  padding: 0.75em 1.25em;
   background-color: var(--btn-secondary-light);
+  padding: 0.75em 1.25em;
+  font-size: 1.1em;
   color: var(--font-dark-clr);
   border: 0;
-}
-
-.section2__date-picker {
-  background: #fff;
   cursor: pointer;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  width: 40%;
-  margin-left: auto;
+  min-width: 15%;
 }
 
 .measurements {
@@ -323,9 +320,9 @@ section {
 }
 
 .measurement {
-  min-width: 80%;
+  width: clamp(350px, 50%, 500px);
   display: flex;
-  padding: 1em;
+  padding: 0.8em;
   justify-content: space-between;
   align-items: center;
   background-color: var(--secondary-light-clr);
@@ -338,12 +335,15 @@ section {
 }
 
 .measurement__pres {
-  width: 5rem;
-  height: 5rem;
-  line-height: 2.25rem;
-  padding: 0.25rem;
+  width: 5em;
+  height: 5em;
+  line-height: 2.25em;
+  padding: 0.25em;
   border-radius: 50%;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--btn-secondary-light);
 }
 
 .measurement__desc {
@@ -351,7 +351,11 @@ section {
 }
 
 .measurement__desc span {
-  margin-right: 0.35rem;
+  margin-right: 0.35em;
+}
+
+.measurement__type {
+  font-size: 1.1em;
 }
 
 .form2 {
