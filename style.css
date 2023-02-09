@@ -427,10 +427,10 @@ section {
 }
 
 .average-cnt {
-  height: 400px;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 2em;
 }
 
 .circle-average {
@@ -438,7 +438,7 @@ section {
   width: 105px;
   position: relative;
   border-radius: 50%;
-  background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg);
+  /* background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -453,15 +453,62 @@ section {
   background-color: #fff;
 }
 
+.circle-average--sys {
+  background: conic-gradient(#fa5252 3.6deg, #ededed 0deg);
+}
+.circle-average--dia {
+  background: conic-gradient(#c3de88 3.6deg, #ededed 0deg);
+}
+.circle-average--puls {
+  background: conic-gradient(#7ed1f9 3.6deg, #ededed 0deg);
+}
+
+.circle-text--sys {
+  color: #fa5252;
+}
+.circle-text--dia {
+  color: #c3de88;
+}
+.circle-text--puls {
+  color: #7ed1f9;
+}
+
 .circle-text-cnt {
   position: relative;
-  font-size: 1.2em;
   font-weight: 600;
-  color: #7d2ae8;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.circle-text-cnt > span:nth-child(1) {
+  color: var(--font-primary-clr);
+}
+
+.circle-text-cnt > span:nth-child(2) {
+  font-size: 1.7em;
+  color: var(--font-primary-active-clr);
+}
+
+.section3__btn-cnt {
+  margin: 1em 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.section3__btn {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  font-size: 1.3em;
+  color: var(--font-primary-clr);
+  padding: 1em;
+  font-weight: 700;
+}
+
+.section3__btn--active {
+  color: var(--btn-primary-clr);
 }
 
 .chart-cnt {

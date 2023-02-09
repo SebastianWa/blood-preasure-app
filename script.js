@@ -610,22 +610,22 @@ class History extends App {
 
   _renderAverages(averages) {
     const [sysAverage, diaAverage, pulsAverage] = averages;
-    const sysAverageHtml = document.querySelector("#circle-sys");
-    const diaAverageHtml = document.querySelector("#circle-dia");
-    const pulsAverageHtml = document.querySelector("#circle-puls");
+    const sysAverageHtml = document.querySelector(".circle-average--sys");
+    const diaAverageHtml = document.querySelector(".circle-average--dia");
+    const pulsAverageHtml = document.querySelector(".circle-average--puls");
 
-    const calcFill = (html, avg, max) => {
+    const calcFill = (html, avg, max, color) => {
       // max is the max property from inputs
       // helper method to calc percentage of fill in circle
       const percentagetoFill = (avg / max) * 100;
-      html.style.background = `conic-gradient(#7d2ae8 ${
+      html.style.background = `conic-gradient(${color} ${
         percentagetoFill * 3.6
       }deg, #ededed 0deg)`;
     };
 
-    calcFill(sysAverageHtml, sysAverage, 200);
-    calcFill(diaAverageHtml, diaAverage, 140);
-    calcFill(pulsAverageHtml, pulsAverage, 180);
+    calcFill(sysAverageHtml, sysAverage, 200, "#fa5252");
+    calcFill(diaAverageHtml, diaAverage, 140, "#c3de88");
+    calcFill(pulsAverageHtml, pulsAverage, 180, "#7ed1f9");
     document.querySelector(`[data-avesys=""]`).textContent =
       parseInt(sysAverage);
     document.querySelector(`[data-avedia=""]`).textContent =

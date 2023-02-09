@@ -182,32 +182,32 @@
       </section>
       <section class="section section--3">
         <div class="average-cnt">
-          <div id="circle-sys" class="circle-average">
+          <div id="circle-sys" class="circle-average circle-average--sys">
             <div class="circle-text-cnt">
               <span  class="circle-text">ŚRE</span>
               <span data-avesys="" class="circle-text">0</span>
-              <span class="circle-text">SKU</span>
+              <span class="circle-text circle-text--sys">SKU</span>
             </div>
           </div>
-        <div id="circle-dia" class="circle-average">
+          <div id="circle-dia" class="circle-average circle-average--dia">
             <div class="circle-text-cnt">
               <span class="circle-text">ŚRE</span>
               <span data-avedia="" class="circle-text">0</span>
-              <span class="circle-text">ROZ</span>
+              <span class="circle-text circle-text--dia">ROZ</span>
             </div>
           </div>
-          <div id="circle-puls" class="circle-average">
+          <div id="circle-puls" class="circle-average circle-average--puls">
             <div class="circle-text-cnt">
               <span class="circle-text">ŚRE</span>
               <span data-avepuls="" class="circle-text">0</span>
-              <span class="circle-text">PUL</span>
+              <span class="circle-text circle-text--puls">PUL</span>
             </div>
           </div>
         </div>
         <div class="section3__btn-cnt">
-          <button data-avgrange="30">Miesiąc</button>
-          <button data-avgrange="7">7 dni</button>
-          <button data-avgrange="0">Cały zakres</button>
+          <button class="section3__btn" data-avgrange="30">Miesiąc</button>
+          <button class="section3__btn" data-avgrange="7">7 dni</button>
+          <button class="section3__btn section3__btn--active" data-avgrange="0">Cały zakres</button>
         </div>
         <div class="chart-cnt">
           <canvas id="chartsOfMeaTypes"></canvas>
