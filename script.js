@@ -583,9 +583,7 @@ class History extends App {
         : this.measurements.filter((obj) => {
             return (
               new Date(obj.date).getTime() >=
-              new Date(obj.date).getTime() -
-                (new Date().getTime() -
-                  parseFloat(range) * (1000 * 60 * 60 * 24))
+              new Date().getTime() - parseFloat(range) * (1000 * 60 * 60 * 24)
             );
           });
     const length = arrToCalcAvg.length;
