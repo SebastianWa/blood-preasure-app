@@ -216,10 +216,9 @@ class App {
       minute: "2-digit",
     }).format(Date.now());
 
-    inputData.setAttribute("value", date);
+    inputData.value = date;
     inputData.setAttribute("max", date);
-    inputTime.setAttribute("value", time);
-
+    inputTime.value = time;
     // set graph to default postion
     document
       .querySelector(".chart__part--1 ")
