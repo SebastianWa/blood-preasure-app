@@ -418,6 +418,11 @@ class History extends App {
 
     avgRangeBtnCtn.addEventListener("click", (e) => {
       if (!e.target.hasAttribute("data-avgrange")) return;
+      document
+        .querySelectorAll(".section3__btn")
+        .forEach((btn) => btn.classList.remove("section3__btn--active"));
+
+      e.target.classList.add("section3__btn--active");
       this._calcAverage(e.target.getAttribute("data-avgrange"));
       this._updateGraph(e.target.getAttribute("data-avgrange"));
     });
