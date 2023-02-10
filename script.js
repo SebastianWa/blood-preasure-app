@@ -54,8 +54,8 @@ class Measurement {
     return this;
   }
 
-  setColor(color) {
-    this.color = color;
+  setColor(cssClass) {
+    this.cssClass = cssClass;
     return this;
   }
 
@@ -68,12 +68,16 @@ class Measurement {
     // const htmlMeasurement = document.querySelector(
     //   `.measurement[data-id="${this.id}"]`
     // );
+    console.log(this);
     this.htmlMeasurement.querySelector(".measurement__sys").textContent =
       this.systolic;
     this.htmlMeasurement.querySelector(".measurement__diat").textContent =
       this.diastolic;
     this.htmlMeasurement.querySelector(".measurement__type").textContent =
       this.type;
+    this.htmlMeasurement
+      .querySelector(".measurement__pres")
+      .classList.remove(`measurement--${/(1-4)/g}`);
     this.htmlMeasurement
       .querySelector(".measurement__pres")
       .classList.add(this.cssClass);
