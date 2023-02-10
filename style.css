@@ -348,7 +348,7 @@ section {
 }
 
 .measurement {
-  width: clamp(350px, 85%, 700px);
+  width: clamp(250px, 70%, 700px);
   display: flex;
   padding: 0.8em;
   justify-content: space-between;
