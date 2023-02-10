@@ -30,7 +30,10 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
-  margin: 0 auto;
+}
+
+*:focus {
+  outline: 1px;
 }
 
 .cnt {
@@ -225,12 +228,12 @@ section {
   transition: opacity 1s;
   border-radius: 15px;
   opacity: 0;
-  visibility: hidden;
+  display: none;
 }
 
 .form__popup--active {
   opacity: 0.7;
-  visibility: visible;
+  display: block;
 }
 
 .form__submit {
