@@ -31,17 +31,14 @@ body {
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   margin: 0 auto;
+}
+
+.cnt {
   max-width: 750px;
   display: grid;
   min-height: 100vh;
   min-height: 100dvh;
-  max-height: 100dvh;
   grid-template-rows: 1fr auto;
-}
-
-main {
-  /* width: clamp(365px, 100%, 650px); */
-  max-height: 100%;
 }
 
 a:not([class]) {

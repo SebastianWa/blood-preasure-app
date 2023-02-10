@@ -4,146 +4,176 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href=
-"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css">
-</link>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css"
+    />
     <link
       href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
-      rel="stylesheet"/>
-    <link rel="stylesheet" href="style.css" />  
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js">   
-    </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js">  
-    </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script defer src="script.js"></script>
     <title>blood preasure app</title>
   </head>
   <body>
-    <main class="main">      
-      <section class="section section--1   section--active">
-        <div class="chart">
-          <div class="chart__part chart__part--0"></div>
-          <div data-text="0" class="chart__text">twoje ciśnienie jest za niskie</div>
-          <div class="chart__part chart__part--1 chart__part--active"></div>
-          <div data-text="1" class="chart__text chart__text--active">Twoje ciśnienie jest w normie</div>
-          <div class="chart__part chart__part--2 "></div>
-          <div data-text="2" class="chart__text ">Twoje ciśnienie jest wysokie, ale w granicach poprawności</div>
-          <div class="chart__part chart__part--3"></div>
-          <div data-text="3" class="chart__text">Twoje ciśnienie jest za wysokie, pomiar kwalifikuje się na nadciśnenie tętnicze pierwszego stopnia</div>
-          <div class="chart__part chart__part--4"></div>
-          <div data-text="4" class="chart__text">Twoje ciśnienie jest za wysokie, pomiar kwalifikuje się na nadciśnenie tętnicze drugiego stopnia</div>
-        </div>
-        <form class="form" id="measument-form">
-          <div class="form__inputs-columns">
-            <div class="form__row">
-               <label class="form__label" for=""
-                >Skurczowe
-                <p>mmHg</p>
-              </label>
-              <input
-                type="number"
-                class="form__input form__input--column"
-                id="input-systolic"
-                max="225"
-                min="70"
-                value="120"
-                required
-              />            
+    <div class="cnt">
+      <main class="main">
+        <section class="section section--1 section--active">
+          <div class="chart">
+            <div class="chart__part chart__part--0"></div>
+            <div data-text="0" class="chart__text">
+              twoje ciśnienie jest za niskie
             </div>
-            <div class="form__row">
-                <label class="form__label" for="">Rozkurczowe
+            <div class="chart__part chart__part--1 chart__part--active"></div>
+            <div data-text="1" class="chart__text chart__text--active">
+              Twoje ciśnienie jest w normie
+            </div>
+            <div class="chart__part chart__part--2"></div>
+            <div data-text="2" class="chart__text">
+              Twoje ciśnienie jest wysokie, ale w granicach poprawności
+            </div>
+            <div class="chart__part chart__part--3"></div>
+            <div data-text="3" class="chart__text">
+              Twoje ciśnienie jest za wysokie, pomiar kwalifikuje się na
+              nadciśnenie tętnicze pierwszego stopnia
+            </div>
+            <div class="chart__part chart__part--4"></div>
+            <div data-text="4" class="chart__text">
+              Twoje ciśnienie jest za wysokie, pomiar kwalifikuje się na
+              nadciśnenie tętnicze drugiego stopnia
+            </div>
+          </div>
+          <form class="form" id="measument-form">
+            <div class="form__inputs-columns">
+              <div class="form__row">
+                <label class="form__label" for=""
+                  >Skurczowe
                   <p>mmHg</p>
                 </label>
-              <input
-                type="number"
-                class="form__input form__input--column"
-                id="input-diastolic"
-                max="160"
-                min="50"
-                value="80"
-                required
-              />         
+                <input
+                  type="number"
+                  class="form__input form__input--column"
+                  id="input-systolic"
+                  max="225"
+                  min="70"
+                  value="120"
+                  required
+                />
+              </div>
+              <div class="form__row">
+                <label class="form__label" for=""
+                  >Rozkurczowe
+                  <p>mmHg</p>
+                </label>
+                <input
+                  type="number"
+                  class="form__input form__input--column"
+                  id="input-diastolic"
+                  max="160"
+                  min="50"
+                  value="80"
+                  required
+                />
+              </div>
+              <div class="form__row">
+                <label class="form__label" for=""
+                  >Puls
+                  <p>bpm</p>
+                </label>
+                <input
+                  type="number"
+                  class="form__input form__input--column"
+                  id="input-puls"
+                  required
+                  value="60"
+                  min="40"
+                  max="180"
+                />
+              </div>
             </div>
-            <div class="form__row">
-              <label class="form__label" for="">Puls
-                <p>bpm</p>
-              </label>
+            <div class="form__inputs-row">
               <input
-                type="number"
-                class="form__input form__input--column"
-                id="input-puls"
+                class="form__input form__input--row"
+                id="input-date"
+                type="date"
                 required
-                value="60"
-                min="40"
-                max="180"
+                min="1920-01-01"
+              />
+              <input
+                class="form__input form__input--row"
+                type="time"
+                id="input-time"
+                required
               />
             </div>
+
+            <button class="form__submit" type="submit" id="meassubmit">
+              Zapisz
+            </button>
+            <span class="form__popup">Dodany!</span>
+          </form>
+          <div class="grid-table">
+            <div class="grid-header">
+              <span>Rodzaj</span>
+              <span>SKU</span>
+              <span>ROZ</span>
+            </div>
+            <div class="grid-row grid-type">
+              <p class="pressure-name" data-pre="4">Nadciśnienie tętnicze 2</p>
+              <p class="pressure-name" data-pre="3">Nadciśnienie tętnicze 1</p>
+              <p class="pressure-name" data-pre="2">Wysokie prawidłowe</p>
+              <p class="pressure-name pressure-name--active" data-pre="1">
+                Normalne
+              </p>
+              <p class="pressure-name" data-pre="0">Niedociśnienie</p>
+            </div>
+            <div class="grid-row grid-row--ranges">
+              <p>>160</p>
+              <p>>100</p>
+            </div>
+            <div class="grid-row grid-row--ranges">
+              <p>141-160</p>
+              <p>91-100</p>
+            </div>
+            <div class="grid-row grid-row--ranges">
+              <p>121-140</p>
+              <p>81-90</p>
+            </div>
+            <div class="grid-row grid-row--ranges">
+              <p>91-120</p>
+              <p>61-80</p>
+            </div>
+            <div class="grid-row grid-row--ranges">
+              <p>&#62;90</p>
+              <p>&#62;60</p>
+            </div>
           </div>
-          <div class="form__inputs-row">
-            <input
-              class="form__input form__input--row"
-              id="input-date"
-              type="date"
-              required
-              min="1920-01-01"
-            />       
-            <input
-              class="form__input form__input--row"
-              type="time"
-              id="input-time"
-              required
-            />              
-          </div>       
-          
-          <button class="form__submit" type="submit" id="meassubmit">
-            Zapisz
-          </button>
-          <span class="form__popup">Dodany!</span>
-        </form>
-        <div class="grid-table">
-          <div class="grid-header">
-            <span>Rodzaj</span>
-            <span>SKU</span>
-            <span>ROZ</span>
-          </div>
-          <div class="grid-row grid-type">           
-            <p class="pressure-name" data-pre="4">Nadciśnienie tętnicze 2</p>           
-            <p class="pressure-name" data-pre="3">Nadciśnienie tętnicze 1</p>
-            <p class="pressure-name" data-pre="2">Wysokie prawidłowe</p>           
-            <p class="pressure-name pressure-name--active" data-pre="1">Normalne</p>
-            <p class="pressure-name" data-pre="0">Niedociśnienie</p>
-          </div>
-          <div class="grid-row grid-row--ranges">
-            <p>>160</p>
-            <p>>100</p>
-          </div>
-          <div class="grid-row grid-row--ranges">
-            <p>141-160</p>
-            <p>91-100</p>
-          </div>
-          <div class="grid-row grid-row--ranges">
-            <p>121-140</p>
-            <p>81-90</p>
-          </div>
-          <div class="grid-row grid-row--ranges">
-            <p>91-120</p>
-            <p>61-80</p>
-          </div>
-          <div class="grid-row grid-row--ranges">
-            <p>&#62;90</p>
-            <p>&#62;60</p>
-          </div>
-        </div>
-      </section>
-      <section class="section section--2">
-        <nav class="section2__nav">
-          <div class="section2__date-picker" id="reportrange">
-              <i class="fa fa-calendar"></i>&nbsp;
-              <span></span> <i class="fa fa-caret-down"></i>
-          </div>
+        </section>
+        <section class="section section--2">
+          <nav class="section2__nav">
+            <div class="section2__date-picker" id="reportrange">
+              <i class="fa fa-calendar"></i>&nbsp; <span></span>
+              <i class="fa fa-caret-down"></i>
+            </div>
             <div class="section2__dropdown-cnt">
               <select class="section2__select" name="" id="">
                 <option value="Cały zakres">Cały zakres</option>
@@ -154,72 +184,95 @@
                 <option value="Nadciśnienie tętnicze 2">Nadciśnienie 2</option>
               </select>
             </div>
+          </nav>
+          <dialog id="modal" class="modal">
+            <form class="form2">
+              <div class="form2--cnt">
+                <input
+                  class="form2__input"
+                  type="number"
+                  max="220"
+                  min="70"
+                  name=""
+                  id="form2Systolic"
+                />
+                <span class="form2__span">/</span>
+                <input
+                  class="form2__input"
+                  type="number"
+                  max="160"
+                  min="50"
+                  name=""
+                  id="form2Diastolic"
+                />
+                <label class="preasure-unit">mmHg</label>
+              </div>
+              <p class="form2_details"></p>
+              <div class="form2--btn-cnt">
+                <button class="form2__btn" type="submit">Zmień</button>
+                <button class="form2__btn" id="Form2DeteteBtn">Usuń</button>
+                <button class="form2__btn" id="Form2CloseBtn">Zamknij</button>
+              </div>
+            </form>
+          </dialog>
+
+          <ul class="measurements" id="measurements-cnt"></ul>
+        </section>
+        <section class="section section--3">
+          <div class="average-cnt">
+            <div id="circle-sys" class="circle-average circle-average--sys">
+              <div class="circle-text-cnt">
+                <span class="circle-text">ŚRE</span>
+                <span data-avesys="" class="circle-text">0</span>
+                <span class="circle-text circle-text--sys">SKU</span>
+              </div>
+            </div>
+            <div id="circle-dia" class="circle-average circle-average--dia">
+              <div class="circle-text-cnt">
+                <span class="circle-text">ŚRE</span>
+                <span data-avedia="" class="circle-text">0</span>
+                <span class="circle-text circle-text--dia">ROZ</span>
+              </div>
+            </div>
+            <div id="circle-puls" class="circle-average circle-average--puls">
+              <div class="circle-text-cnt">
+                <span class="circle-text">ŚRE</span>
+                <span data-avepuls="" class="circle-text">0</span>
+                <span class="circle-text circle-text--puls">PUL</span>
+              </div>
+            </div>
           </div>
-      
+          <div class="section3__btn-cnt">
+            <button class="section3__btn" data-avgrange="30">Miesiąc</button>
+            <button class="section3__btn" data-avgrange="7">7 dni</button>
+            <button
+              class="section3__btn section3__btn--active"
+              data-avgrange="0"
+            >
+              Cały zakres
+            </button>
+          </div>
+          <div class="chart-cnt">
+            <canvas id="chartsOfMeaTypes"></canvas>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <nav class="nav">
+          <button data-tab="1" class="btn btn--nav btn--nav--active">
+            <i class="fa-solid fa-circle-plus"></i>
+            <p>Dodaj</p>
+          </button>
+          <button data-tab="2" class="btn btn--nav">
+            <i class="fa-solid fa-calendar-days"></i>
+            <p>Historia</p>
+          </button>
+          <button data-tab="3" class="btn btn--nav">
+            <i class="fa-solid fa-chart-simple"></i>
+            <p>Statystyki</p>
+          </button>
         </nav>
-        <dialog id="modal" class="modal">
-          <form class="form2">
-            <div class="form2--cnt">
-              <input class="form2__input" type="number"  max="220"
-                min="70" name="" id="form2Systolic">
-              <span class="form2__span">/</span>
-              <input class="form2__input" type="number"   max="160"
-                min="50" name="" id="form2Diastolic">
-              <label class="preasure-unit">mmHg</label>
-            </div>
-            <p class="form2_details"></p>
-          <div class="form2--btn-cnt">
-            <button class="form2__btn" type="submit">Zmień</button>
-            <button class="form2__btn"  id="Form2DeteteBtn">Usuń</button>
-            <button class="form2__btn" id="Form2CloseBtn">Zamknij</button>
-          </div>        
-          </form>
-        </dialog>
-        
-        <ul class="measurements" id="measurements-cnt">
-        </ul>
-      </section>
-      <section class="section section--3">
-        <div class="average-cnt">
-          <div id="circle-sys" class="circle-average circle-average--sys">
-            <div class="circle-text-cnt">
-              <span  class="circle-text">ŚRE</span>
-              <span data-avesys="" class="circle-text">0</span>
-              <span class="circle-text circle-text--sys">SKU</span>
-            </div>
-          </div>
-          <div id="circle-dia" class="circle-average circle-average--dia">
-            <div class="circle-text-cnt">
-              <span class="circle-text">ŚRE</span>
-              <span data-avedia="" class="circle-text">0</span>
-              <span class="circle-text circle-text--dia">ROZ</span>
-            </div>
-          </div>
-          <div id="circle-puls" class="circle-average circle-average--puls">
-            <div class="circle-text-cnt">
-              <span class="circle-text">ŚRE</span>
-              <span data-avepuls="" class="circle-text">0</span>
-              <span class="circle-text circle-text--puls">PUL</span>
-            </div>
-          </div>
-        </div>
-        <div class="section3__btn-cnt">
-          <button class="section3__btn" data-avgrange="30">Miesiąc</button>
-          <button class="section3__btn" data-avgrange="7">7 dni</button>
-          <button class="section3__btn section3__btn--active" data-avgrange="0">Cały zakres</button>
-        </div>
-        <div class="chart-cnt">
-          <canvas id="chartsOfMeaTypes"></canvas>
-        </div>
-      </section>
-    </main>
-    <footer class="footer">
-      <nav class="nav">
-        <button data-tab="1" class="btn btn--nav btn--nav--active"><i class="fa-solid fa-circle-plus"></i><p>Dodaj</p> </button>
-        <button data-tab="2" class="btn btn--nav"><i class="fa-solid fa-calendar-days"></i><p>Historia</p> </button>
-        <button data-tab="3" class="btn btn--nav"><i class="fa-solid fa-chart-simple"></i><p>Statystyki</p> </button>
-      </nav>
-    </footer>
+      </footer>
+    </div>
   </body>
 </html>
-
