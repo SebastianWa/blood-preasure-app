@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   font: inherit;
-  /* outline: 1px solid limegreen !important; */
+  outline: 1px solid limegreen !important;
 }
 
 img,
@@ -31,14 +31,17 @@ body {
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   margin: 0 auto;
-  width: clamp(365px, 100%, 650px);
+  width: clamp(365px, 100dvw, 650px);
   display: grid;
   min-height: 100vh;
   min-height: 100dvh;
+  max-height: 100dvh;
   grid-template-rows: 1fr auto;
 }
 
 main {
+  /* width: clamp(365px, 100%, 650px); */
+  max-height: 100%;
 }
 
 a:not([class]) {
@@ -338,6 +341,7 @@ section {
   align-items: center;
   gap: 0.5rem;
   overflow-y: scroll;
+  max-height: 80vh;
 }
 
 .measurement {
