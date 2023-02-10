@@ -64,6 +64,14 @@ class Measurement {
     return this;
   }
 
+  setActive() {
+    this.htmlMeasurement.classList.add("measurement--active");
+  }
+
+  setNonActive() {
+    this.htmlMeasurement.classList.remove("measurement--active");
+  }
+
   updateMeasurement() {
     // const htmlMeasurement = document.querySelector(
     //   `.measurement[data-id="${this.id}"]`
@@ -462,7 +470,7 @@ class History extends App {
       .updateMeasurement();
 
     this._updateMeasurementInArray(activeObj);
-
+    activeObj.setNonActive();
     this._closeForm2(e);
     this._updateGraph();
   }
@@ -490,9 +498,10 @@ class History extends App {
 
     document.querySelector(".form2_details").textContent =
       activeObj.createDataString();
-    //console.log(querySelector(".form2_details").textContent);
+    activeObj.setActive();
     section2Systolic.value = activeObj.systolic;
     section2Diastolic.value = activeObj.diastolic;
+    section2Systolic.focus();
   }
   //graph
   _createDataForGraph(range = 0) {

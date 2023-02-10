@@ -58,7 +58,7 @@ a:not([class]) {
   --secondary-light-clr: #ffffff;
   --secondary-medium-clr: #ebebf7;
 
-  --popup-clr: limegreen;
+  --popup-clr: #c3de88;
 
   --font-primary-clr: #707070;
   --font-secondary-crl: #809dc7;
@@ -329,14 +329,23 @@ section {
 }
 
 .measurement {
-  width: clamp(350px, 50%, 500px);
+  width: clamp(350px, 85%, 700px);
   display: flex;
   padding: 0.8em;
   justify-content: space-between;
   align-items: center;
   background-color: var(--secondary-light-clr);
-  border-radius: 20px;
-  border: 1px solid var(--font-primary-clr);
+  border-radius: 10px;
+  border: 1px solid var(--font-secondary-crl);
+  transition: transform 0.3s ease-in-out;
+}
+
+.measurement:hover {
+  transform: scale(0.9);
+}
+
+.measurement--active {
+  transform: scale(0.9);
 }
 
 .measurement--hidden {
