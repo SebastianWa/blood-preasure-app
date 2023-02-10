@@ -185,6 +185,7 @@ section {
   text-align: center;
   font-size: 1.1em;
   border: none;
+  background-color: transparent;
 }
 
 .form__label {
