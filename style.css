@@ -38,7 +38,6 @@ body {
 
 .cnt {
   max-width: 750px;
-  min-width: 400px;
   display: grid;
   min-height: 100vh;
   min-height: 100dvh;
