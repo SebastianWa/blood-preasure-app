@@ -38,6 +38,9 @@ body {
   grid-template-rows: 1fr auto;
 }
 
+main {
+}
+
 a:not([class]) {
   text-decoration-skip-ink: auto;
 }
