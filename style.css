@@ -31,7 +31,7 @@ body {
   line-height: 1.5;
   font-family: "Poppins", sans-serif;
   margin: 0 auto;
-  width: clamp(425px, 100vw, 650px);
+  width: clamp(365px, 100%, 650px);
   display: grid;
   min-height: 100vh;
   min-height: 100dvh;
@@ -88,6 +88,14 @@ section {
 .section--active {
   display: block;
 }
+
+/* .section--1 {
+  grid-template-rows: auto 3fr 1fr;
+}
+.section--2 {
+}
+.section--3 {
+} */
 
 /* chart */
 
@@ -301,9 +309,6 @@ section {
 }
 
 /* section 2 */
-
-.section--2 {
-}
 
 .section2__nav {
   color: var(--font-dark-clr);
@@ -535,10 +540,7 @@ section {
 .chart-cnt {
   position: relative;
   margin: 0 auto;
-  min-width: 350px;
-  max-width: 650px;
-  min-height: 300px;
-  max-height: 450px;
+  min-width: 100%;
 }
 
 /* footer */
