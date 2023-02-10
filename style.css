@@ -540,7 +540,7 @@ section {
 .chart-cnt {
   position: relative;
   margin: 0 auto;
-  min-width: 100%;
+  max-width: 95%;
 }
 
 /* footer */
