@@ -102,11 +102,14 @@ section {
 }
 
 .section--active {
-  display: flex;
+  /* display: flex; */
+  display: block;
+  /* display: grid; */
 }
 
 .section--1 {
   grid-template-rows: auto 1fr auto;
+  max-width: 360px;
 }
 
 .section--2 {
