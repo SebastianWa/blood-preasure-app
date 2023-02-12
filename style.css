@@ -263,7 +263,7 @@ section {
 }
 
 .form__submit {
-  margin: 0.5em auto;
+  margin: 1.5em auto;
   border: 1px solid #ddd;
   border-radius: 25px;
   text-align: center;
@@ -299,6 +299,7 @@ section {
   display: flex;
   grid-column: 2/4;
   padding: 0.25em 0;
+  letter-spacing: 1.5px;
 }
 
 .grid-row > p {
@@ -373,7 +374,7 @@ section {
   align-items: center;
   gap: 0.5rem;
   overflow-y: scroll;
-  max-height: 80vh;
+  max-height: 75vh;
 }
 
 .measurement {
