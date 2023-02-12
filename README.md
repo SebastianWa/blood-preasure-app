@@ -1,4 +1,4 @@
-# blood-preasure-app
+# blood-presure-app
 Aplikacja do zapisu pomiarów ciśnienia krwi, zapis w localStorage, filtrowanie wyników, wykres ilości poszczególnych pomiarów, średnia pomiarów dla 3 zdefiniowanych zakresów. 
 
 CzystyJS, html + css
