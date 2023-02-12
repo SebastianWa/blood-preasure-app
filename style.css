@@ -256,7 +256,7 @@ section {
   transition: opacity 1s;
   border-radius: 15px;
   opacity: 0;
-  display: none;
+  visibility: none;
 }
 
 .form__popup--active {

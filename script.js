@@ -190,9 +190,12 @@ class App {
     });
   }
 
-  _changeTab(e) {
+  _changeTab(e, tab = 1) {
     e.preventDefault();
-    this.clicked = e.target.closest(".btn--nav");
+    this.clicked =
+      tab === 1
+        ? e.target.closest(".btn--nav")
+        : document.querySelector(`.btn--nav[data-tab="${tab}"]`);
     if (!this.clicked) return;
 
     document
@@ -327,6 +330,8 @@ class App {
 
     this.curentMeasurementDataSet = 1;
     this._setTableAndGraph();
+
+    this._changeTab(e, 2);
   }
 
   // check what type of pressure type user
