@@ -612,6 +612,11 @@ section {
 }
 
 @media (min-width: 770px) {
+  .cnt {
+    margin-top: 3rem;
+    display: block;
+  }
+
   .section {
     font-size: 1.1rem;
   }
