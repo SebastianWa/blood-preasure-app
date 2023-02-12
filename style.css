@@ -374,7 +374,7 @@ section {
   align-items: center;
   gap: 0.5rem;
   overflow-y: scroll;
-  max-height: 75vh;
+  max-height: 80vh;
 }
 
 .measurement {
@@ -583,6 +583,7 @@ section {
   margin: 0 auto;
   max-width: 90%;
   min-height: 170px;
+  max-height: 60vh;
 }
 
 /* footer */
