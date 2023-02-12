@@ -622,12 +622,17 @@ section {
   }
 
   .circle-average {
-    height: 145px;
-    width: 145px;
+    height: 125px;
+    width: 125px;
   }
 
   .circle-average::before {
-    height: 120px;
-    width: 120px;
+    height: 110px;
+    width: 110px;
+  }
+
+  .circle-text-cnt > span:nth-child(2) {
+    font-size: 1.3em;
+    color: var(--font-primary-active-clr);
   }
 } ;
