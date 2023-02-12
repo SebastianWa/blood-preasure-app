@@ -220,10 +220,9 @@ section {
 .form__input {
   padding: 0.5em 0.7em;
   border: 1px solid #ddd;
-  border-radius: 0.5rem;
   color: var(--font-primary-clr);
   text-align: center;
-  font-size: 1.1em;
+  font-size: 1em;
   border: none;
   background-color: transparent;
   margin: 0.25em;
@@ -236,6 +235,7 @@ section {
 .form__label {
   flex: 0 1 30%;
   text-align: center;
+  font-size: 0.9em;
 }
 
 .form__label > p {
@@ -283,6 +283,7 @@ section {
   padding: 0.5em;
   font-weight: 400;
   background-color: var(--secondary-light-clr);
+  font-size: 0.8em;
 }
 
 .grid-header {
@@ -291,11 +292,13 @@ section {
   grid-template-columns: 4fr 1fr 1fr;
   margin-bottom: 0.5em;
   border-bottom: 2px solid var(--secondary-medium-clr);
+  font-size: 1em;
 }
 
 .grid-row {
   display: flex;
   grid-column: 2/4;
+  padding: 0.25em 0;
 }
 
 .grid-row > p {
@@ -577,16 +580,11 @@ section {
 .chart-cnt {
   position: relative;
   margin: 0 auto;
-  max-width: 95%;
-  /* min-height: 170px; */
+  max-width: 90%;
+  min-height: 170px;
 }
 
 /* footer */
-
-footer {
-  margin-top: auto;
-  /* mozliwosc ale raczej do zmiany */
-}
 
 .nav {
   display: flex;
@@ -596,7 +594,7 @@ footer {
 }
 
 .btn--nav {
-  font-size: 0.8rem;
+  font-size: 0.8em;
   border: 0;
   background-color: transparent;
   padding: 0;
@@ -611,11 +609,25 @@ footer {
 
 @media (min-width: 770px) {
   .section {
-    font-size: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .form__submit {
+    margin: 1.5em auto;
   }
 
   .measurements {
     overflow: visible;
     max-height: none;
+  }
+
+  .circle-average {
+    height: 145px;
+    width: 145px;
+  }
+
+  .circle-average::before {
+    height: 120px;
+    width: 120px;
   }
 } ;
