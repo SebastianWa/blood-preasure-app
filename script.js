@@ -24,7 +24,6 @@ class Measurement {
     this.puls = puls;
     this.date = date;
     this.time = time;
-    // this.id = id ? id : (Date.now() + "").slice(-10);
     this.type = type;
     this.cssClass = cssClass;
     this.id = id;
@@ -73,10 +72,6 @@ class Measurement {
   }
 
   updateMeasurement() {
-    // const htmlMeasurement = document.querySelector(
-    //   `.measurement[data-id="${this.id}"]`
-    // );
-    console.log(this);
     this.htmlMeasurement.querySelector(".measurement__sys").textContent =
       this.systolic;
     this.htmlMeasurement.querySelector(".measurement__diat").textContent =
@@ -269,7 +264,7 @@ class App {
       "chart__part--active"
     );
 
-    //set active text to explain  measumerent
+    //set active text to explain  measurement
 
     removeClassesFrom(
       document.querySelectorAll(".chart__text"),
@@ -318,10 +313,10 @@ class App {
       id
     );
 
-    //save  measument in array
+    //save  measurement in array
     this.measurements.push(measurement);
 
-    //save measument in local storage
+    //save measurement in local storage
     this._setLocalStorage();
 
     this._clearInputs();
@@ -385,7 +380,6 @@ class History extends App {
       this._activeEditMeasurement.bind(this)
     );
 
-    // section2FormClose action (move to another method)
     section2FormCloseBtn.addEventListener("click", (e) => {
       this._closeForm2(e);
     });
@@ -747,8 +741,9 @@ class History extends App {
         maxDate: `${new Intl.DateTimeFormat("en-US").format(Date.now())}`,
       },
       function (start, end) {
+        const format = "DD/MM/YYYY";
         $("#reportrange span").html(
-          start.format("DD/MM/YYYY") + " - " + end.format("DD/MM/YYYY")
+          start.format(format) + " - " + end.format(format)
         );
       }
     );
