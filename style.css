@@ -33,7 +33,7 @@ body {
 }
 
 *:focus {
-  outline: 1px;
+  outline: 1px solid var(--outline-clr);
 }
 
 a:not([class]) {
@@ -70,6 +70,8 @@ a:not([class]) {
   --btn-primary-clr: #4e61c7;
   --btn-secondary-light: #fff;
   --btn-secondary-red: #e24200;
+
+  --outline-clr: #6a6a6a;
 }
 
 /* general class */
