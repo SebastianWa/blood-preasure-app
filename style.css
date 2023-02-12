@@ -109,7 +109,8 @@ section {
 
 .section--1 {
   grid-template-rows: auto 1fr auto;
-  max-width: 360px;
+  min-width: 340px;
+  max-width: 100%;
 }
 
 .section--2 {
