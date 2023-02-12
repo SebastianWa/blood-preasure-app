@@ -332,7 +332,7 @@ class App {
   }
 
   // check what type of pressure type user
-  _checkPressure(sys, dia) {
+  _checkPresure(sys, dia) {
     if (sys > 220 || sys < 0 || dia < 0 || dia > 160) return;
 
     const findIndexHelper = (elem, type) => {
@@ -352,7 +352,7 @@ class App {
   _setPressure() {
     const sys = +inputSystolic.value;
     const dia = +inputDiastolic.value;
-    this._checkPressure(sys, dia);
+    this._checkPresure(sys, dia);
     this._setTableAndGraph();
   }
 
@@ -457,7 +457,7 @@ class History extends App {
   _editMeasurement(e) {
     e.preventDefault();
     const activeObj = this.measurements[this.activeObjIndex];
-    this._checkPressure(
+    this._checkPresure(
       section2Systolic.valueAsNumber,
       section2Diastolic.valueAsNumber
     );
