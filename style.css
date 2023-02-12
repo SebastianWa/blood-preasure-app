@@ -661,4 +661,9 @@ section {
     font-size: 1em;
     font-weight: 500;
   }
+
+  .chart-cnt {
+    min-height: 260px;
+    width: 100%;
+  }
 } ;

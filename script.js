@@ -215,6 +215,9 @@ class App {
 
   //aps INIT
   _setInputsDateParams() {
+    inputSystolic.focus();
+    console.log(inputSystolic);
+
     const date = new Intl.DateTimeFormat("pl-PL", {
       year: "numeric",
       month: "2-digit",
