@@ -189,13 +189,17 @@ section {
 .form {
   background-color: var(--secondary-light-clr);
   padding: 1em;
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 .form-row-cnt {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+.form__row {
+  margin: 0.25em;
 }
 
 .form__inputs-columns {
@@ -214,7 +218,7 @@ section {
 }
 
 .form__input {
-  padding: 0.9em 0.7em;
+  padding: 0.5em 0.7em;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   color: var(--font-primary-clr);
@@ -222,6 +226,7 @@ section {
   font-size: 1.1em;
   border: none;
   background-color: transparent;
+  margin: 0.25em;
 }
 
 .form__input--times {
@@ -488,6 +493,7 @@ section {
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 2em;
+  flex-wrap: wrap;
 }
 
 .circle-average {
@@ -549,7 +555,7 @@ section {
 }
 
 .section3__btn-cnt {
-  margin: 1em 0;
+  margin: 2em 0;
   display: flex;
   justify-content: space-evenly;
 }
@@ -572,6 +578,7 @@ section {
   position: relative;
   margin: 0 auto;
   max-width: 95%;
+  /* min-height: 170px; */
 }
 
 /* footer */
@@ -601,3 +608,14 @@ footer {
 .btn--nav--active {
   color: var(--btn-primary-clr);
 }
+
+@media (min-width: 770px) {
+  .section {
+    font-size: 1rem;
+  }
+
+  .measurements {
+    overflow: visible;
+    max-height: none;
+  }
+} ;
