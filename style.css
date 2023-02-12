@@ -453,6 +453,8 @@ section {
   padding: 1.25em;
   border-bottom: 1px solid var(--font-primary-clr);
   color: var(--btn-secondary-light);
+  display: flex;
+  justify-content: center;
 }
 
 .form2__input {
@@ -663,7 +665,16 @@ section {
   }
 
   .chart-cnt {
-    min-height: 260px;
+    min-height: 300px;
     width: 100%;
+  }
+
+  .form2 {
+    font-size: 1.2em;
+    height: 100%;
+  }
+
+  .form2--btn-cnt {
+    margin-top: auto;
   }
 } ;
