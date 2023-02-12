@@ -216,7 +216,6 @@ class App {
   //aps INIT
   _setInputsDateParams() {
     inputSystolic.focus();
-    console.log(inputSystolic);
 
     const date = new Intl.DateTimeFormat("pl-PL", {
       year: "numeric",
@@ -611,7 +610,7 @@ class History extends App {
   }
   //average
   _calcAverage(range = 0) {
-    if (!this.measurements) return;
+    if (this.measurements.length === 0) return;
 
     const arrToCalcAvg =
       range == 0
