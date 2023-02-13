@@ -128,7 +128,7 @@ class App {
     [91, 120, "Normalne", "measurement--1"],
     [121, 140, "Wysokie Prawidłowe", "measurement--2"],
     [141, 160, "Nadciśnienie tętnicze 1", "measurement--3"],
-    [161, 220, "Nadciśnienie tętnicze 2", "measurement--4"],
+    [161, 240, "Nadciśnienie tętnicze 2", "measurement--4"],
   ];
   diasRanges = [
     [0, 60],
@@ -333,7 +333,13 @@ class App {
 
   // check what type of pressure type user
   _checkPressure(sys, dia) {
-    if (sys > 220 || sys < 0 || dia < 0 || dia > 160) return;
+    if (sys > 220 || dia > 160) {
+      this.curentMeasurementDataSet = 4;
+      return;
+    } else if (sys < 90 || dia < 60) {
+      this.curentMeasurementDataSet = 0;
+      return;
+    }
 
     const findIndexHelper = (elem, type) => {
       if (type >= elem[0] && type <= elem[1]) return true;
