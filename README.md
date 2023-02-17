@@ -1,3 +1,13 @@
+App to track measurement of blood pressure, data is saved in localStorage, filtering results, graph of the number of measurements divided into types, averages of measurements for 3 ranges.
+
+JS, html, css 
+
+I used 2 libraries: 
+https://www.daterangepicker.com
+https://www.chartjs.org
++ fontAvesome and google fonts
+
+
 # blood-presure-app
 Aplikacja do zapisu pomiarów ciśnienia krwi, zapis w localStorage, filtrowanie wyników, wykres ilości poszczególnych pomiarów, średnia pomiarów dla 3 zdefiniowanych zakresów. 
 
