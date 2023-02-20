@@ -17,7 +17,6 @@ const selectMenu = document.querySelector(".section2__select");
 const avgRangeBtnCtn = document.querySelector(".section3__btn-cnt");
 
 class Measurement {
-  id;
   constructor(systolic, diastolic, puls, date, time, type, cssClass, id) {
     this.systolic = systolic;
     this.diastolic = diastolic;
