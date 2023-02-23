@@ -6,6 +6,8 @@ I used 2 libraries:
 https://www.daterangepicker.com
 https://www.chartjs.org
 + fontAvesome and google fonts
+
+
 live: https://sebastianwa.github.io/blood-pressure-app/
 
 # blood-presure-app
