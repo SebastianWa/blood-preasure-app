@@ -8,35 +8,33 @@ const inputData = document.querySelector("#input-date");
 const inputTime = document.querySelector("#input-time");
 const formPopup = document.querySelector(".form__popup");
 const navBtnCnt = document.querySelector(".nav");
-const section2form = document.querySelector(".section2__form");
-const section2FormCloseBtn = document.querySelector("#sectio2FormCloseBtn");
-const section2Systolic = document.querySelector("#section2Systolic");
-const section2Diastolic = document.querySelector("#section2Diastolic");
-const section2FormDeleteBtn = document.querySelector("#sectio2FormDeteteBtn");
+const section2form = document.querySelector(".form2");
+const section2FormCloseBtn = document.querySelector("#Form2CloseBtn");
+const section2Systolic = document.querySelector("#form2Systolic");
+const section2Diastolic = document.querySelector("#form2Diastolic");
+const section2FormDeleteBtn = document.querySelector("#Form2DeteteBtn");
+const selectMenu = document.querySelector(".section2__select");
+const avgRangeBtnCtn = document.querySelector(".section3__btn-cnt");
 
-//co zrobić na jutro: Ogarnąc te kasownaie i update. nieprzekazywać nic w argumentach, kazda funkcja ma dostęp do eventa, na podstawie tego pracować. Ewenatulanie stwrzoyć zmienną activeObj jako pole metody.
 class Measurement {
-  id;
-  constructor(
-    systolic,
-    diastolic,
-    puls,
-    date,
-    time,
-    curentMeasurementDataSet,
-    id
-  ) {
+  constructor(systolic, diastolic, puls, date, time, type, cssClass, id) {
     this.systolic = systolic;
     this.diastolic = diastolic;
     this.puls = puls;
     this.date = date;
     this.time = time;
-    // this.id = id ? id : (Date.now() + "").slice(-10);
-    this.curentMeasurementDataSet = curentMeasurementDataSet;
+    this.type = type;
+    this.cssClass = cssClass;
     this.id = id;
-
-    this._setmeasurementType();
     this._renderMeasurement();
+
+    this.htmlMeasurement = document.querySelector(
+      `.measurement[data-id="${this.id}"]`
+    );
+  }
+
+  createDataString() {
+    return `${this.date}, ${this.time} | ${this.puls} bpm`;
   }
 
   setCurentMeasurementDataSet(curentMeasurementDataSet) {
@@ -54,54 +52,47 @@ class Measurement {
     return this;
   }
 
-  _setmeasurementType() {
-    switch (this.curentMeasurementDataSet) {
-      case 0:
-        this.type = "Niedociśnienie";
-        break;
-      case 1:
-        this.type = "Normalne";
-        break;
-      case 2:
-        this.type = "Wysokie Prawidłowe";
-        break;
-      case 3:
-        this.type = "Nadciśnienie tętnicze 1";
-        break;
-      case 4:
-        this.type = "Nadciśnienie tętnicze 2";
-        break;
-
-      default:
-        break;
-    }
+  setColor(cssClass) {
+    this.cssClass = cssClass;
     return this;
   }
 
-  updateMeasurement() {
-    const htmlMeasurement = document.querySelector(
-      `.measurement[data-id="${this.id}"]`
-    );
+  setType(type) {
+    this.type = type;
+    return this;
+  }
 
-    htmlMeasurement.querySelector(".measurement__sys").textContent =
+  setActive() {
+    this.htmlMeasurement.classList.add("measurement--active");
+  }
+
+  setNonActive() {
+    this.htmlMeasurement.classList.remove("measurement--active");
+  }
+
+  updateMeasurement() {
+    this.htmlMeasurement.querySelector(".measurement__sys").textContent =
       this.systolic;
-    htmlMeasurement.querySelector(".measurement__diat").textContent =
+    this.htmlMeasurement.querySelector(".measurement__diat").textContent =
       this.diastolic;
-    htmlMeasurement.querySelector(".measurement__type").textContent = this.type;
+    this.htmlMeasurement.querySelector(".measurement__type").textContent =
+      this.type;
+    this.htmlMeasurement
+      .querySelector(".measurement__pres")
+      .classList.remove(`measurement--${/(1-4)/g}`);
+    this.htmlMeasurement
+      .querySelector(".measurement__pres")
+      .classList.add(this.cssClass);
   }
 
   _deleteMeasurement() {
-    const htmlMeasurement = document.querySelector(
-      `.measurement[data-id="${this.id}"]`
-    );
-
-    htmlMeasurement.remove();
+    this.htmlMeasurement.remove();
   }
 
   _renderMeasurement() {
     const html = `
         <li class="measurement" data-id="${this.id}">
-            <div class="measurement__pres">
+            <div class="measurement__pres ${this.cssClass}">
               <p class="measurement__sys">${this.systolic}</p>
               <p class="measurement__diat">${this.diastolic}</p>
             </div>
@@ -113,20 +104,30 @@ class Measurement {
             </div>
           </li>
       `;
+
     measurementsCnt.insertAdjacentHTML("afterbegin", html);
+  }
+
+  hideMeasurement() {
+    this.htmlMeasurement.classList.add("measurement--hidden");
+  }
+
+  showMeasurement() {
+    this.htmlMeasurement.classList.remove("measurement--hidden");
   }
 }
 
 class App {
-  #measurements = [];
-  #curentMeasurementDataSet = 1;
+  measurements = [];
+  curentMeasurementDataSet = 1;
   clicked;
+
   sysRanges = [
-    [0, 90],
-    [91, 120],
-    [121, 140],
-    [141, 160],
-    [161, 220],
+    [0, 90, "Niedociśnienie", "measurement--0"],
+    [91, 120, "Normalne", "measurement--1"],
+    [121, 140, "Wysokie Prawidłowe", "measurement--2"],
+    [141, 160, "Nadciśnienie tętnicze 1", "measurement--3"],
+    [161, 240, "Nadciśnienie tętnicze 2", "measurement--4"],
   ];
   diasRanges = [
     [0, 60],
@@ -139,12 +140,11 @@ class App {
   constructor() {
     this._getLocalStorage();
     this._setInputsDateParams();
-    this._evenListenersInit();
-    //event listeners
+    this._eventListenersInit();
   }
 
   _setLocalStorage() {
-    localStorage.setItem("measurements", JSON.stringify(this.#measurements));
+    localStorage.setItem("measurements", JSON.stringify(this.measurements));
   }
 
   _getLocalStorage() {
@@ -159,14 +159,15 @@ class App {
         obj.puls,
         obj.date,
         obj.time,
-        obj.curentMeasurementDataSet,
+        obj.type,
+        obj.cssClass,
         obj.id
       );
-      this.#measurements.push(meas);
+      this.measurements.push(meas);
     });
   }
 
-  _evenListenersInit() {
+  _eventListenersInit() {
     measumentForm.addEventListener("submit", (e) => {
       this._submitMeasurement(e);
     });
@@ -181,29 +182,21 @@ class App {
     navBtnCnt.addEventListener("click", (e) => {
       this._changeTab(e);
     });
-
-    measurementsCnt.addEventListener("click", (e) => {
-      this._activeEditMeasurement(e);
-    });
-
-    // section2FormClose action (move to another method)
-    section2FormCloseBtn.addEventListener("click", (e) => {
-      this._closeForm2(e);
-    });
-
-    section2form.addEventListener("submit", (e) => {
-      this._editMeasurement(e);
-    });
-
-    section2FormDeleteBtn.addEventListener("click", (e) => {
-      this._deleteMeasurementFromArray(e);
-    });
   }
 
-  _changeTab(e) {
+  _changeTab(e, tab = 1) {
     e.preventDefault();
-    this.clicked = e.target.closest(".btn--nav");
+    this.clicked =
+      tab === 1
+        ? e.target.closest(".btn--nav")
+        : document.querySelector(`.btn--nav[data-tab="${tab}"]`);
     if (!this.clicked) return;
+
+    document
+      .querySelectorAll(".btn--nav")
+      .forEach((btn) => btn.classList.remove("btn--nav--active"));
+
+    this.clicked.classList.add("btn--nav--active");
 
     document
       .querySelectorAll(".section")
@@ -216,6 +209,8 @@ class App {
 
   //aps INIT
   _setInputsDateParams() {
+    inputSystolic.focus();
+
     const date = new Intl.DateTimeFormat("pl-PL", {
       year: "numeric",
       month: "2-digit",
@@ -231,10 +226,9 @@ class App {
       minute: "2-digit",
     }).format(Date.now());
 
-    inputData.setAttribute("value", date);
+    inputData.value = date;
     inputData.setAttribute("max", date);
-    inputTime.setAttribute("value", time);
-
+    inputTime.value = time;
     // set graph to default postion
     document
       .querySelector(".chart__part--1 ")
@@ -256,9 +250,7 @@ class App {
       "pressure-name--active"
     );
     addClassToElem(
-      document.querySelector(
-        `span[data-pre="${this.#curentMeasurementDataSet}"]`
-      ),
+      document.querySelector(`p[data-pre="${this.curentMeasurementDataSet}"]`),
       "pressure-name--active"
     );
 
@@ -267,11 +259,11 @@ class App {
       "chart__part--active"
     );
     addClassToElem(
-      document.querySelector(`.chart__part--${this.#curentMeasurementDataSet}`),
+      document.querySelector(`.chart__part--${this.curentMeasurementDataSet}`),
       "chart__part--active"
     );
 
-    //set active text to explain  measumerent
+    //set active text to explain  measurement
 
     removeClassesFrom(
       document.querySelectorAll(".chart__text"),
@@ -279,7 +271,7 @@ class App {
     );
     addClassToElem(
       document.querySelector(
-        `div[data-text="${this.#curentMeasurementDataSet}"]`
+        `div[data-text="${this.curentMeasurementDataSet}"]`
       ),
       "chart__text--active"
     );
@@ -299,11 +291,14 @@ class App {
     e.preventDefault();
 
     //get inputs data
+
     const systolic = +inputSystolic.value;
     const diastolic = +inputDiastolic.value;
     const puls = +inputPuls.value;
     const data = inputData.value;
     const time = inputTime.value;
+    const type = this.sysRanges[this.curentMeasurementDataSet][2];
+    const cssClass = this.sysRanges[this.curentMeasurementDataSet][3];
     const id = (Date.now() + "").slice(-10);
 
     const measurement = new Measurement(
@@ -312,18 +307,16 @@ class App {
       puls,
       data,
       time,
-      this.#curentMeasurementDataSet,
+      type,
+      cssClass,
       id
     );
 
-    //save  measument in array
-    this.#measurements.push(measurement);
+    //save  measurement in array
+    this.measurements.push(measurement);
 
-    //save measument in local storage
+    //save measurement in local storage
     this._setLocalStorage();
-
-    // //render measument in list
-    // this._renderMeasurement(measurement);
 
     this._clearInputs();
 
@@ -331,13 +324,21 @@ class App {
     formPopup.classList.add("form__popup--active");
     setTimeout(() => formPopup.classList.remove("form__popup--active"), 1500);
 
-    this.#curentMeasurementDataSet = 2;
+    this.curentMeasurementDataSet = 1;
     this._setTableAndGraph();
+
+    this._changeTab(e, 2);
   }
 
   // check what type of pressure type user
   _checkPressure(sys, dia) {
-    if (sys > 220 || sys < 0 || dia < 0 || dia > 160) return;
+    if (sys > 220 || dia > 160) {
+      this.curentMeasurementDataSet = 4;
+      return;
+    } else if (sys < 90 || dia < 60) {
+      this.curentMeasurementDataSet = 0;
+      return;
+    }
 
     const findIndexHelper = (elem, type) => {
       if (type >= elem[0] && type <= elem[1]) return true;
@@ -349,8 +350,7 @@ class App {
     const diasIndex = this.diasRanges.findIndex((elem) =>
       findIndexHelper(elem, dia)
     );
-    this.#curentMeasurementDataSet =
-      sysIndex > diasIndex ? sysIndex : diasIndex;
+    this.curentMeasurementDataSet = sysIndex > diasIndex ? sysIndex : diasIndex;
   }
 
   // set  type of measurement in table and graph
@@ -361,87 +361,398 @@ class App {
     this._setTableAndGraph();
   }
 
-  _closeForm2(e) {
-    e.preventDefault();
-    document
-      .querySelector(".section2__form")
-      .classList.remove("section2__form--active");
+  _renderAll() {
+    this.measurements.forEach((obj) => {
+      obj.showMeasurement();
+    });
+  }
+}
+
+class History extends App {
+  chartType;
+  activeObjIndex;
+  constructor() {
+    super();
+    this._eventHistoryListenersInit();
+    this._createGraph();
+    this._calcAverage();
+    this._initDatePicker();
+  }
+
+  _eventHistoryListenersInit() {
+    measurementsCnt.addEventListener(
+      "click",
+      this._activeEditMeasurement.bind(this)
+    );
+
+    section2FormCloseBtn.addEventListener("click", (e) => {
+      this._closeForm2(e);
+    });
+
+    section2form.addEventListener("submit", (e) => {
+      this._editMeasurement(e);
+      this._updateGraph();
+      this._calcAverage();
+      this._resetDataPicker();
+      this._resetTypeInput();
+      this._renderAll();
+    });
+
+    section2FormDeleteBtn.addEventListener("click", (e) => {
+      this._deleteMeasurementFromArray(e);
+      this._updateGraph();
+      this._calcAverage();
+      this._resetDataPicker();
+      this._resetTypeInput();
+      this._renderAll();
+    });
+
+    selectMenu.addEventListener("change", (e) => {
+      this._sortMeasurements(e.target.value);
+    });
+
+    measumentForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this._updateGraph();
+      this._calcAverage();
+      this._resetDataPicker();
+      this._resetTypeInput();
+      this._renderAll();
+    });
+
+    $("#reportrange").on("show.daterangepicker", () => {});
+
+    $("#reportrange").on("apply.daterangepicker", (ev, picker) => {
+      if (picker.chosenLabel === "Cały zakres") {
+        this._renderAll();
+        this._resetDataPicker();
+        return;
+      }
+      this._sortMeasurementsByDate(
+        picker.startDate.format("YYYY-MM-DD"),
+        picker.endDate.format("YYYY-MM-DD")
+      );
+    });
+
+    avgRangeBtnCtn.addEventListener("click", (e) => {
+      if (!e.target.hasAttribute("data-avgrange")) return;
+      document
+        .querySelectorAll(".section3__btn")
+        .forEach((btn) => btn.classList.remove("section3__btn--active"));
+
+      e.target.classList.add("section3__btn--active");
+      this._calcAverage(e.target.getAttribute("data-avgrange"));
+      this._updateGraph(e.target.getAttribute("data-avgrange"));
+    });
+  }
+
+  _closeForm2() {
+    document.querySelector(".modal").close();
   }
 
   _findMeasurementInArray(id) {
-    return this.#measurements.findIndex((e) => e.id === id);
+    return this.measurements.findIndex((e) => e.id === id);
   }
 
-  _updateMeasurementInArray(activeObj, indexObj) {
-    this.#measurements[indexObj] = activeObj;
+  _updateMeasurementInArray(activeObj) {
+    this.measurements[this.activeObjIndex] = activeObj;
     this._setLocalStorage();
   }
 
   _editMeasurement(e) {
     e.preventDefault();
+    const activeObj = this.measurements[this.activeObjIndex];
     this._checkPressure(
       section2Systolic.valueAsNumber,
       section2Diastolic.valueAsNumber
     );
 
     activeObj
-      .setCurentMeasurementDataSet(this.#curentMeasurementDataSet)
-      ._setmeasurementType()
+      .setCurentMeasurementDataSet(this.curentMeasurementDataSet)
       .setSys(section2Systolic.valueAsNumber)
       .setDia(section2Diastolic.valueAsNumber)
+      .setType(this.sysRanges[this.curentMeasurementDataSet][2])
+      .setColor(this.sysRanges[this.curentMeasurementDataSet][3])
       .updateMeasurement();
 
-    this._updateMeasurementInArray(activeObj, objIndex);
-
+    this._updateMeasurementInArray(activeObj);
+    activeObj.setNonActive();
     this._closeForm2(e);
+    this._updateGraph();
   }
 
-  _deleteMeasurementFromArray(objIndex) {
-    console.log(objIndex);
-    console.log(this.#measurements);
-    console.log(this.#measurements[objIndex]);
-    // console.log(
-    //   document.querySelector(
-    //     `.measurement[data-id="${this.#measurements[objIndex].id}"]`
-    //   )
-    // );
-    // document
-    //   .querySelector(
-    //     `.measurement[data-id="${this.#measurements[objIndex].id}"]`
-    //   )
-    //   .remove();
-    this.#measurements.splice(objIndex, 1);
-    console.log(this.#measurements);
+  _deleteMeasurementFromArray(e) {
+    e.preventDefault();
+
+    const activeObj = this.measurements[this.activeObjIndex];
+    activeObj._deleteMeasurement();
+    this.measurements.splice(this.activeObjIndex, 1);
+    this._setLocalStorage();
+    this._closeForm2();
+    this._updateGraph();
   }
 
   _activeEditMeasurement(e) {
-    const objIndex = this._findMeasurementInArray(
+    this.activeObjIndex = this._findMeasurementInArray(
       e.target.closest(".measurement").dataset.id
     );
 
-    const activeObj = this.#measurements[objIndex];
+    const activeObj = this.measurements[this.activeObjIndex];
     if (!activeObj) return;
 
-    const section2Form = document.querySelector(".section2__form");
-    section2Form.classList.add("section2__form--active");
+    document.querySelector("#modal").showModal();
 
+    document.querySelector(".form2_details").textContent =
+      activeObj.createDataString();
+    activeObj.setActive();
     section2Systolic.value = activeObj.systolic;
     section2Diastolic.value = activeObj.diastolic;
+    section2Systolic.focus();
+  }
+  //graph
+  _createDataForGraph(range = 0) {
+    const arrGraph =
+      range == 0
+        ? this.measurements
+        : this.measurements.filter((obj) => {
+            return (
+              new Date(obj.date).getTime() >=
+              new Date().getTime() - parseFloat(range) * (1000 * 60 * 60 * 24)
+            );
+          });
 
-    //event listeners in form2
-    // section2form.addEventListener("submit", (e) => {
-    //   this._editMeasurement(e, activeObj);
-    // });
+    const reduceHelper = (type) => {
+      return (pre, curr) => (pre += 1 ? curr.type === type : 0);
+    };
 
-    // section2FormDeleteBtn.addEventListener("click", (e) => {
-    //   console.log(activeObj);
-    //   //activeObj._deleteMeasurement();
-    //   this._closeForm2(e);
-    //   activeObj._deleteMeasurement();
-    //   this._deleteMeasurementFromArray(objIndex);
-    //   this._setLocalStorage();
-    // });
+    return [
+      arrGraph.reduce(reduceHelper("Niedociśnienie"), 0),
+      arrGraph.reduce(reduceHelper("Normalne"), 0),
+      arrGraph.reduce(reduceHelper("Wysokie Prawidłowe"), 0),
+      arrGraph.reduce(reduceHelper("Nadciśnienie tętnicze 1"), 0),
+      arrGraph.reduce(reduceHelper("Nadciśnienie tętnicze 2"), 0),
+    ];
+  }
+
+  _updateGraph(range = 0) {
+    const newData = this._createDataForGraph(range);
+    this.chartType.data.datasets[0].data = newData;
+    this.chartType.update();
+  }
+
+  _createGraph() {
+    const yValues = this._createDataForGraph();
+
+    const ctx = document.getElementById("chartsOfMeaTypes");
+
+    const data = {
+      labels: [
+        "Niedociśnienie",
+        "Normalne",
+        "Wysokie",
+        "Nadciśnienie 1",
+        "Nadciśnienie 2",
+      ],
+      datasets: [
+        {
+          label: "Pomiary",
+          data: yValues,
+          backgroundColor: [
+            "#00b9cf",
+            "#00c567",
+            "#86c328",
+            "#f59f02",
+            "#e24200",
+          ],
+        },
+      ],
+    };
+
+    const config = {
+      type: "bar",
+      data,
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        animation: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1,
+            },
+          },
+          x: {
+            display: true,
+            ticks: {
+              font: {
+                size: 12,
+              },
+            },
+          },
+        },
+        title: {
+          display: true,
+          text: "Pomiary",
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            enabled: false,
+          },
+        },
+      },
+    };
+    this.chartType = new Chart(ctx, config);
+  }
+  //average
+  _calcAverage(range = 0) {
+    if (this.measurements.length === 0) return;
+
+    const arrToCalcAvg =
+      range == 0
+        ? this.measurements
+        : this.measurements.filter((obj) => {
+            return (
+              new Date(obj.date).getTime() >=
+              new Date().getTime() - parseFloat(range) * (1000 * 60 * 60 * 24)
+            );
+          });
+    const length = arrToCalcAvg.length;
+    const sysAverage =
+      arrToCalcAvg.reduce((pre, curr) => (pre += curr.systolic), 0) / length;
+
+    const diaAverage =
+      arrToCalcAvg.reduce((pre, curr) => (pre += curr.diastolic), 0) / length;
+
+    const pulsAverage =
+      arrToCalcAvg.reduce((pre, curr) => (pre += curr.puls), 0) / length;
+    this._renderAverages([sysAverage, diaAverage, pulsAverage]);
+  }
+
+  _renderAverages(averages) {
+    const [sysAverage, diaAverage, pulsAverage] = averages;
+    const sysAverageHtml = document.querySelector(".circle-average--sys");
+    const diaAverageHtml = document.querySelector(".circle-average--dia");
+    const pulsAverageHtml = document.querySelector(".circle-average--puls");
+
+    const calcFill = (html, avg, max, color) => {
+      // max is the max property from inputs
+      // helper method to calc percentage of fill in circle
+      const percentagetoFill = (avg / max) * 100;
+      html.style.background = `conic-gradient(${color} ${
+        percentagetoFill * 3.6
+      }deg, #ededed 0deg)`;
+    };
+
+    calcFill(sysAverageHtml, sysAverage, 200, "#fa5252");
+    calcFill(diaAverageHtml, diaAverage, 140, "#c3de88");
+    calcFill(pulsAverageHtml, pulsAverage, 180, "#7ed1f9");
+    document.querySelector(`[data-avesys=""]`).textContent =
+      parseInt(sysAverage);
+    document.querySelector(`[data-avedia=""]`).textContent =
+      parseInt(diaAverage);
+    document.querySelector(`[data-avepuls=""]`).textContent =
+      parseInt(pulsAverage);
+  }
+
+  _resetTypeInput() {
+    document.querySelector(".section2__select").value = "Cały zakres";
+  }
+
+  _resetDataPicker() {
+    $("#reportrange span").text("Cały zakres");
+  }
+
+  //sort
+  _sortMeasurements(typeOfMeas) {
+    this._renderAll();
+    this._resetDataPicker();
+    if (typeOfMeas === "Cały zakres") return;
+
+    const arrayToHide = this.measurements.filter(
+      (mea) => mea.type !== typeOfMeas
+    );
+
+    if (arrayToHide.length === this.measurements.length) return;
+
+    arrayToHide.forEach((obj) => {
+      obj.hideMeasurement();
+    });
+  }
+
+  _sortMeasurementsByDate(startDate, endDate) {
+    this._resetTypeInput();
+    this._renderAll();
+    const arrayToHide = this.measurements.filter((obj) => {
+      return !(
+        new Date(startDate).getTime() <= new Date(obj.date).getTime() &&
+        new Date(endDate).getTime() >= new Date(obj.date).getTime()
+      );
+    });
+
+    arrayToHide.forEach((obj) => {
+      obj.hideMeasurement();
+    });
+  }
+  //date range picker
+
+  _initDatePicker() {
+    $("#reportrange").daterangepicker(
+      {
+        ranges: {
+          Dzisiaj: [moment(), moment()],
+          Wczoraj: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+          "Ostatnie 7 dni": [moment().subtract(6, "days"), moment()],
+          "Ostatnie 30 dni": [moment().subtract(29, "days"), moment()],
+          "Ten miesiąc": [moment().startOf("month"), moment().endOf("month")],
+          "Poprzedni miesiąc": [
+            moment().subtract(1, "month").startOf("month"),
+            moment().subtract(1, "month").endOf("month"),
+          ],
+          "Cały zakres": [moment().subtract(6, "days"), moment()],
+        },
+        locale: {
+          format: "MM/DD/YYYY",
+          separator: " - ",
+          applyLabel: "Zatwierdź",
+          cancelLabel: "Anuluj",
+          fromLabel: "Od",
+          toLabel: "Do",
+          customRangeLabel: "Własny",
+          weekLabel: "w",
+          daysOfWeek: ["Nie", "Po", "Wt", "Sr", "Czw", "Pia", "Sob"],
+          monthNames: [
+            "Styczeń",
+            "Luty",
+            "Marzec",
+            "Kwiecień",
+            "Maj",
+            "Czerwiec",
+            "Lipiec",
+            "Sierpień",
+            "Wrzesień",
+            "Październik",
+            "Listopad",
+            "Grudzień",
+          ],
+          firstDay: 1,
+        },
+        startDate: `${new Intl.DateTimeFormat("en-US").format(
+          Date.now() - 172800000 // two days in mil seconds
+        )}`,
+        maxDate: `${new Intl.DateTimeFormat("en-US").format(Date.now())}`,
+      },
+      function (start, end) {
+        const format = "DD/MM/YYYY";
+        $("#reportrange span").html(
+          start.format(format) + " - " + end.format(format)
+        );
+      }
+    );
   }
 }
 
-const app = new App();
+const app = new History();
